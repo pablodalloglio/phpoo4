@@ -1,0 +1,122 @@
+<style>
+body
+{
+    font-family: arial,verdana,sans-serif;
+    font-size: 10pt;
+}
+
+#inativo
+{
+    background-color: #E2EBED;
+    border-left: 2px solid white;
+    height: 20px;
+    padding-top: 5px;
+    padding-left: 4px;
+    margin-bottom: 2px;
+}
+
+#ativo
+{
+    background-color: #c0c0c0;
+    border-left: 2px solid red;
+    height: 20px;
+    padding-top: 5px;
+    padding-left: 4px;
+    margin-bottom: 2px;
+    cursor: pointer;
+}
+
+#pageheader
+{
+    border: none;
+    width:760px;
+    height:112;
+    overflow: none;
+    margin-bottom:0px;
+
+}
+
+#pagebody
+{
+    background-color: white;
+    width:760px;
+    border: 1px solid #999999;
+}
+
+
+#pageleft
+{
+    width:180;
+    margin-left: 0px;
+    margin-right: 0px;
+    float:left;
+    text-align:left;
+    border: 1px solid #000000;
+    font-size: 10pt;
+    font-family: arial,verdana,sans-serif;
+    font-weight: bold;
+}
+
+#pagecontent
+{
+    margin-right: 0px;
+    margin-left: 20px;
+    margin-top:0px;
+    width:550px;
+    
+    text-align:left;
+    color: #333333;
+}
+
+#pageboth
+{
+    clear:both;
+}
+</style>
+<body>
+<center>
+<div id="pageheader">
+    <img border=0 src='app.images/pageheader.png'>
+</div>
+
+<div id="pagebody">
+    <div id="pageleft">
+        <div id='inativo'
+                OnMouseOver="this.id='ativo'" OnMouseOut="this.id='inativo'"
+                OnClick="document.location='?class=CidadesList'">
+        Cidades
+        </div>
+        <div id='inativo'
+                OnMouseOver="this.id='ativo'" OnMouseOut="this.id='inativo'"
+                OnClick="document.location='?class=FabricantesList'">
+        Fabricantes
+        </div>
+        <div id='inativo'
+                OnMouseOver="this.id='ativo'" OnMouseOut="this.id='inativo'"
+                OnClick="document.location='?class=ProdutosList'">
+        Produtos
+        </div>
+        <div id='inativo'
+                OnMouseOver="this.id='ativo'" OnMouseOut="this.id='inativo'"
+                OnClick="document.location='?class=ClientesList'">
+        Clientes
+        </div>
+        <div id='inativo'
+                OnMouseOver="this.id='ativo'" OnMouseOut="this.id='inativo'"
+                OnClick="document.location='?class=VendasForm'">
+        Vendas
+        </div>
+        <div id='inativo'
+                OnMouseOver="this.id='ativo'" OnMouseOut="this.id='inativo'"
+                OnClick="document.location='?class=RelatorioForm'">
+        Relatórios
+        </div>
+    </div>
+    
+    <div id="pagecontent">
+        #CONTENT#
+    </div>
+    
+    <div id="pageboth"></div>
+</div>
+</center>
