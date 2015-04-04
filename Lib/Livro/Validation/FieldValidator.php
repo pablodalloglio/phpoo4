@@ -12,4 +12,3 @@ abstract class FieldValidator
      */
     abstract public function validate($label, $value, $parameters = NULL);
 }
-?>

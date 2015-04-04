@@ -9,4 +9,3 @@ class RequiredValidator extends FieldValidator
         }
     }
 }
-?>

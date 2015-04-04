@@ -257,4 +257,3 @@ class FabricantesList extends Page
         parent::show();
     }
 }
-?>

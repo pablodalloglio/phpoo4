@@ -11,4 +11,3 @@ class MinLengthValidator extends FieldValidator
         }
     }
 }
-?>

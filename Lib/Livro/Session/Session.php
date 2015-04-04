@@ -1,4 +1,6 @@
 <?php
+Namespace Livro\Session;
+
 /**
  * classe Session
  * gerencia uma seção com o usuário
