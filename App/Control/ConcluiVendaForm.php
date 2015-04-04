@@ -1,32 +1,32 @@
 <?php
 /*
  * classe ConcluiVenda
- * formulário de conclusão de venda
+ * formulÃ¡rio de conclusÃ£o de venda
  */
 class ConcluiVendaForm extends TForm
 {
-    public $button;	   // botão de ação do formulário
+    public $button;	   // botÃ£o de aÃ§Ã£o do formulÃ¡rio
 
     /*
-     * método construtor
-     * Cria a página e o formulário de cadastro
+     * mÃ©todo construtor
+     * Cria a pÃ¡gina e o formulÃ¡rio de cadastro
      */
     function __construct()
     {
         parent::__construct('form_conclui_venda');
         // instancia uma tabela
-        $table = new TTable;
+        $table = new Table;
 
-        // adiciona a tabela ao formulário
+        // adiciona a tabela ao formulÃ¡rio
         parent::add($table);
 
-        // cria os campos do formulário
-        $cliente      = new TEntry('id_cliente');
-        $desconto     = new TEntry('desconto');
-        $valor_total  = new TEntry('valor_total');
-        $valor_pago   = new TEntry('valor_pago');
+        // cria os campos do formulÃ¡rio
+        $cliente      = new Entry('id_cliente');
+        $desconto     = new Entry('desconto');
+        $valor_total  = new Entry('valor_total');
+        $valor_pago   = new Entry('valor_pago');
 
-        // define alguns atributos para os campos do formulário
+        // define alguns atributos para os campos do formulÃ¡rio
         $valor_total->setEditable(FALSE);
         $cliente->setSize(100);
         $desconto->setSize(100);
@@ -35,33 +35,33 @@ class ConcluiVendaForm extends TForm
 
         // adiciona uma linha para o campo cliente
         $row=$table->addRow();
-        $row->addCell(new TLabel('Cliente:'));
+        $row->addCell(new Label('Cliente:'));
         $row->addCell($cliente);
 
         // adiciona uma linha para o campo desconto
         $row=$table->addRow();
-        $row->addCell(new TLabel('Desconto:'));
+        $row->addCell(new Label('Desconto:'));
         $row->addCell($desconto);
 
         // adiciona uma linha para o campo valor total
         $row=$table->addRow();
-        $row->addCell(new TLabel('Valor Total:'));
+        $row->addCell(new Label('Valor Total:'));
         $row->addCell($valor_total);
 
         // adiciona uma linha para o campo valor pago
         $row=$table->addRow();
-        $row->addCell(new TLabel('Valor Pago:'));
+        $row->addCell(new Label('Valor Pago:'));
         $row->addCell($valor_pago);
 
-        // cria um botão de ação para o formulário
-        $this->button=new TButton('action1');
+        // cria um botÃ£o de aÃ§Ã£o para o formulÃ¡rio
+        $this->button=new Button('action1');
 
-        // adiciona uma linha para as ações do formulário
+        // adiciona uma linha para as aÃ§Ãµes do formulÃ¡rio
         $row=$table->addRow();
         $row->addCell('');
         $row->addCell($this->button);
 
-        // define quais são os campos do formulário
+        // define quais sÃ£o os campos do formulÃ¡rio
         parent::setFields(array($cliente, $desconto, $valor_total, $valor_pago, $this->button));
     }
 }

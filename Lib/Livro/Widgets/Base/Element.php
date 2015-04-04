@@ -1,7 +1,9 @@
 <?php
+Namespace Livro\Widgets\Base;
+
 /**
  * classe Element
- * classe para abstração de tags HTML
+ * classe para abstraÃ§Ã£o de tags HTML
  */
 class Element
 {
@@ -10,7 +12,7 @@ class Element
     protected $children;
     
     /**
-     * método construtor
+     * mÃ©todo construtor
      * instancia uma tag html
      * @param $name     = nome da tag
      */
@@ -21,20 +23,20 @@ class Element
     }
     
     /**
-     * método __set()
-     * intercepta as atribuições à propriedades do objeto
+     * mÃ©todo __set()
+     * intercepta as atribuiÃ§Ãµes Ã  propriedades do objeto
      * @param $name      = nome da propriedade
      * @param $value     = valor
      */
     public function __set($name, $value)
     {
-        // armazena os valores atribuídos
+        // armazena os valores atribuÃ­dos
         // ao array properties
         $this->properties[$name] = $value;
     }
     
     /**
-     * método add()
+     * mÃ©todo add()
      * adiciona um elemento filho
      * @param $child = objeto filho
      */
@@ -44,7 +46,7 @@ class Element
     }
     
     /**
-     * método open()
+     * mÃ©todo open()
      * exibe a tag de abertura na tela
      */
     private function open()
@@ -63,15 +65,15 @@ class Element
     }
     
     /**
-     * método show()
-     * exibe a tag na tela, juntamente com seu conteúdo
+     * mÃ©todo show()
+     * exibe a tag na tela, juntamente com seu conteÃºdo
      */
     public function show()
     {
         // abre a tag
         $this->open();
         echo "\n";
-        // se possui conteúdo
+        // se possui conteÃºdo
         if ($this->children)
         {
             // percorre todos objetos filhos
@@ -94,7 +96,7 @@ class Element
     }
     
     /**
-     * método close()
+     * mÃ©todo close()
      * Fecha uma tag HTML
      */
     private function close()

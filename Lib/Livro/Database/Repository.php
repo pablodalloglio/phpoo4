@@ -5,14 +5,14 @@ use Exception;
 
 /*
  * classe Repository
- * esta classe provÍ os mÈtodos necess·rios para manipular coleÁıes de objetos.
+ * esta classe prov√™ os m√©todos necess√°rios para manipular cole√ß√µes de objetos.
  */
 final class Repository
 {
-    private $class; // nome da classe manipulada pelo repositÛrio
+    private $class; // nome da classe manipulada pelo reposit√≥rio
     
-    /* mÈtodo __construct()
-     * instancia um RepositÛrio de objetos
+    /* m√©todo __construct()
+     * instancia um Reposit√≥rio de objetos
      * @param $class = Classe dos Objetos
      */
     function __construct($class)
@@ -21,27 +21,27 @@ final class Repository
     }
     
     /*
-     * mÈtodo load()
+     * m√©todo load()
      * Recuperar um conjunto de objetos (collection) da base de dados
-     * atravÈs de um critÈrio de seleÁ„o, e instanci·-los em memÛria
+     * atrav√©s de um crit√©rio de sele√ß√£o, e instanci√°-los em mem√≥ria
      * @param $criteria = objeto do tipo TCriteria
      */
     function load(Criteria $criteria)
     {
         
-        // instancia a instruÁ„o de SELECT
-        $sql = new TSqlSelect;
+        // instancia a instru√ß√£o de SELECT
+        $sql = new SqlSelect;
         $sql->addColumn('*');
         $sql->setEntity(constant($this->class.'::TABLENAME'));
         
-        // atribui o critÈrio passado como par‚metro
+        // atribui o crit√©rio passado como par√¢metro
         $sql->setCriteria($criteria);
         
-        // obtÈm transaÁ„o ativa
-        if ($conn = TTransaction::get())
+        // obt√©m transa√ß√£o ativa
+        if ($conn = Transaction::get())
         {
             // registra mensagem de log
-            TTransaction::log($sql->getInstruction());
+            Transaction::log($sql->getInstruction());
             
             // executa a consulta no banco de dados
             $result= $conn->Query($sql->getInstruction());
@@ -60,67 +60,67 @@ final class Repository
         }
         else
         {
-            // se n„o tiver transaÁ„o, retorna uma exceÁ„o
-            throw new Exception('N„o h· transaÁ„o ativa!!');
+            // se n√£o tiver transa√ß√£o, retorna uma exce√ß√£o
+            throw new Exception('N√£o h√° transa√ß√£o ativa!!');
         }
     }
     
     /*
-     * mÈtodo delete()
+     * m√©todo delete()
      * Excluir um conjunto de objetos (collection) da base de dados
-     * atravÈs de um critÈrio de seleÁ„o.
+     * atrav√©s de um crit√©rio de sele√ß√£o.
      * @param $criteria = objeto do tipo Criteria
      */
     function delete(Criteria $criteria)
     {
-        // instancia instruÁ„o de DELETE
+        // instancia instru√ß√£o de DELETE
         $sql = new SqlDelete;
         $sql->setEntity(constant($this->class.'::TABLENAME'));
         
-        // atribui o critÈrio passado como par‚metro
+        // atribui o crit√©rio passado como par√¢metro
         $sql->setCriteria($criteria);
         
-        // obtÈm transaÁ„o ativa
+        // obt√©m transa√ß√£o ativa
         if ($conn = Transaction::get())
         {
             // registra mensagem de log
             Transaction::log($sql->getInstruction());
-            // executa instruÁ„o de DELETE
+            // executa instru√ß√£o de DELETE
             $result = $conn->exec($sql->getInstruction());
             return $result;
         }
         else
         {
-            // se n„o tiver transaÁ„o, retorna uma exceÁ„o
-            throw new Exception('N„o h· transaÁ„o ativa!!');
+            // se n√£o tiver transa√ß√£o, retorna uma exce√ß√£o
+            throw new Exception('N√£o h√° transa√ß√£o ativa!!');
             
         }
     }
     
     /*
-     * mÈtodo count()
+     * m√©todo count()
      * Retorna a quantidade de objetos da base de dados
-     * que satisfazem um determinado critÈrio de seleÁ„o.
+     * que satisfazem um determinado crit√©rio de sele√ß√£o.
      * @param $criteria = objeto do tipo TCriteria
      */
     function count(Criteria $criteria)
     {
         
-        // instancia instruÁ„o de SELECT
+        // instancia instru√ß√£o de SELECT
         $sql = new SqlSelect;
         $sql->addColumn('count(*)');
         $sql->setEntity(constant($this->class.'::TABLENAME'));
         
-        // atribui o critÈrio passado como par‚metro
+        // atribui o crit√©rio passado como par√¢metro
         $sql->setCriteria($criteria);
         
-        // obtÈm transaÁ„o ativa
+        // obt√©m transa√ß√£o ativa
         if ($conn = Transaction::get())
         {
             // registra mensagem de log
             Transaction::log($sql->getInstruction());
             
-            // executa instruÁ„o de SELECT
+            // executa instru√ß√£o de SELECT
             $result= $conn->Query($sql->getInstruction());
             if ($result)
             {
@@ -131,8 +131,8 @@ final class Repository
         }
         else
         {
-            // se n„o tiver transaÁ„o, retorna uma exceÁ„o
-            throw new Exception('N„o h· transaÁ„o ativa!!');
+            // se n√£o tiver transa√ß√£o, retorna uma exce√ß√£o
+            throw new Exception('N√£o h√° transa√ß√£o ativa!!');
         }
     }
 }

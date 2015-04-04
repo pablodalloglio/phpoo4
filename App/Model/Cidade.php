@@ -1,8 +1,6 @@
 <?php
-/*
-   * classe Cidade
-   * Active Record para tabela Cidade
-   */
+use Livro\Database\Record;
+
 class Cidade extends Record
 {
      const TABLENAME = 'cidade';

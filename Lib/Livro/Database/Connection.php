@@ -1,40 +1,40 @@
 <?php
-Namespace Livro\Database
+Namespace Livro\Database;
 
 use PDO;
 use Exception;
 
 /*
  * classe Connection
- * gerencia conexões com bancos de dados através de arquivos de configuração.
+ * gerencia conexÃµes com bancos de dados atravÃ©s de arquivos de configuraÃ§Ã£o.
  */
 final class Connection
 {
     /*
-     * método __construct()
-     * não existirão instâncias de TConnection, por isto estamos marcando-o como private
+     * mÃ©todo __construct()
+     * nÃ£o existirÃ£o instÃ¢ncias de TConnection, por isto estamos marcando-o como private
      */
     private function __construct() {}
     
     /*
-     * método open()
+     * mÃ©todo open()
      * recebe o nome do banco de dados e instancia o objeto PDO correspondente
      */
     public static function open($name)
     {
-        // verifica se existe arquivo de configuração para este banco de dados
+        // verifica se existe arquivo de configuraÃ§Ã£o para este banco de dados
         if (file_exists("App/Config/{$name}.ini"))
         {
-            // lê o INI e retorna um array
+            // lÃª o INI e retorna um array
             $db = parse_ini_file("App/Config/{$name}.ini");
         }
         else
         {
-            // se não existir, lança um erro
-            throw new Exception("Arquivo '$name' não encontrado");
+            // se nÃ£o existir, lanÃ§a um erro
+            throw new Exception("Arquivo '$name' nÃ£o encontrado");
         }
         
-        // lê as informações contidas no arquivo
+        // lÃª as informaÃ§Ãµes contidas no arquivo
         $user = isset($db['user']) ? $db['user'] : NULL;
         $pass = isset($db['pass']) ? $db['pass'] : NULL;
         $name = isset($db['name']) ? $db['name'] : NULL;
@@ -67,7 +67,7 @@ final class Connection
                 $conn = new PDO("mssql:host={$host},1433;dbname={$name}", $user, $pass);
                 break;
         }
-        // define para que o PDO lance exceções na ocorrência de erros
+        // define para que o PDO lance exceÃ§Ãµes na ocorrÃªncia de erros
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         // retorna o objeto instanciado.
         return $conn;

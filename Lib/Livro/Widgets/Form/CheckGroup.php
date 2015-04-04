@@ -5,7 +5,7 @@ use Livro\Control\Action;
 
 /**
  * classe TCheckGroup
- * classe para exibição um grupo de CheckButtons
+ * classe para exibiÃ§Ã£o um grupo de CheckButtons
  */
 class CheckGroup extends Field
 {
@@ -13,15 +13,15 @@ class CheckGroup extends Field
     private $items;
     
     /**
-     * método setLayout()
-     * define a direção das opções (vertical ou horizontal)
+     * mÃ©todo setLayout()
+     * define a direÃ§Ã£o das opÃ§Ãµes (vertical ou horizontal)
      */
     public function setLayout($dir)
     {
         $this->layout = $dir;
     }
     
-    /* método addItems($items)
+    /* mÃ©todo addItems($items)
      * adiciona itens ao check group
      * @param $items = um vetor indexado de itens
      */
@@ -31,14 +31,14 @@ class CheckGroup extends Field
     }
     
     /**
-     * método show()
+     * mÃ©todo show()
      * exibe o widget na tela
      */
     public function show()
     {
         if ($this->items)
         {
-            // percorre cada uma das opções do rádio
+            // percorre cada uma das opÃ§Ãµes do rÃ¡dio
             foreach ($this->items as $index => $label)
             {
                 $button = new CheckButton("{$this->name}[]");

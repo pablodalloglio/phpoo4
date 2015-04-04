@@ -1,14 +1,16 @@
 <?php
 Namespace Livro\Widgets\Container;
 
+use Livro\Widgets\Base\Element;
+
 /**
  * classe Table
- * responsável pela exibição de tabelas
+ * responsÃ¡vel pela exibiÃ§Ã£o de tabelas
  */
 class Table extends Element
 {
     /**
-     * método construtor
+     * mÃ©todo construtor
      * instancia uma nova tabela
      */
     public function __construct()
@@ -17,7 +19,7 @@ class Table extends Element
     }
     
     /**
-     * método addRow
+     * mÃ©todo addRow
      * agrega um novo objeto linha (TableRow) na tabela
      */
     public function addRow()

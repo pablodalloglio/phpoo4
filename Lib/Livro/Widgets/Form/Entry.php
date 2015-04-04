@@ -3,12 +3,12 @@ Namespace Livro\Widgets\Form;
 
 /**
  * classe Entry
- * classe para construção de caixas de texto
+ * classe para construÃ§Ã£o de caixas de texto
  */
-class Entry extends Field
+class Entry extends Field implements FormElementInterface
 {
     /**
-     * método show()
+     * mÃ©todo show()
      * exibe o widget na tela
      */
     public function show()
@@ -19,7 +19,7 @@ class Entry extends Field
         $this->tag->type = 'text';          // tipo de input
         $this->tag->style = "width:{$this->size}"; // tamanho em pixels
         
-        // se o campo não é editável
+        // se o campo nÃ£o Ã© editÃ¡vel
         if (!parent::getEditable())
         {
             $this->tag->readonly = "1";

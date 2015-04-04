@@ -1,8 +1,6 @@
 <?php
-/*
-   * classe Fabricante
-   * Active Record para tabela Fabricante
-   */
+use Livro\Database\Record;
+
 class Fabricante extends Record
 {
      const TABLENAME = 'fabricante';

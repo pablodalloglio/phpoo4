@@ -3,9 +3,9 @@ Namespace Livro\Widgets\Form;
 
 /**
  * classe CheckButton
- * classe para construÁ„o de botıes de verificaÁ„o
+ * classe para constru√ß√£o de bot√µes de verifica√ß√£o
  */
-class CheckButton extends Field implements WidgetInterface
+class CheckButton extends Field implements FormElementInterface
 {
     public function setIndexValue($index)
     {        
@@ -13,7 +13,7 @@ class CheckButton extends Field implements WidgetInterface
     }
     
     /**
-     * mÈtodo show()
+     * m√©todo show()
      * exibe o widget na tela
      */
     public function show()
@@ -29,7 +29,7 @@ class CheckButton extends Field implements WidgetInterface
             $this->tag-> checked= '1';
         }
         
-        // se o campo n„o È edit·vel
+        // se o campo n√£o √© edit√°vel
         if (!parent::getEditable())
         {
             // desabilita a TAG input

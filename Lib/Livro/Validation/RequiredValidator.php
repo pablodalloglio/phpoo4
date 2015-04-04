@@ -5,7 +5,7 @@ class RequiredValidator extends FieldValidator
     {
         if (empty($value))
         {
-            throw new Exception("O campo {$label} é obrigatório");
+            throw new Exception("O campo {$label} Ã© obrigatÃ³rio");
         }
     }
 }

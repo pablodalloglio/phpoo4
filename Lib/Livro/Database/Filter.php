@@ -3,18 +3,18 @@ Namespace Livro\Database;
 
 /*
  * classe Filter
- * Esta classe provê uma interface para definição de filtros de seleção
+ * Esta classe provÃª uma interface para definiÃ§Ã£o de filtros de seleÃ§Ã£o
  */
 class Filter extends Expression
 {
-    private $variable; // variável
+    private $variable; // variÃ¡vel
     private $operator; // operador
     private $value;    // valor
     
     /*
-     * método __construct()
+     * mÃ©todo __construct()
      * instancia um novo filtro
-     * @param $variable = variável
+     * @param $variable = variÃ¡vel
      * @param $operator = operador (>,<)
      * @param $value      = valor a ser comparado
      */
@@ -25,13 +25,13 @@ class Filter extends Expression
         $this->operator = $operator;
         
         // transforma o valor de acordo com certas regras
-        // antes de atribuir à propriedade $this->value
+        // antes de atribuir Ã  propriedade $this->value
         $this->value     = $this->transform($value);
     }
     
     /*
-     * método transform()
-     * recebe um valor e faz as modificações necessárias
+     * mÃ©todo transform()
+     * recebe um valor e faz as modificaÃ§Ãµes necessÃ¡rias
      * para ele ser interpretado pelo banco de dados
      * podendo ser um integer/string/boolean ou array.
      * @param $value = valor a ser transformado
@@ -86,12 +86,12 @@ class Filter extends Expression
     }
     
     /*
-     * método dump()
-     * retorna o filtro em forma de expressão
+     * mÃ©todo dump()
+     * retorna o filtro em forma de expressÃ£o
      */
     public function dump()
     {
-        // concatena a expressão
+        // concatena a expressÃ£o
         return "{$this->variable} {$this->operator} {$this->value}";
     }
 }

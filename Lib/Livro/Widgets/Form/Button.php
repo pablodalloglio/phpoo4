@@ -2,11 +2,12 @@
 Namespace Livro\Widgets\Form;
 
 use Livro\Control\Action;
+use Livro\Control\ActionInterface;
 
 /* classe Button
  * responsável por exibir um botão
  */
-class Button extends Field implements WidgetInterface
+class Button extends Field implements FormElementInterface
 {
     private $action;
     private $label;

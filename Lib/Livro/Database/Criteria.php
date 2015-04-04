@@ -3,16 +3,16 @@ Namespace Livro\Database;
 
 /*
  * classe Criteria
- * Esta classe provê uma interface utilizada para definição de critérios
+ * Esta classe provÃª uma interface utilizada para definiÃ§Ã£o de critÃ©rios
  */
 class Criteria extends Expression
 {
-    private $expressions; // armazena a lista de expressões
+    private $expressions; // armazena a lista de expressÃµes
     private $operators;     // armazena a lista de operadores
-    private $properties;    // propriedades do critério
+    private $properties;    // propriedades do critÃ©rio
     
     /*
-     * Método Construtor
+     * MÃ©todo Construtor
      */
     function __construct()
     {
@@ -21,31 +21,31 @@ class Criteria extends Expression
     }
     
     /*
-     * método add()
-     * adiciona uma expressão ao critério
-     * @param $expression = expressão (objeto Expression)
-     * @param $operator     = operador lógico de comparação
+     * mÃ©todo add()
+     * adiciona uma expressÃ£o ao critÃ©rio
+     * @param $expression = expressÃ£o (objeto Expression)
+     * @param $operator     = operador lÃ³gico de comparaÃ§Ã£o
      */
     public function add(Expression $expression, $operator = self::AND_OPERATOR)
     {
-        // na primeira vez, não precisamos de operador lógico para concatenar
+        // na primeira vez, nÃ£o precisamos de operador lÃ³gico para concatenar
         if (empty($this->expressions))
         {
             $operator = NULL;
         }
         
-        // agrega o resultado da expressão à lista de expressões
+        // agrega o resultado da expressÃ£o Ã  lista de expressÃµes
         $this->expressions[] = $expression;
         $this->operators[]    = $operator;
     }
     
     /*
-     * método dump()
-     * retorna a expressão final
+     * mÃ©todo dump()
+     * retorna a expressÃ£o final
      */
     public function dump()
     {
-        // concatena a lista de expressões
+        // concatena a lista de expressÃµes
         if (is_array($this->expressions))
         {
             if (count($this->expressions) > 0)
@@ -54,7 +54,7 @@ class Criteria extends Expression
                 foreach ($this->expressions as $i=> $expression)
                 {
                     $operator = $this->operators[$i];
-                    // concatena o operador com a respectiva expressão
+                    // concatena o operador com a respectiva expressÃ£o
                     $result .= $operator. $expression->dump() . ' ';
                 }
                 $result = trim($result);
@@ -64,7 +64,7 @@ class Criteria extends Expression
     }
     
     /*
-     * método setProperty()
+     * mÃ©todo setProperty()
      * define o valor de uma propriedade
      * @param $property = propriedade
      * @param $value      = valor
@@ -82,7 +82,7 @@ class Criteria extends Expression
     }
     
     /*
-     * método getProperty()
+     * mÃ©todo getProperty()
      * retorna o valor de uma propriedade
      * @param $property = propriedade
      */

@@ -5,21 +5,21 @@ use Exception;
 
 /*
  * classe TSqlInsert
- * Esta classe provÍ meios para manipulaÁ„o de uma instruÁ„o de INSERT no banco de dados
+ * Esta classe prov√™ meios para manipula√ß√£o de uma instru√ß√£o de INSERT no banco de dados
  */
 final class SqlInsert extends SqlInstruction
 {
     private $columnValues;
     
     /*
-     * mÈtodo setRowData()
-     * Atribui valores ‡ determinadas colunas no banco de dados que ser„o inseridas
+     * m√©todo setRowData()
+     * Atribui valores √† determinadas colunas no banco de dados que ser√£o inseridas
      * @param $column = coluna da tabela
      * @param $value = valor a ser armazenado
      */
     public function setRowData($column, $value)
     {
-        // verifica se È um dado escalar (string, inteiro, ...)
+        // verifica se √© um dado escalar (string, inteiro, ...)
         if (is_scalar($value))
         {
             if (is_string($value) and (!empty($value)))
@@ -48,18 +48,18 @@ final class SqlInsert extends SqlInstruction
     }
     
     /*
-     * mÈtodo setCriteria()
-     * n„o existe no contexto desta classe, logo, ir· lanÁar um erro ser for executado
+     * m√©todo setCriteria()
+     * n√£o existe no contexto desta classe, logo, ir√° lan√ßar um erro ser for executado
      */
     public function setCriteria(Criteria $criteria)
     {
-        // lanÁa o erro
+        // lan√ßa o erro
         throw new Exception("Cannot call setCriteria from " . __CLASS__);
     }
     
     /*
-     * mÈtodo getInstruction()
-     * retorna a instruÁ„o de INSERT em forma de string.
+     * m√©todo getInstruction()
+     * retorna a instru√ß√£o de INSERT em forma de string.
      */
     public function getInstruction()
     {

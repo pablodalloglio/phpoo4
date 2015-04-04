@@ -5,15 +5,15 @@ use Exception;
 
 /*
  * classe Record
- * Esta classe provÍ os mÈtodos necess·rios para persistir e
+ * Esta classe prov√™ os m√©todos necess√°rios para persistir e
  * recuperar objetos da base de dados (Active Record)
  */
 abstract class Record
 {
     protected $data; // array contendo os dados do objeto
     
-    /* mÈtodo __construct()
-     * instancia um Active Record. Se passado o $id, j· carrega o objeto
+    /* m√©todo __construct()
+     * instancia um Active Record. Se passado o $id, j√° carrega o objeto
      * @param [$id] = ID do objeto
      */
     public function __construct($id = NULL)
@@ -30,7 +30,7 @@ abstract class Record
     }
     
     /*
-     * mÈtodo __clone()
+     * m√©todo __clone()
      * executado quando o objeto for clonado.
      * limpa o ID para que seja gerado um novo ID para o clone.
      */
@@ -40,15 +40,15 @@ abstract class Record
     }
     
     /*
-     * mÈtodo __set()
-     * executado sempre que uma propriedade for atribuÌda.
+     * m√©todo __set()
+     * executado sempre que uma propriedade for atribu√≠da.
      */
     public function __set($prop, $value)
     {
-        // verifica se existe mÈtodo set_<propriedade>
+        // verifica se existe m√©todo set_<propriedade>
         if (method_exists($this, 'set_'.$prop))
         {
-            // executa o mÈtodo set_<propriedade>
+            // executa o m√©todo set_<propriedade>
             call_user_func(array($this, 'set_'.$prop), $value);
         }
         else
@@ -66,15 +66,15 @@ abstract class Record
     }
     
     /*
-     * mÈtodo __get()
+     * m√©todo __get()
      * executado sempre que uma propriedade for requerida
      */
     public function __get($prop)
     {
-        // verifica se existe mÈtodo get_<propriedade>
+        // verifica se existe m√©todo get_<propriedade>
         if (method_exists($this, 'get_'.$prop))
         {
-            // executa o mÈtodo get_<propriedade>
+            // executa o m√©todo get_<propriedade>
             return call_user_func(array($this, 'get_'.$prop));
         }
         else
@@ -88,12 +88,12 @@ abstract class Record
     }
     
     /*
-     * mÈtodo getEntity()
+     * m√©todo getEntity()
      * retorna o nome da entidade (tabela)
      */
     private function getEntity()
     {
-        // obtÈm o nome da classe
+        // obt√©m o nome da classe
         $class = get_class($this);
         
         // retorna a constante de classe TABLENAME
@@ -101,7 +101,7 @@ abstract class Record
     }
     
     /*
-     * mÈtodo fromArray
+     * m√©todo fromArray
      * preenche os dados do objeto com um array
      */
     public function fromArray($data)
@@ -110,7 +110,7 @@ abstract class Record
     }
     
     /*
-     * mÈtodo toArray
+     * m√©todo toArray
      * retorna os dados do objeto como array
      */
     public function toArray()
@@ -119,9 +119,9 @@ abstract class Record
     }
     
     /*
-     * mÈtodo store()
+     * m√©todo store()
      * armazena o objeto na base de dados e retorna
-     * o n˙mero de linhas afetadas pela instruÁ„o SQL (zero ou um)
+     * o n√∫mero de linhas afetadas pela instru√ß√£o SQL (zero ou um)
      */
     public function store()
     {
@@ -133,7 +133,7 @@ abstract class Record
             {
                 $this->id = $this->getLast() +1;
             }
-            // cria uma instruÁ„o de insert
+            // cria uma instru√ß√£o de insert
             $sql = new SqlInsert;
             $sql->setEntity($this->getEntity());
             // percorre os dados do objeto
@@ -145,17 +145,17 @@ abstract class Record
         }
         else
         {
-            // instancia instruÁ„o de update
+            // instancia instru√ß√£o de update
             $sql = new SqlUpdate;
             $sql->setEntity($this->getEntity());
-            // cria um critÈrio de seleÁ„o baseado no ID
+            // cria um crit√©rio de sele√ß√£o baseado no ID
             $criteria = new Criteria;
-            $criteria->add(new TFilter('id', '=', $this->id));
+            $criteria->add(new Filter('id', '=', $this->id));
             $sql->setCriteria($criteria);
             // percorre os dados do objeto
             foreach ($this->data as $key => $value)
             {
-                if ($key !== 'id') // o ID n„o precisa ir no UPDATE
+                if ($key !== 'id') // o ID n√£o precisa ir no UPDATE
                 
                 {
                     // passa os dados do objeto para o SQL
@@ -164,7 +164,7 @@ abstract class Record
                 
             }
         }
-        // obtÈm transaÁ„o ativa
+        // obt√©m transa√ß√£o ativa
         if ($conn = Transaction::get())
         
         {
@@ -176,32 +176,32 @@ abstract class Record
         }
         else
         {
-            // se n„o tiver transaÁ„o, retorna uma exceÁ„o
-            throw new Exception('N„o h· transaÁ„o ativa!!');
+            // se n√£o tiver transa√ß√£o, retorna uma exce√ß√£o
+            throw new Exception('N√£o h√° transa√ß√£o ativa!!');
         }
     }
     
     /*
-     * mÈtodo load()
+     * m√©todo load()
      * recupera (retorna) um objeto da base de dados
-     * atravÈs de seu ID e instancia ele na memÛria
+     * atrav√©s de seu ID e instancia ele na mem√≥ria
      * @param $id = ID do objeto
      */
     public function load($id)
     {
-        // instancia instruÁ„o de SELECT
+        // instancia instru√ß√£o de SELECT
         $sql = new SqlSelect;
         $sql->setEntity($this->getEntity());
         $sql->addColumn('*');
         
-        // cria critÈrio de seleÁ„o baseado no ID
+        // cria crit√©rio de sele√ß√£o baseado no ID
         $criteria = new Criteria;
-        $criteria->add(new TFilter('id', '=', $id));
+        $criteria->add(new Filter('id', '=', $id));
         
-        // define o critÈrio de seleÁ„o de dados
+        // define o crit√©rio de sele√ß√£o de dados
         $sql->setCriteria($criteria);
         
-        // obtÈm transaÁ„o ativa
+        // obt√©m transa√ß√£o ativa
         if ($conn = Transaction::get())
         {
             // cria mensagem de log e executa a consulta
@@ -218,33 +218,33 @@ abstract class Record
         }
         else
         {
-            // se n„o tiver transaÁ„o, retorna uma exceÁ„o
-            throw new Exception('N„o h· transaÁ„o ativa!!');
+            // se n√£o tiver transa√ß√£o, retorna uma exce√ß√£o
+            throw new Exception('N√£o h√° transa√ß√£o ativa!!');
         }
     }
     
     /*
-     * mÈtodo delete()
-     * exclui um objeto da base de dados atravÈs de seu ID.
+     * m√©todo delete()
+     * exclui um objeto da base de dados atrav√©s de seu ID.
      * @param $id = ID do objeto
      */
     public function delete($id = NULL)
     {
-        // o ID È o par‚metro ou a propriedade ID
+        // o ID √© o par√¢metro ou a propriedade ID
         $id = $id ? $id : $this->id;
         
-        // instancia uma instruÁ„o de DELETE
+        // instancia uma instru√ß√£o de DELETE
         $sql = new SqlDelete;
         $sql->setEntity($this->getEntity());
         
-        // cria critÈrio de seleÁ„o de dados
+        // cria crit√©rio de sele√ß√£o de dados
         $criteria = new Criteria;
-        $criteria->add(new TFilter('id', '=', $id));
+        $criteria->add(new Filter('id', '=', $id));
         
-        // define o critÈrio de seleÁ„o baseado no ID
+        // define o crit√©rio de sele√ß√£o baseado no ID
         $sql->setCriteria($criteria);
         
-        // obtÈm transaÁ„o ativa
+        // obt√©m transa√ß√£o ativa
         if ($conn = Transaction::get())
         {
             // faz o log e executa o SQL
@@ -255,26 +255,26 @@ abstract class Record
         }
         else
         {
-            // se n„o tiver transaÁ„o, retorna uma exceÁ„o
-            throw new Exception('N„o h· transaÁ„o ativa!!');
+            // se n√£o tiver transa√ß√£o, retorna uma exce√ß√£o
+            throw new Exception('N√£o h√° transa√ß√£o ativa!!');
         }
     }
     
     /*
-     * mÈtodo getLast()
-     * retorna o ˙ltimo ID
+     * m√©todo getLast()
+     * retorna o √∫ltimo ID
      */
     private function getLast()
     {
-        // inicia transaÁ„o
+        // inicia transa√ß√£o
         if ($conn = Transaction::get())
         {
-            // instancia instruÁ„o de SELECT
+            // instancia instru√ß√£o de SELECT
             $sql = new SqlSelect;
             $sql->addColumn('max(ID) as ID');
             $sql->setEntity($this->getEntity());
             
-            // cria log e executa instruÁ„o SQL
+            // cria log e executa instru√ß√£o SQL
             Transaction::log($sql->getInstruction());
             $result= $conn->Query($sql->getInstruction());
             
@@ -284,8 +284,8 @@ abstract class Record
         }
         else
         {
-            // se n„o tiver transaÁ„o, retorna uma exceÁ„o
-            throw new Exception('N„o h· transaÁ„o ativa!!');
+            // se n√£o tiver transa√ß√£o, retorna uma exce√ß√£o
+            throw new Exception('N√£o h√° transa√ß√£o ativa!!');
         }
     }
 }

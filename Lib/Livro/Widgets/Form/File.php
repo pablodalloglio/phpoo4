@@ -3,12 +3,12 @@ Namespace Livro\Widgets\Form;
 
 /**
  * classe File
- * classe para construÁ„o de botıes de seleÁ„o de arquivos
+ * classe para constru√ß√£o de bot√µes de sele√ß√£o de arquivos
  */
-class File extends Field implements WidgetInterface
+class File extends Field implements FormElementInterface
 {
     /**
-     * mÈtodo show()
+     * m√©todo show()
      * exibe o widget na tela
      */
     public function show()
@@ -18,7 +18,7 @@ class File extends Field implements WidgetInterface
         $this->tag->value = $this->value;  // valor da TAG
         $this->tag->type = 'file';         // tipo de input
         
-        // se o campo n„o È edit·vel
+        // se o campo n√£o √© edit√°vel
         if (!parent::getEditable())
         {
             // desabilita a TAG input

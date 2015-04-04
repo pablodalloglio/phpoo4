@@ -7,7 +7,7 @@ class MinLengthValidator extends FieldValidator
         
         if (strlen($value) < $tam)
         {
-            throw new Exception("O campo {$label} não pode ter menos de {$tam}");
+            throw new Exception("O campo {$label} nÃ£o pode ter menos de {$tam}");
         }
     }
 }

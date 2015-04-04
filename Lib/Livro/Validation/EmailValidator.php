@@ -5,7 +5,7 @@ class EmailValidator extends FieldValidator
     {
         if (!preg_match("/^(\w+((-\w+)|(\w.\w+))*)\@(\w+((\.|-)\w+)*\.\w+$)/",$value))
         {
-            throw new Exception("O campo {$label} contÈm um email inv·lido");
+            throw new Exception("O campo {$label} cont√©m um email inv√°lido");
         }
     }
 }

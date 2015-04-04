@@ -1,7 +1,7 @@
 <?php
 Namespace Livro\Widget\Container;
 
-use Livro\Widget\Base\Element;
+use Livro\Widgets\Base\Element;
 
 /**
  * Horizontal Box

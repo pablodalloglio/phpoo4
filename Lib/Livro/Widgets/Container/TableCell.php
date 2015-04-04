@@ -1,16 +1,18 @@
 <?php
 Namespace Livro\Widgets\Container;
 
+use Livro\Widgets\Base\Element;
+
 /**
  * classe TableCell
- * reponsável pela exibição de uma célula de uma tabela
+ * reponsÃ¡vel pela exibiÃ§Ã£o de uma cÃ©lula de uma tabela
  */
 class TableCell extends Element
 {
     /**
-     * método construtor
-     * instancia uma nova célula
-     * @param $value = conteúdo da célula
+     * mÃ©todo construtor
+     * instancia uma nova cÃ©lula
+     * @param $value = conteÃºdo da cÃ©lula
      */
     public function __construct($value)
     {

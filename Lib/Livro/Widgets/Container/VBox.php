@@ -1,7 +1,7 @@
 <?php
 Namespace Adianti\Widget\Container;
 
-use Adianti\Widget\Base\Element;
+use Livro\Widgets\Base\Element;
 
 /**
  * Vertical Box

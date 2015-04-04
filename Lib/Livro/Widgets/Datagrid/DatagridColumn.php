@@ -7,7 +7,7 @@ use Livro\Control\Action;
  * class DataGridColumn
  * representa uma coluna de uma listagem
  */
-class DataGridColumn
+class DatagridColumn
 {
     private $name;
     private $label;
@@ -17,16 +17,16 @@ class DataGridColumn
     private $transformer;
     
     /**
-     * mÈtodo __construct()
+     * m√©todo __construct()
      * instancia uma coluna nova
      * @param $name = nome da coluna no banco de dados
-     * @param $label = rÛtulo de texto que ser· exibido
+     * @param $label = r√≥tulo de texto que ser√° exibido
      * @param $align = alinhamento da coluna (left, center, right)
      * @param $width = largura da coluna (em pixels)
      */
     public function __construct($name, $label, $align, $width)
     {
-        // atribui os par‚metros ‡s propriedades do objeto
+        // atribui os par√¢metros √†s propriedades do objeto
         $this->name = $name;
         $this->label = $label;
         $this->align = $align;
@@ -34,7 +34,7 @@ class DataGridColumn
     }
     
     /**
-     * mÈtodo getName()
+     * m√©todo getName()
      * retorna o nome da coluna no banco de dados
      */
     public function getName()
@@ -43,8 +43,8 @@ class DataGridColumn
     }
     
     /**
-     * mÈtodo getLabel()
-     * retorna o nome do rÛtulo de texto da coluna
+     * m√©todo getLabel()
+     * retorna o nome do r√≥tulo de texto da coluna
      */
     public function getLabel()
     {
@@ -52,7 +52,7 @@ class DataGridColumn
     }
     
     /**
-     * mÈtodo getAlign()
+     * m√©todo getAlign()
      * retorna o alinhamento da coluna (left, center, right)
      */
     public function getAlign()
@@ -61,7 +61,7 @@ class DataGridColumn
     }
     
     /**
-     * mÈtodo getWidth()
+     * m√©todo getWidth()
      * retorna a largura da coluna (em pixels)
      */
     public function getWidth()
@@ -70,10 +70,10 @@ class DataGridColumn
     }
     
     /**
-     * mÈtodo setAction()
-     * define uma aÁ„o a ser executada quando o usu·rio
-     * clicar sobre o tÌtulo da coluna
-     * @param $action = objeto TAction contendo a aÁ„o
+     * m√©todo setAction()
+     * define uma a√ß√£o a ser executada quando o usu√°rio
+     * clicar sobre o t√≠tulo da coluna
+     * @param $action = objeto TAction contendo a a√ß√£o
      */
     public function setAction(Action $action)
     {
@@ -81,12 +81,12 @@ class DataGridColumn
     }
     
     /**
-     * mÈtodo getAction()
-     * retorna a aÁ„o vinculada ‡ coluna
+     * m√©todo getAction()
+     * retorna a a√ß√£o vinculada √† coluna
      */
     public function getAction()
     {
-        // verifica se a coluna possui aÁ„o
+        // verifica se a coluna possui a√ß√£o
         if ($this->action)
         {
             return $this->action->serialize();
@@ -94,10 +94,10 @@ class DataGridColumn
     }
     
     /**
-     * mÈtodo setTransformer()
-     * define uma funÁ„o (callback) a ser aplicada sobre
+     * m√©todo setTransformer()
+     * define uma fun√ß√£o (callback) a ser aplicada sobre
      * todo dado contido nesta coluna
-     * @param $callback = funÁ„o do PHP ou do usu·rio
+     * @param $callback = fun√ß√£o do PHP ou do usu√°rio
      */
     public function setTransformer($callback)
     {
@@ -105,8 +105,8 @@ class DataGridColumn
     }
     
     /**
-     * mÈtodo getTransformer()
-     * retorna a funÁ„o (callback) aplicada ‡ coluna
+     * m√©todo getTransformer()
+     * retorna a fun√ß√£o (callback) aplicada √† coluna
      */
     public function getTransformer()
     {
