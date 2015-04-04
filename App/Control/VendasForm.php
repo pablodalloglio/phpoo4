@@ -1,4 +1,21 @@
 <?php
+use Livro\Control\Page;
+use Livro\Control\Action;
+use Livro\Widgets\Form\Form;
+use Livro\Widgets\Container\Table;
+use Livro\Widgets\Datagrid\Datagrid;
+use Livro\Widgets\Datagrid\DatagridColumn;
+use Livro\Widgets\Datagrid\DatagridAction;
+use Livro\Widgets\Dialog\Message;
+use Livro\Widgets\Form\Label;
+use Livro\Widgets\Form\Entry;
+use Livro\Widgets\Form\Combo;
+use Livro\Widgets\Form\Button;
+use Livro\Database\Transaction;
+use Livro\Database\Repository;
+use Livro\Database\Criteria;
+use Livro\Session\Session;
+
 /*
  * função formata_string
  * exibe um valor com as casas decimais
@@ -27,10 +44,10 @@ class VendasForm extends Page
         parent::__construct();
 
         // instancia nova seção
-        new TSession;
+        new Session;
 
         // instancia um formulário
-        $this->form = new TForm('form_vendas');
+        $this->form = new Form('form_vendas');
 
         // instancia uma tabela
         $table = new Table;
@@ -60,8 +77,8 @@ class VendasForm extends Page
         $fim_button = new Button('fim');
 
         // define as ações dos botões
-        $save_button->setAction(new TAction(array($this, 'onAdiciona')), 'Adicionar');
-        $fim_button->setAction(new TAction(array($this, 'onFinal')), 'Finalizar');
+        $save_button->setAction(new Action(array($this, 'onAdiciona')), 'Adicionar');
+        $fim_button->setAction(new Action(array($this, 'onFinal')), 'Finalizar');
 
         // adiciona uma linha para as ações do formulário
         $row=$table->addRow();
@@ -76,7 +93,6 @@ class VendasForm extends Page
 
         // instancia as colunas da DataGrid
         $codigo    = new DataGridColumn('id_produto', 'Código', 'right', 50);
-
         $descricao = new DataGridColumn('descricao',   'Descrição','left', 200);
         $quantidade= new DataGridColumn('quantidade',  'Qtde',      'right', 40);
         $preco     = new DataGridColumn('preco_venda', 'Preço',    'right', 70);
@@ -129,13 +145,13 @@ class VendasForm extends Page
         $item = $this->form->getData('Item');
 
         // lê variável $list da seção
-        $list = TSession::getValue('list');
+        $list = Session::getValue('list');
 
         // acrescenta produto na variável $list
         $list[$item->id_produto]= $item;
 
         // grava variável $list de volta à seção
-        TSession::setValue('list', $list);
+        Session::setValue('list', $list);
 
         // recarrega a listagem
         $this->onReload();
@@ -148,13 +164,13 @@ class VendasForm extends Page
     function onDelete($param)
     {
         // lê variável $list da seção
-        $list = TSession::getValue('list');
+        $list = Session::getValue('list');
 
         // exclui a posição que armazena o produto de código $key
         unset($list[$param['key']]);
 
         // grava variável $list de volta à seção
-        TSession::setValue('list', $list);
+        Session::setValue('list', $list);
 
         // recarrega a listagem
         $this->onReload();
@@ -167,7 +183,7 @@ class VendasForm extends Page
     function onReload()
     {
         // obtém a variável de seção $list
-        $list = TSession::getValue('list');
+        $list = Session::getValue('list');
 
         // limpa a datagrid
         $this->datagrid->clear();
@@ -199,7 +215,7 @@ class VendasForm extends Page
         $janela->setSize(250,180);
 
         // lê a variável $list da seção
-        $list = TSession::getValue('list');
+        $list = Session::getValue('list');
 
         // inicia transação com o banco 'livro'
         Transaction::open('livro');
@@ -218,7 +234,7 @@ class VendasForm extends Page
         $form = new ConcluiVendaForm;
 
         // define a ação do botão deste formulário
-        $form->button->setAction(new TAction(array($this, 'onGravaVenda')), 'Salvar');
+        $form->button->setAction(new Action(array($this, 'onGravaVenda')), 'Salvar');
 
         // preenche o formulário com o valor_total
         $dados = new StdClass;
@@ -255,7 +271,7 @@ class VendasForm extends Page
         $venda->valor_pago  = $dados->valor_pago;
 
         // lê a variável $list da seção
-        $itens = TSession::getValue('list');
+        $itens = Session::getValue('list');
         if ($itens)
         {
             // percorre os itens
@@ -272,7 +288,7 @@ class VendasForm extends Page
         Transaction::close();
 
         // limpa lista de itens da seção
-        TSession::setValue('list', array());
+        Session::setValue('list', array());
 
         // exibe mensagem de sucesso
         new Message('info', 'Venda registrada com sucesso');

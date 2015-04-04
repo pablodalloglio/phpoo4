@@ -9,4 +9,3 @@ class EmailValidator extends FieldValidator
         }
     }
 }
-?>

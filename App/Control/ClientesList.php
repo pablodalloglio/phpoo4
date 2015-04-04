@@ -225,4 +225,3 @@ class ClientesList extends Page
         parent::show();
     }
 }
-?>
