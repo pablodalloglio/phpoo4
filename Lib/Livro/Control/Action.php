@@ -3,17 +3,17 @@ Namespace Livro\Control;
 
 /**
  * classe TAction
- * encapsula uma ação
+ * encapsula uma aÃ§Ã£o
  */
-class Action
+class Action implements ActionInterface
 {
     private $action;
     private $param;
     
     /**
-     * método __construct()
-     * instancia uma nova ação
-     * @param $action = método a ser executado
+     * mÃ©todo __construct()
+     * instancia uma nova aÃ§Ã£o
+     * @param $action = mÃ©todo a ser executado
      */
     public function __construct(Callable $action)
     {
@@ -21,10 +21,10 @@ class Action
     }
     
     /**
-     * método setParameter()
-     * acrescenta um parâmetro ao método a ser executdao
-     * @param $param = nome do parâmetro
-     * @param $value = valor do parâmetro
+     * mÃ©todo setParameter()
+     * acrescenta um parÃ¢metro ao mÃ©todo a ser executdao
+     * @param $param = nome do parÃ¢metro
+     * @param $value = valor do parÃ¢metro
      */
     public function setParameter($param, $value)
     {
@@ -32,25 +32,25 @@ class Action
     }
     
     /**
-     * método serialize()
-     * transforma a ação em uma string do tipo URL
+     * mÃ©todo serialize()
+     * transforma a aÃ§Ã£o em uma string do tipo URL
      */
     public function serialize()
     {
-        // verifica se a ação é um método
+        // verifica se a aÃ§Ã£o Ã© um mÃ©todo
         if (is_array($this->action))
         {
-            // obtém o nome da classe
+            // obtÃ©m o nome da classe
             $url['class'] = get_class($this->action[0]);
-            // obtém o nome do método
+            // obtÃ©m o nome do mÃ©todo
             $url['method'] = $this->action[1];
         }
-        else if (is_string($this->action)) // é uma string
+        else if (is_string($this->action)) // Ã© uma string
         {
-            // obtém o nome da função
+            // obtÃ©m o nome da funÃ§Ã£o
             $url['method'] = $this->action;
         }
-        // verifica se há parâmetros
+        // verifica se hÃ¡ parÃ¢metros
         if ($this->param)
         {
             $url = array_merge($url, $this->param);

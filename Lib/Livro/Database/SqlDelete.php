@@ -3,20 +3,20 @@ Namespace Livro\Database;
 
 /*
  * classe TSqlDelete
- * Esta classe provê meios para manipulação de uma instrução de DELETE no banco de dados
+ * Esta classe provÃª meios para manipulaÃ§Ã£o de uma instruÃ§Ã£o de DELETE no banco de dados
  */
 final class SqlDelete extends SqlInstruction
 {
     /*
-     * método getInstruction()
-     * retorna a instrução de DELETE em forma de string.
+     * mÃ©todo getInstruction()
+     * retorna a instruÃ§Ã£o de DELETE em forma de string.
      */
     public function getInstruction()
     {
         // monta a string de DELETE
         $this->sql = "DELETE FROM {$this->entity}";
         
-        // retorna a cláusula WHERE do objeto $this->criteria
+        // retorna a clÃ¡usula WHERE do objeto $this->criteria
         if ($this->criteria)
         {
             $expression = $this->criteria->dump();

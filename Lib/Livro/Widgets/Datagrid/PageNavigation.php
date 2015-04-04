@@ -3,7 +3,7 @@ Namespace Livro\Widgets\Datagrid;
 
 /**
  * classe PageNavigation
- * Cria uma barra de navegação para um TDataGrid
+ * Cria uma barra de navegaÃ§Ã£o para um TDataGrid
  */
 class PageNavigation
 {
@@ -13,7 +13,7 @@ class PageNavigation
     private $totalRecords;
     
     /**
-     * método ()
+     * mÃ©todo ()
      *
      * @param  $xxxx    = xxxx
      */
@@ -23,7 +23,7 @@ class PageNavigation
     }
     
     /**
-     * método ()
+     * mÃ©todo ()
      *
      * @param  $xxxx    = xxxx
      */
@@ -33,7 +33,7 @@ class PageNavigation
     }
     
     /**
-     * método ()
+     * mÃ©todo ()
      *
      * @param  $xxxx    = xxxx
      */
@@ -43,7 +43,7 @@ class PageNavigation
     }
     
     /**
-     * método ()
+     * mÃ©todo ()
      *
      * @param  $xxxx    = xxxx
      */
@@ -53,7 +53,7 @@ class PageNavigation
     }
     
     /**
-     * método ()
+     * mÃ©todo ()
      *
      * @param  $xxxx    = xxxx
      */

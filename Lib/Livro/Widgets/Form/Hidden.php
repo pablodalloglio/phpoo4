@@ -3,12 +3,12 @@ Namespace Livro\Widgets\Form;
 
 /**
  * classe Hidden
- * classe para construção de campos escondidos
+ * classe para construÃ§Ã£o de campos escondidos
  */
-class Hidden extends Field implements WidgetInterface
+class Hidden extends Field implements FormElementInterface
 {
     /**
-     * método show()
+     * mÃ©todo show()
      * exibe o widget na tela
      */
     public function show()

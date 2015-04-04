@@ -3,14 +3,14 @@ Namespace Livro\Database;
 
 /*
  * classe Expression
- * classe abstrata para gerenciar expressıes
+ * classe abstrata para gerenciar express√µes
  */
 abstract class Expression
 {
-    // operadores lÛgicos
+    // operadores l√≥gicos
     const AND_OPERATOR = 'AND ';
     const OR_OPERATOR = 'OR ';
     
-    // marca mÈtodo dump como obrigatÛrio
+    // marca m√©todo dump como obrigat√≥rio
     abstract public function dump();
 }

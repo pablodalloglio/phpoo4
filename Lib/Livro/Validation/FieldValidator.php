@@ -1,6 +1,6 @@
 <?php
 /**
- * Classe abstrata para validação
+ * Classe abstrata para validaÃ§Ã£o
  */
 abstract class FieldValidator
 {
@@ -8,7 +8,7 @@ abstract class FieldValidator
      * Valida um valor
      * @param $label Nome do campo
      * @param $value Valor a ser validato
-     * @param $parameters Parâmetros adicionais de validação
+     * @param $parameters ParÃ¢metros adicionais de validaÃ§Ã£o
      */
     abstract public function validate($label, $value, $parameters = NULL);
 }

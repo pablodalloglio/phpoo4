@@ -1,14 +1,16 @@
 <?php
 Namespace Livro\Widgets\Container;
 
+use Livro\Widgets\Base\Element;
+
 /**
  * classe TableRow
- * reponsável pela exibição de uma linha de uma tabela
+ * reponsÃ¡vel pela exibiÃ§Ã£o de uma linha de uma tabela
  */
 class TableRow extends Element
 {
     /**
-     * método construtor
+     * mÃ©todo construtor
      * instancia uma nova linha
      */
     public function __construct()
@@ -17,13 +19,13 @@ class TableRow extends Element
     }
     
     /**
-     * método addCell
-     * agrega um novo objeto célula (TTableCell) à linha
-     * @param $value = conteúdo da célula
+     * mÃ©todo addCell
+     * agrega um novo objeto cÃ©lula (TTableCell) Ã  linha
+     * @param $value = conteÃºdo da cÃ©lula
      */
     public function addCell($value)
     {
-        // instancia objeto célula
+        // instancia objeto cÃ©lula
         $cell = new TableCell($value);
         parent::add($cell);
         

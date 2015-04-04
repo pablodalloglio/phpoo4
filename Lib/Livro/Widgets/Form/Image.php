@@ -1,24 +1,26 @@
 <?php
 Namespace Livro\Widgets\Form;
 
+use Livro\Widgets\Base\Element;
+
 /**
  * classe Image
- * classe para exibição de imagens
+ * classe para exibiÃ§Ã£o de imagens
  */
 class Image extends Element
 {
-    private $source; // localização da imagem
+    private $source; // localizaÃ§Ã£o da imagem
     
     /**
-     * método construtor
+     * mÃ©todo construtor
      * instancia objeto TImage
-     * @param $source = localização da imagem
+     * @param $source = localizaÃ§Ã£o da imagem
      */
     public function __construct($source)
     {
         parent::__construct('img');
         
-        // atribui a localização da imagem
+        // atribui a localizaÃ§Ã£o da imagem
         $this->src = $source;
         $this->border = 0;
     }

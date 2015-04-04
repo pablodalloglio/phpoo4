@@ -1,11 +1,13 @@
 <?php
 Namespace Livro\Widgets\Form;
 
+use Livro\Widgets\Base\Element;
+
 /**
  * classe TField
- * classe base para construÁ„o dos widgets para formul·ros
+ * classe base para constru√ß√£o dos widgets para formul√°ros
  */
-abstract class Field
+abstract class Field implements FormElementInterface
 {
     protected $name;
     protected $size;
@@ -15,40 +17,24 @@ abstract class Field
     protected $validations;
     
     /**
-     * mÈtodo construtor
+     * m√©todo construtor
      * instancia um campo do formulario
      * @param $name = nome do campo
      */
     public function __construct($name)
     {
-        // define algumas caracterÌsticas iniciais
+        // define algumas caracter√≠sticas iniciais
         self::setEditable(true);
         self::setName($name);
         self::setSize(200);
         
-        // Instancia um estilo CSS chamado tfield
-        // que ser· utilizado pelos campos do formul·rio
-        $style1 = new TStyle('tfield');
-        $style1->border          = 'solid';
-        $style1->border_color    = '#a0a0a0';
-        $style1->border_width    = '1px';
-        $style1->z_index         = '1';
-        $style2 = new TStyle('tfield_disabled');
-        $style2->border          = 'solid';
-        $style2->border_color    = '#a0a0a0';
-        $style2->border_width    = '1px';
-        $style2->background_color= '#e0e0e0';
-        $style2->color           = '#a0a0a0';
-        $style1->show();
-        $style2->show();
-        
         // cria uma tag HTML do tipo <input>
-        $this->tag = new TElement('input');
+        $this->tag = new Element('input');
         $this->tag->class = 'tfield';		  // classe CSS
     }
     
     /**
-     * mÈtodo setName()
+     * m√©todo setName()
      * define o nome do widget
      * @param $name     = nome do widget
      */
@@ -58,7 +44,7 @@ abstract class Field
     }
     
     /**
-     * mÈtodo getName()
+     * m√©todo getName()
      * retorna o nome do widget
      */
     public function getName()
@@ -67,7 +53,7 @@ abstract class Field
     }
     
     /**
-     * mÈtodo setValue()
+     * m√©todo setValue()
      * define o valor de um campo
      * @param $value    = valor do campo
      */
@@ -77,7 +63,7 @@ abstract class Field
     }
     
     /**
-     * mÈtodo getValue()
+     * m√©todo getValue()
      * retorna o valor de um campo
      */
     public function getValue()
@@ -86,8 +72,8 @@ abstract class Field
     }
     
     /**
-     * mÈtodo setEditable()
-     * define se o campo poder· ser editado
+     * m√©todo setEditable()
+     * define se o campo poder√° ser editado
      * @param $editable = TRUE ou FALSE
      */
     public function setEditable($editable)
@@ -96,7 +82,7 @@ abstract class Field
     }
     
     /**
-     * mÈtodo getEditable()
+     * m√©todo getEditable()
      * retorna o valor da propriedade $editable
      */
     public function getEditable()
@@ -105,7 +91,7 @@ abstract class Field
     }
     
     /**
-     * mÈtodo setProperty()
+     * m√©todo setProperty()
      * define uma propriedade para o campo
      * @param $name = nome da propriedade
      * @param $valor = valor da propriedade
@@ -117,7 +103,7 @@ abstract class Field
     }
     
     /**
-     * mÈtodo setSize()
+     * m√©todo setSize()
      * define a largura do widget
      * @param $width = largura em pixels
      * @param $height = altura em pixels (usada em TText)
@@ -131,7 +117,7 @@ abstract class Field
      * Adiciona um validador para o campo
      * @param $label nome do campo
      * @param $validator Validador TFieldValidator
-     * @param $parameters Par‚metros adicionais
+     * @param $parameters Par√¢metros adicionais
      */
     public function addValidation($label, IFieldValidator $validator, $parameters = NULL)
     {

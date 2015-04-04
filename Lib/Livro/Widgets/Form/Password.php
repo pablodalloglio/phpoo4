@@ -3,12 +3,12 @@ Namespace Livro\Widgets\Form;
 
 /**
  * classe Password
- * classe para construção de campos de digitação de senhas
+ * classe para construÃ§Ã£o de campos de digitaÃ§Ã£o de senhas
  */
-class Password extends Field implements WidgetInterface
+class Password extends Field implements FormElementInterface
 {
     /**
-     * método show()
+     * mÃ©todo show()
      * exibe o widget na tela
      */
     public function show()
@@ -19,7 +19,7 @@ class Password extends Field implements WidgetInterface
         $this->tag->type = 'password';          // tipo do input
         $this->tag->style = "width:{$this->size}";		 // tamanho em pixels
         
-        // se o campo não é editável
+        // se o campo nÃ£o Ã© editÃ¡vel
         if (!parent::getEditable())
         {
             $this->tag->readonly = "1";

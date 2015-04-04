@@ -8,7 +8,7 @@ Namespace Livro\Database;
 class LoggerHTML extends TLogger
 {
     /*
-     * método write()
+     * mÃ©todo write()
      * escreve uma mensagem no arquivo de LOG
      * @param $message = mensagem a ser escrita
      */

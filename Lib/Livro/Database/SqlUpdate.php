@@ -3,21 +3,21 @@ Namespace Livro\Database;
 
 /*
  * classe TSqlUpdate
- * Esta classe provê meios para manipulação de uma instrução de UPDATE no banco de dados
+ * Esta classe provÃª meios para manipulaÃ§Ã£o de uma instruÃ§Ã£o de UPDATE no banco de dados
  */
 final class SqlUpdate extends SqlInstruction
 {
     private $columnValues;
     
     /*
-     * método setRowData()
-     * Atribui valores à determinadas colunas no banco de dados que serão modificadas
+     * mÃ©todo setRowData()
+     * Atribui valores Ã  determinadas colunas no banco de dados que serÃ£o modificadas
      * @param $column = coluna da tabela
      * @param $value = valor a ser armazenado
      */
     public function setRowData($column, $value)
     {
-        // verifica se é um dado escalar (string, inteiro,...)
+        // verifica se Ã© um dado escalar (string, inteiro,...)
         if (is_scalar($value))
         {
             if (is_string($value) and (!empty($value)))
@@ -46,8 +46,8 @@ final class SqlUpdate extends SqlInstruction
     }
     
     /*
-     * método getInstruction()
-     * retorna a instrução de UPDATE em forma de string.
+     * mÃ©todo getInstruction()
+     * retorna a instruÃ§Ã£o de UPDATE em forma de string.
      */
     public function getInstruction()
     {
@@ -62,7 +62,7 @@ final class SqlUpdate extends SqlInstruction
             }
         }
         $this->sql .= ' SET ' . implode(', ', $set);
-        // retorna a cláusula WHERE do objeto $this->criteria
+        // retorna a clÃ¡usula WHERE do objeto $this->criteria
         if ($this->criteria)
         {
             $this->sql .= ' WHERE ' . $this->criteria->dump();

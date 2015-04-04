@@ -1,22 +1,20 @@
 <?php
-/*
- * classe Venda
- * Active Record para tabela Venda
- */
+use Livro\Database\Record;
+
 class Venda extends Record
 {
 	   const TABLENAME = 'venda';
 	   private $itens;	   // array de objetos do tipo Item
 	   /*
-	    * função addItem()
-	    * adiciona um item (produto) à venda
+	    * funÃ§Ã£o addItem()
+	    * adiciona um item (produto) Ã  venda
 	    */
 	   public function addItem(Item $item)
 	   {
 		      $this->itens[] = $item;
 	   }
 	   /*
-	    * função store()
+	    * funÃ§Ã£o store()
 	    * armazena uma venda e seus itens no banco de dados
 	    */
 	   public function store()
@@ -33,29 +31,29 @@ class Venda extends Record
 	  }
 
 	 /*
-	  * função get_itens()
+	  * funÃ§Ã£o get_itens()
 	  * retorna os itens da venda
 	  */
 	 public function get_itens()
 	 {
-		    // instancia um repositório de Item
+		    // instancia um repositÃ³rio de Item
 		    $repositorio = new TRepository('Item');
-		    // define o critério de seleção
+		    // define o critÃ©rio de seleÃ§Ã£o
 		    $criterio = new TCriteria;
 		    $criterio->add(new TFilter('id_venda', '=', $this->id));
-		    // carrega a coleção de itens
+		    // carrega a coleÃ§Ã£o de itens
 		    $this->itens = $repositorio->load($criterio);
 		    // retorna os itens
 		    return $this->itens;
 	 }
 	 /*
-	  * método get_cliente()
-	  * retorna o objeto cliente vinculado à venda
+	  * mÃ©todo get_cliente()
+	  * retorna o objeto cliente vinculado Ã  venda
 	  */
 	 function get_cliente()
 	 {
 		    // instancia Cliente, carrega
-		    // na memória o cliente de código $this->id_cliente
+		    // na memÃ³ria o cliente de cÃ³digo $this->id_cliente
 		    $cliente = new Cliente($this->id_cliente);
 		    // retorna o objeto instanciado
 		    return $cliente;

@@ -3,118 +3,98 @@ Namespace Livro\Core;
 
 class ClassLoader
 {
-    private $_fileExtension = '.php';
-    private $_namespace;
-    private $_includePath;
-    private $_namespaceSeparator = '\\';
+    protected $prefixes = array();
 
-    /**
-     * Creates a new <tt>SplClassLoader</tt> that loads classes of the
-     * specified namespace.
-     * 
-     * @param string $ns The namespace to use.
-     */
-    public function __construct($ns = null, $includePath = null)
-    {
-        $this->_namespace = $ns;
-        $this->_includePath = $includePath;
-    }
-
-    /**
-     * Sets the namespace separator used by classes in the namespace of this class loader.
-     * 
-     * @param string $sep The separator to use.
-     */
-    public function setNamespaceSeparator($sep)
-    {
-        $this->_namespaceSeparator = $sep;
-    }
-
-    /**
-     * Gets the namespace seperator used by classes in the namespace of this class loader.
-     *
-     * @return void
-     */
-    public function getNamespaceSeparator()
-    {
-        return $this->_namespaceSeparator;
-    }
-
-    /**
-     * Sets the base include path for all class files in the namespace of this class loader.
-     * 
-     * @param string $includePath
-     */
-    public function setIncludePath($includePath)
-    {
-        $this->_includePath = $includePath;
-    }
-
-    /**
-     * Gets the base include path for all class files in the namespace of this class loader.
-     *
-     * @return string $includePath
-     */
-    public function getIncludePath()
-    {
-        return $this->_includePath;
-    }
-
-    /**
-     * Sets the file extension of class files in the namespace of this class loader.
-     * 
-     * @param string $fileExtension
-     */
-    public function setFileExtension($fileExtension)
-    {
-        $this->_fileExtension = $fileExtension;
-    }
-
-    /**
-     * Gets the file extension of class files in the namespace of this class loader.
-     *
-     * @return string $fileExtension
-     */
-    public function getFileExtension()
-    {
-        return $this->_fileExtension;
-    }
-
-    /**
-     * Installs this class loader on the SPL autoload stack.
-     */
     public function register()
     {
         spl_autoload_register(array($this, 'loadClass'));
     }
 
-    /**
-     * Uninstalls this class loader from the SPL autoloader stack.
-     */
-    public function unregister()
+    public function addNamespace($prefix, $base_dir, $prepend = false)
     {
-        spl_autoload_unregister(array($this, 'loadClass'));
+        // normalize namespace prefix
+        $prefix = trim($prefix, '\\') . '\\';
+
+        // normalize the base directory with a trailing separator
+        $base_dir = rtrim($base_dir, DIRECTORY_SEPARATOR) . '/';
+
+        // initialize the namespace prefix array
+        if (isset($this->prefixes[$prefix]) === false) {
+            $this->prefixes[$prefix] = array();
+        }
+
+        // retain the base directory for the namespace prefix
+        if ($prepend) {
+            array_unshift($this->prefixes[$prefix], $base_dir);
+        } else {
+            array_push($this->prefixes[$prefix], $base_dir);
+        }
     }
 
-    /**
-     * Loads the given class or interface.
-     *
-     * @param string $className The name of the class to load.
-     * @return void
-     */
-    public function loadClass($className)
+    public function loadClass($class)
     {
-        if (null === $this->_namespace || $this->_namespace.$this->_namespaceSeparator === substr($className, 0, strlen($this->_namespace.$this->_namespaceSeparator))) {
-            $fileName = '';
-            $namespace = '';
-            if (false !== ($lastNsPos = strripos($className, $this->_namespaceSeparator))) {
-                $namespace = substr($className, 0, $lastNsPos);
-                $className = substr($className, $lastNsPos + 1);
-                $fileName = str_replace($this->_namespaceSeparator, DIRECTORY_SEPARATOR, $namespace) . DIRECTORY_SEPARATOR;
-            }
-            $fileName .= str_replace('_', DIRECTORY_SEPARATOR, $className) . $this->_fileExtension;
+        // the current namespace prefix
+        $prefix = $class;
 
-            require ($this->_includePath !== null ? $this->_includePath . DIRECTORY_SEPARATOR : '') . $fileName;
+        // work backwards through the namespace names of the fully-qualified
+        // class name to find a mapped file name
+        while (false !== $pos = strrpos($prefix, '\\')) {
+
+            // retain the trailing namespace separator in the prefix
+            $prefix = substr($class, 0, $pos + 1);
+
+            // the rest is the relative class name
+            $relative_class = substr($class, $pos + 1);
+
+            // try to load a mapped file for the prefix and relative class
+            $mapped_file = $this->loadMappedFile($prefix, $relative_class);
+            if ($mapped_file) {
+                return $mapped_file;
+            }
+
+            // remove the trailing namespace separator for the next iteration
+            // of strrpos()
+            $prefix = rtrim($prefix, '\\');   
         }
+
+        // never found a mapped file
+        return false;
+    }
+
+    protected function loadMappedFile($prefix, $relative_class)
+    {
+        // are there any base directories for this namespace prefix?
+        if (isset($this->prefixes[$prefix]) === false) {
+            return false;
+        }
+
+        // look through base directories for this namespace prefix
+        foreach ($this->prefixes[$prefix] as $base_dir) {
+
+            // replace the namespace prefix with the base directory,
+            // replace namespace separators with directory separators
+            // in the relative class name, append with .php
+            $file = $base_dir
+                  . str_replace('\\', '/', $relative_class)
+                  . '.php';
+
+            // if the mapped file exists, require it
+            if ($this->requireFile($file)) {
+                // yes, we're done
+                return $file;
+            }
+        }
+
+        // never found it
+        return false;
+    }
+
+    protected function requireFile($file)
+    {
+        if (file_exists($file)) {
+            require $file;
+            return true;
+        }
+        return false;
     }
 }

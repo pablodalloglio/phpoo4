@@ -3,14 +3,14 @@ Namespace Livro\Database;
 
 /*
  * classe TSqlSelect
- * Esta classe provê meios para manipulação de uma instrução de SELECT no banco de dados
+ * Esta classe provÃª meios para manipulaÃ§Ã£o de uma instruÃ§Ã£o de SELECT no banco de dados
  */
 final class SqlSelect extends SqlInstruction
 {
     private $columns;		   // array de colunas a serem retornadas.
     
     /*
-     * método addColumn
+     * mÃ©todo addColumn
      * adiciona uma coluna a ser retornada pelo SELECT
      * @param $column = coluna da tabela
      */
@@ -21,21 +21,21 @@ final class SqlSelect extends SqlInstruction
     }
     
     /*
-     * método getInstruction()
-     * retorna a instrução de SELECT em forma de string.
+     * mÃ©todo getInstruction()
+     * retorna a instruÃ§Ã£o de SELECT em forma de string.
      */
     public function getInstruction()
     {
-        // monta a instrução de SELECT
+        // monta a instruÃ§Ã£o de SELECT
         $this->sql = 'SELECT ';
         
         // monta string com os nomes de colunas
         $this->sql .= implode(',', $this->columns);
         
-        // adiciona na cláusula FROM o nome da tabela
+        // adiciona na clÃ¡usula FROM o nome da tabela
         $this->sql .= ' FROM ' . $this->entity;
         
-        // obtém a cláusula WHERE do objeto criteria.
+        // obtÃ©m a clÃ¡usula WHERE do objeto criteria.
         if ($this->criteria)
         {
             $expression = $this->criteria->dump();
@@ -44,12 +44,12 @@ final class SqlSelect extends SqlInstruction
                 $this->sql .= ' WHERE ' . $expression;
             }
             
-            // obtém as propriedades do critério
+            // obtÃ©m as propriedades do critÃ©rio
             $order = $this->criteria->getProperty('order');
             $limit = $this->criteria->getProperty('limit');
             $offset= $this->criteria->getProperty('offset');
             
-            // obtém a ordenação do SELECT
+            // obtÃ©m a ordenaÃ§Ã£o do SELECT
             if ($order)
             {
                 $this->sql .= ' ORDER BY ' . $order;

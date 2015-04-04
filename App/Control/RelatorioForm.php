@@ -1,32 +1,32 @@
 <?php
 /*
  * classe RelatorioForm
- * relatÛrio de vendas por perÌodo
+ * relat√≥rio de vendas por per√≠odo
  */
-class RelatorioForm extends TPage
+class RelatorioForm extends Page
 {
-    private $form;   // formul·rio de entrada
+    private $form;   // formul√°rio de entrada
 
     /*
-     * mÈtodo construtor
-     * cria a p·gina e o formul·rio de par‚metros
+     * m√©todo construtor
+     * cria a p√°gina e o formul√°rio de par√¢metros
      */
     public function __construct()
     {
         parent::__construct();
 
-        // instancia um formul·rio
+        // instancia um formul√°rio
         $this->form = new TForm('form_relat_vendas');
 
         // instancia uma tabela
-        $table = new TTable;
+        $table = new Table;
 
-        // adiciona a tabela ao formul·rio
+        // adiciona a tabela ao formul√°rio
         $this->form->add($table);
 
-        // cria os campos do formul·rio
-        $data_ini = new TEntry('data_ini');
-        $data_fim = new TEntry('data_fim');
+        // cria os campos do formul√°rio
+        $data_ini = new Entry('data_ini');
+        $data_fim = new Entry('data_fim');
 
         // define os tamanhos
         $data_ini->setSize(100);
@@ -34,80 +34,80 @@ class RelatorioForm extends TPage
 
         // adiciona uma linha para o campo data inicial
         $row=$table->addRow();
-        $row->addCell(new TLabel('Data Inicial:'));
+        $row->addCell(new Label('Data Inicial:'));
         $row->addCell($data_ini);
 
         // adiciona uma linha para o campo data final
         $row=$table->addRow();
-        $row->addCell(new TLabel('Data Final:'));
+        $row->addCell(new Label('Data Final:'));
         $row->addCell($data_fim);
 
-        // cria um bot„o de aÁ„o
-        $gera_button=new TButton('gera');
+        // cria um bot√£o de a√ß√£o
+        $gera_button=new Button('gera');
 
-        // define a aÁ„o do bo„o
-        $gera_button->setAction(new TAction(array($this, 'onGera')), 'Gerar RelatÛrio');
+        // define a a√ß√£o do bo√£o
+        $gera_button->setAction(new TAction(array($this, 'onGera')), 'Gerar Relat√≥rio');
 
-        // adiciona uma linha para a aÁ„o do formul·rio
+        // adiciona uma linha para a a√ß√£o do formul√°rio
         $row=$table->addRow();
         $row->addCell($gera_button);
 
-        // define quais s„o os campos do formul·rio
+        // define quais s√£o os campos do formul√°rio
         $this->form->setFields(array($data_ini, $data_fim, $gera_button));
 
-        // adiciona o formul·rio ‡ p·gina
+        // adiciona o formul√°rio √† p√°gina
         parent::add($this->form);
     }
 
     /*
-     * mÈtodo onGera
-     * gera o relatÛrio, baseado nos par‚metros do formul·rio
+     * m√©todo onGera
+     * gera o relat√≥rio, baseado nos par√¢metros do formul√°rio
      */
     function onGera()
     {
-        // obtÈm os dados do formul·rio
+        // obt√©m os dados do formul√°rio
         $dados = $this->form->getData();
 
-        // joga os dados de volta ao formul·rio
+        // joga os dados de volta ao formul√°rio
         $this->form->setData($dados);
 
-        // lÍ os campos do formul·rio, converte para o padr„o americano
+        // l√™ os campos do formul√°rio, converte para o padr√£o americano
         $data_ini = $this->conv_data_to_us($dados->data_ini);
         $data_fim = $this->conv_data_to_us($dados->data_fim);
 
         // instancia uma nova tabela
-        $table = new TTable;
+        $table = new Table;
         $table->border = 1;
         $table->width = '80%';
         $table->style = 'border-collapse:collapse';
 
-        // adiciona uma linha para o cabeÁalho do relatÛrio
+        // adiciona uma linha para o cabe√ßalho do relat√≥rio
         $row = $table->addRow();
         $row->bgcolor = '#a0a0a0';
 
-        // adiciona as cÈlulas ao cabeÁalho
+        // adiciona as c√©lulas ao cabe√ßalho
         $cell = $row->addCell('Data');
         $cell = $row->addCell('Cliente/Produtos');
         $cell = $row->addCell('Qtde');
 
         $cell->align = 'right';
-        $cell = $row->addCell('PreÁo');
+        $cell = $row->addCell('Pre√ßo');
         $cell->align = 'right';
         try
         {
-            // inicia transaÁ„o com o banco 'pg_livro'
-            TTransaction::open('pg_livro');
+            // inicia transa√ß√£o com o banco 'livro'
+            Transaction::open('livro');
 
-            // instancia um repositÛrio da classe Venda
-            $repositorio = new TRepository('Venda');
+            // instancia um reposit√≥rio da classe Venda
+            $repositorio = new Repository('Venda');
 
-            // cria um critÈrio de seleÁ„o por intervalo de datas
-            $criterio = new TCriteria;
+            // cria um crit√©rio de sele√ß√£o por intervalo de datas
+            $criterio = new Criteria;
             $criterio->add(new TFilter('data_venda', '>=', $data_ini));
             $criterio->add(new TFilter('data_venda', '<=', $data_fim));
             $criterio->setProperty('order', 'data_venda');
 
-            // lÍ todas vendas que satisfazem ao critÈrio
+            // l√™ todas vendas que satisfazem ao crit√©rio
             $vendas = $repositorio->load($criterio);
 
             // verifica se retornou algum objeto
@@ -116,11 +116,11 @@ class RelatorioForm extends TPage
                 // percorre as vendas
                 foreach ($vendas as $venda)
                 {
-                    // adiciona uma linha ‡ tabela e define suas propriedades
+                    // adiciona uma linha √† tabela e define suas propriedades
                     $row = $table->addRow();
                     $row->bgcolor = "#e0e0e0";
 
-                    // adiciona cÈlulas para data da venda e dados do cliente
+                    // adiciona c√©lulas para data da venda e dados do cliente
                     $cell = $row->addCell($this->conv_data_to_br($venda->data_venda));
                     $cell = $row->addCell($venda->id_cliente . ' : ' . $venda->cliente->nome);
                     $cell->colspan=3;
@@ -138,7 +138,7 @@ class RelatorioForm extends TPage
                             // adiciona uma linha para cada item da venda
                             $row = $table->addRow();
 
-                            // adiciona as cÈlulas com os dados do item
+                            // adiciona as c√©lulas com os dados do item
                             $cell = $row->addCell('');
                             $cell = $row->addCell($item->id_produto . ' : ' . $item->descricao);
                             $cell = $row->addCell($item->quantidade);
@@ -161,22 +161,22 @@ class RelatorioForm extends TPage
                     }
               }
             }
-            // finaliza a transaÁ„o
-            TTransaction::close();
+            // finaliza a transa√ß√£o
+            Transaction::close();
         }
-        catch (Exception $e)		     // em caso de exceÁ„o
+        catch (Exception $e)		     // em caso de exce√ß√£o
         {
-            // exibe a mensagem gerada pela exceÁ„o
-            new TMessage('error', $e->getMessage());
-            // desfaz todas alteraÁıes no banco de dados
-            TTransaction::rollback();
+            // exibe a mensagem gerada pela exce√ß√£o
+            new Message('error', $e->getMessage());
+            // desfaz todas altera√ß√µes no banco de dados
+            Transaction::rollback();
         }
-        // adiciona a tabela ‡ p·gina
+        // adiciona a tabela √† p√°gina
         parent::add($table);
     }
 
     /*
-     * mÈtodo conv_data_to_us()
+     * m√©todo conv_data_to_us()
      * Converte uma data para o formato yyyy-mm-dd
      * @param $data = data no formato dd/mm/yyyy
      */
@@ -189,7 +189,7 @@ class RelatorioForm extends TPage
     }
 
     /*
-     * mÈtodo conv_data_to_br()
+     * m√©todo conv_data_to_br()
      * Converte uma data para o formato dd/mm/yyyy
      * @param $data = data no formato yyyy-mm-dd
      */

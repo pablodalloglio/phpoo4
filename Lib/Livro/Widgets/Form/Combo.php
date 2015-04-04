@@ -1,22 +1,24 @@
 <?php
 Namespace Livro\Widgets\Form;
 
+use Livro\Widgets\Base\Element;
+
 /**
  * classe Combo
- * classe para construÁ„o de combo boxes
+ * classe para constru√ß√£o de combo boxes
  */
-class Combo extends Field implements WidgetInterface
+class Combo extends Field implements FormElementInterface
 {
     private $items; // array contendo os itens da combo
     
     /**
-     * mÈtodo construtor
+     * m√©todo construtor
      * instancia a combo box
      * @param $name = nome do campo
      */
     public function __construct($name)
     {
-        // executa o mÈtodo construtor da classe-pai.
+        // executa o m√©todo construtor da classe-pai.
         parent::__construct($name);
         
         // cria uma tag HTML do tipo <select>
@@ -25,8 +27,8 @@ class Combo extends Field implements WidgetInterface
     }
     
     /**
-     * mÈtodo addItems()
-     * adiciona items ‡ combo box
+     * m√©todo addItems()
+     * adiciona items √† combo box
      * @param $items = array de itens
      */
     public function addItems($items)
@@ -35,7 +37,7 @@ class Combo extends Field implements WidgetInterface
     }
     
     /**
-     * mÈtodo show()
+     * m√©todo show()
      * exibe o widget na tela
      */
     public function show()
@@ -44,12 +46,12 @@ class Combo extends Field implements WidgetInterface
         $this->tag->name = $this->name;      // nome da TAG
         $this->tag->style = "width:{$this->size}"; // tamanho em pixels
         
-        // cria uma TAG <option> com um valor padr„o
+        // cria uma TAG <option> com um valor padr√£o
         $option = new Element('option');
         $option->add('');
         $option->value = '0';    // valor da TAG
         
-        // adiciona a opÁ„o ‡ combo
+        // adiciona a op√ß√£o √† combo
         $this->tag->add($option);
         if ($this->items)
         {
@@ -58,21 +60,21 @@ class Combo extends Field implements WidgetInterface
             {
                 // cria uma TAG <option> para o item
                 $option = new Element('option');
-                $option->value = $chave; // define o Ìndice da opÁ„o
-                $option->add($item);     // adiciona o texto da opÁ„o
+                $option->value = $chave; // define o √≠ndice da op√ß√£o
+                $option->add($item);     // adiciona o texto da op√ß√£o
                 
-                // caso seja a opÁ„o selecionada
+                // caso seja a op√ß√£o selecionada
                 if ($chave == $this->value)
                 {
                     // seleciona o item da combo
                     $option->selected = 1;
                 }
-                // adiciona a opÁ„o ‡ combo
+                // adiciona a op√ß√£o √† combo
                 $this->tag->add($option);
             }
         }
         
-        // verifica se o campo È edit·vel
+        // verifica se o campo √© edit√°vel
         if (!parent::getEditable())
         {
             // desabilita a TAG input

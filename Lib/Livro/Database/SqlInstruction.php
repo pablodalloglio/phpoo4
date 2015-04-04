@@ -5,18 +5,18 @@ use Exception;
 
 /*
  * classe TSqlInstruction
- * Esta classe provê os métodos em comum entre todas instruções
+ * Esta classe provÃª os mÃ©todos em comum entre todas instruÃ§Ãµes
  * SQL (SELECT, INSERT, DELETE e UPDATE)
  */
 abstract class SqlInstruction
 {
-    protected $sql;		     // armazena a instrução SQL
-    protected $criteria;	 // armazena o objeto critério
+    protected $sql;		     // armazena a instruÃ§Ã£o SQL
+    protected $criteria;	 // armazena o objeto critÃ©rio
     protected $entity;
     
     /*
-     * método setEntity()
-     * define o nome da entidade (tabela) manipulada pela instrução SQL
+     * mÃ©todo setEntity()
+     * define o nome da entidade (tabela) manipulada pela instruÃ§Ã£o SQL
      * @param $entity = tabela
      */
     final public function setEntity($entity)
@@ -25,7 +25,7 @@ abstract class SqlInstruction
     }
     
     /*
-     * método getEntity()
+     * mÃ©todo getEntity()
      * retorna o nome da entidade (tabela)
      */
     final public function getEntity()
@@ -34,9 +34,9 @@ abstract class SqlInstruction
     }
     
     /*
-     * método setCriteria()
-     * Define um critério de seleção dos dados através da composição de um objeto
-     * do tipo Criteria, que oferece uma interface para definição de critérios
+     * mÃ©todo setCriteria()
+     * Define um critÃ©rio de seleÃ§Ã£o dos dados atravÃ©s da composiÃ§Ã£o de um objeto
+     * do tipo Criteria, que oferece uma interface para definiÃ§Ã£o de critÃ©rios
      * @param $criteria = objeto do tipo Criteria
      */
     public function setCriteria(Criteria $criteria)
@@ -45,9 +45,9 @@ abstract class SqlInstruction
     }
     
     /*
-     * método getInstruction()
-     * declarando-o como <abstract> obrigamos sua declaração nas classes filhas,
-     * uma vez que seu comportamento será distinto em cada uma delas, configurando polimorfismo.
+     * mÃ©todo getInstruction()
+     * declarando-o como <abstract> obrigamos sua declaraÃ§Ã£o nas classes filhas,
+     * uma vez que seu comportamento serÃ¡ distinto em cada uma delas, configurando polimorfismo.
      */
     abstract function getInstruction();
 }

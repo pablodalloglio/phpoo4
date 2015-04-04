@@ -1,13 +1,13 @@
 <?php
 /**
  * classe Session
- * gerencia uma seção com o usuário
+ * gerencia uma seÃ§Ã£o com o usuÃ¡rio
  */
 class Session
 {
     /**
-     * método construtor
-     * inicializa uma seção
+     * mÃ©todo construtor
+     * inicializa uma seÃ§Ã£o
      */
     public function __construct()
     {
@@ -15,9 +15,9 @@ class Session
     }
 
     /**
-     * método setValue()
-     * armazena uma variável na seção
-     * @param $var     = Nome da variável
+     * mÃ©todo setValue()
+     * armazena uma variÃ¡vel na seÃ§Ã£o
+     * @param $var     = Nome da variÃ¡vel
      * @param $value = Valor
      */
     public static function setValue($var, $value)
@@ -26,9 +26,9 @@ class Session
     }
 
     /**
-     * método getValue()
-     * retorna uma variável da seção
-     * @param $var = Nome da variável
+     * mÃ©todo getValue()
+     * retorna uma variÃ¡vel da seÃ§Ã£o
+     * @param $var = Nome da variÃ¡vel
      */
     public static function getValue($var)
     {
@@ -39,8 +39,8 @@ class Session
     }
 
     /**
-     * método freeSession()
-     * destrói os dados de uma seção
+     * mÃ©todo freeSession()
+     * destrÃ³i os dados de uma seÃ§Ã£o
      */
     public static function freeSession()
     {

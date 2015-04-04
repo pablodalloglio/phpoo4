@@ -5,17 +5,17 @@ use Livro\Control\Action;
 
 /**
  * class TDataGridAction
- * representa uma aÁ„o de uma listagem
+ * representa uma a√ß√£o de uma listagem
  */
-class DataGridAction extends Action
+class DatagridAction extends Action
 {
     private $image;
     private $label;
     private $field;
     
     /**
-     * mÈtodo setImage()
-     * atribui uma imagem ‡ aÁ„o
+     * m√©todo setImage()
+     * atribui uma imagem √† a√ß√£o
      * @param $image = local do arquivo de imagem
      */
     public function setImage($image)
@@ -24,8 +24,8 @@ class DataGridAction extends Action
     }
     
     /**
-     * mÈtodo getImage()
-     * retorna a imagem da aÁ„o
+     * m√©todo getImage()
+     * retorna a imagem da a√ß√£o
      */
     public function getImage()
     {
@@ -33,9 +33,9 @@ class DataGridAction extends Action
     }
     
     /**
-     * mÈtodo setLabel()
-     * define o rÛtulo de texto da aÁ„o
-     * @param $label = rÛtulo de texto da aÁ„o
+     * m√©todo setLabel()
+     * define o r√≥tulo de texto da a√ß√£o
+     * @param $label = r√≥tulo de texto da a√ß√£o
      */
     public function setLabel($label)
     {
@@ -43,8 +43,8 @@ class DataGridAction extends Action
     }
     
     /**
-     * mÈtodo getLabel()
-     * retorna o rÛtulo de texto da aÁ„o
+     * m√©todo getLabel()
+     * retorna o r√≥tulo de texto da a√ß√£o
      */
     public function getLabel()
     {
@@ -52,8 +52,8 @@ class DataGridAction extends Action
     }
     
     /**
-     * mÈtodo setField()
-     * define o nome do campo do banco de dados que ser· passado juntamente com a aÁ„o
+     * m√©todo setField()
+     * define o nome do campo do banco de dados que ser√° passado juntamente com a a√ß√£o
      * @param $field = nome do campo do banco de dados
      */
     public function setField($field)
@@ -62,8 +62,8 @@ class DataGridAction extends Action
     }
     
     /**
-     * mÈtodo getField()
-     * retorna o nome do campo de dados definido pelo mÈtodo setField()
+     * m√©todo getField()
+     * retorna o nome do campo de dados definido pelo m√©todo setField()
      */
     public function getField()
     {
