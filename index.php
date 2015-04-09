@@ -33,4 +33,4 @@ if ($_GET)
         }
     }
 }
-echo str_replace('#CONTENT#', $content, $template);
+echo str_replace('{content}', $content, $template);
