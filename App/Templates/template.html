@@ -1,122 +1,207 @@
-<style>
-body
-{
-    font-family: arial,verdana,sans-serif;
-    font-size: 10pt;
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-#inativo
-{
-    background-color: #E2EBED;
-    border-left: 2px solid white;
-    height: 20px;
-    padding-top: 5px;
-    padding-left: 4px;
-    margin-bottom: 2px;
-}
+    <meta charset="utf-8">
+    <title>PHPOO</title>
+    <script type="text/javascript" src="bootstrap.min.js"></script>
+    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
 
-#ativo
-{
-    background-color: #c0c0c0;
-    border-left: 2px solid red;
-    height: 20px;
-    padding-top: 5px;
-    padding-left: 4px;
-    margin-bottom: 2px;
-    cursor: pointer;
-}
+    <style type="text/css">
+        .navbar-static-top {
+            margin-bottom: 20px;
+        }
+        
+        i {
+            font-size: 18px;
+        }
+        
+        footer {
+            margin-top: 20px;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            background-color: #efefef;
+        }
+        
+        .nav>li .count {
+            position: absolute;
+            top: 10%;
+            right: 25%;
+            font-size: 10px;
+            font-weight: normal;
+            background: rgba(41, 200, 41, 0.75);
+            color: rgb(255, 255, 255);
+            line-height: 1em;
+            padding: 2px 4px;
+            -webkit-border-radius: 10px;
+            -moz-border-radius: 10px;
+            -ms-border-radius: 10px;
+            -o-border-radius: 10px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
 
-#pageheader
-{
-    border: none;
-    width:760px;
-    height:112;
-    overflow: none;
-    margin-bottom:0px;
-
-}
-
-#pagebody
-{
-    background-color: white;
-    width:760px;
-    border: 1px solid #999999;
-}
-
-
-#pageleft
-{
-    width:180;
-    margin-left: 0px;
-    margin-right: 0px;
-    float:left;
-    text-align:left;
-    border: 1px solid #000000;
-    font-size: 10pt;
-    font-family: arial,verdana,sans-serif;
-    font-weight: bold;
-}
-
-#pagecontent
-{
-    margin-right: 0px;
-    margin-left: 20px;
-    margin-top:0px;
-    width:550px;
-    
-    text-align:left;
-    color: #333333;
-}
-
-#pageboth
-{
-    clear:both;
-}
-</style>
 <body>
-<center>
-<div id="pageheader">
-    <img border=0 src='App/Images/pageheader.png'>
-</div>
+    <!-- Header -->
+    <div id="top-nav" class="navbar navbar-inverse navbar-static-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-toggle"></span>
+                </button>
+                <a class="navbar-brand" href="index.php">PHP Programando com Orientação a Objetos</a>
+            </div>
+        </div>
+        <!-- /container -->
+    </div>
+    <!-- /Header -->
 
-<div id="pagebody">
-    <div id="pageleft">
-        <div id='inativo'
-                OnMouseOver="this.id='ativo'" OnMouseOut="this.id='inativo'"
-                OnClick="document.location='?class=CidadesList'">
-        Cidades
+    <!-- Main -->
+    <div class="container">
+
+        <!-- upper section -->
+        <div class="row">
+            <div class="col-sm-3">
+                <!-- left -->
+                <h3><i class="glyphicon glyphicon-briefcase"></i> Menu </h3>
+                <hr>
+
+                <ul class="nav nav-stacked">
+                    <li><a href="javascript:;"><i class="glyphicon glyphicon-flash"></i> Alerts</a></li>
+                    <li><a href="javascript:;"><i class="glyphicon glyphicon-link"></i> Links</a></li>
+                    <li><a href="javascript:;"><i class="glyphicon glyphicon-list-alt"></i> Reports</a></li>
+                    <li><a href="javascript:;"><i class="glyphicon glyphicon-book"></i> Books</a></li>
+                </ul>
+
+            </div>
+            <!-- /span-3 -->
+            <div class="col-sm-9">
+
+                <!-- column 2 -->
+                <h3><i class="glyphicon glyphicon-dashboard"></i> Dashboard</h3>
+
+                <hr>
+
+                <div class="row">
+                    <!-- center left-->
+                    <div class="col-sm-9">
+                       sdf
+                    </div>
+                    <!--/col-->
+                </div>
+                <!--/row-->
+            </div>
+            <!--/col-span-9-->
+
         </div>
-        <div id='inativo'
-                OnMouseOver="this.id='ativo'" OnMouseOut="this.id='inativo'"
-                OnClick="document.location='?class=FabricantesList'">
-        Fabricantes
+        <!--/row-->
+        <!-- /upper section -->
+
+        <!-- lower section -->
+        <div class="row">
+
+            <div class="col-md-12">
+                <hr>
+                <a href="#"><strong><i class="glyphicon glyphicon-list-alt"></i> Reports</strong></a>
+                <hr>
+            </div>
+            <div class="col-md-8">
+
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Visits</th>
+                            <th>ROI</th>
+                            <th>Source</th>
+                            <th>Description and Notes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>45</td>
+                            <td>2.45%</td>
+                            <td>Direct</td>
+                            <td>Sam sapien massa, aliquam in cursus ut, ullamcorper in tortor. Aliquam mauris arcu, tristique a lobortis vitae, condimentum feugiat justo.</td>
+                        </tr>
+                        <tr>
+                            <td>289</td>
+                            <td>56.2%</td>
+                            <td>Referral</td>
+                            <td>After RWD massa, aliquam in cursus ut, ullamcorper in tortor. Aliquam mauris arcu, tristique a lobortis vitae, condimentum feugiat justo.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="panel-title">
+                            <i class="glyphicon glyphicon-wrench pull-right"></i>
+                            <h4>Submit Request</h4>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+
+                        <form class="form form-vertical">
+                            <div class="control-group">
+                                <label>Name</label>
+                                <div class="controls">
+                                    <input type="text" class="form-control" placeholder="Enter Name">
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label>Title</label>
+                                <div class="controls">
+                                    <input type="password" class="form-control" placeholder="Password">
+
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label>Details</label>
+                                <div class="controls">
+                                    <textarea class="form-control"></textarea>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label>Select</label>
+                                <div class="controls">
+                                    <select class="form-control">
+                                        <option>General Question</option>
+                                        <option>Server Issues</option>
+                                        <option>Billing Question</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label></label>
+                                <div class="controls">
+                                    <button type="submit" class="btn btn-primary">
+                                        Post
+                                    </button>
+                                </div>
+                            </div>
+
+                        </form>
+
+
+                    </div>
+                    <!--/panel content-->
+                </div>
+                <!--/panel-->
+
+            </div>
+            <!--/col-->
+
         </div>
-        <div id='inativo'
-                OnMouseOver="this.id='ativo'" OnMouseOut="this.id='inativo'"
-                OnClick="document.location='?class=ProdutosList'">
-        Produtos
-        </div>
-        <div id='inativo'
-                OnMouseOver="this.id='ativo'" OnMouseOut="this.id='inativo'"
-                OnClick="document.location='?class=ClientesList'">
-        Clientes
-        </div>
-        <div id='inativo'
-                OnMouseOver="this.id='ativo'" OnMouseOut="this.id='inativo'"
-                OnClick="document.location='?class=VendasForm'">
-        Vendas
-        </div>
-        <div id='inativo'
-                OnMouseOver="this.id='ativo'" OnMouseOut="this.id='inativo'"
-                OnClick="document.location='?class=RelatorioForm'">
-        Relat�rios
-        </div>
+        <!--/row-->
+
     </div>
-    
-    <div id="pagecontent">
-        #CONTENT#
-    </div>
-    
-    <div id="pageboth"></div>
-</div>
-</center>
+    <!--/container-->
+    <!-- /Main -->
+</body>
+
+</html>
