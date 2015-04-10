@@ -1,4 +1,10 @@
 <?php
+Namespace Livro\Validation;
+
+/**
+ * Validador de emails
+ * @author Pablo Dall'Oglio
+ */
 class EmailValidator extends FieldValidator
 {
     public function validate($label, $value, $parameters = NULL)

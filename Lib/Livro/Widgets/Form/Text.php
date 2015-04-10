@@ -2,8 +2,8 @@
 Namespace Livro\Widgets\Form;
 
 /**
- * classe Text
- * classe para construção de caixas de texto
+ * Representa uma caixa de texto
+ * @author Pablo Dall'Oglio
  */
 class Text extends Field implements FormElementInterface
 {
@@ -11,8 +11,7 @@ class Text extends Field implements FormElementInterface
     private $height;
     
     /**
-     * método construtor
-     * instancia um novo objeto
+     * Instancia um novo objeto
      * @param $name = nome do campo
      */
     public function __construct($name)
@@ -29,9 +28,8 @@ class Text extends Field implements FormElementInterface
     }
     
     /**
-     * método setSize()
-     * define o tamanho de um campo de texto
-     * @param $width     = largura
+     * Define o tamanho de um campo de texto
+     * @param $width  = largura
      * @param $height = altura
      */
     public function setSize($width, $height = NULL)
@@ -43,8 +41,8 @@ class Text extends Field implements FormElementInterface
         }
     }
     
-    /* método show()
-     * exibe o widget na tela
+    /**
+     * Exibe o widget na tela
      */
     public function show()
     {

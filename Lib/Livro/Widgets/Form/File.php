@@ -2,14 +2,13 @@
 Namespace Livro\Widgets\Form;
 
 /**
- * classe File
- * classe para construção de botões de seleção de arquivos
+ * Representa um componente de upload de arquivo
+ * @author Pablo Dall'Oglio
  */
 class File extends Field implements FormElementInterface
 {
     /**
-     * método show()
-     * exibe o widget na tela
+     * Exibe o widget na tela
      */
     public function show()
     {

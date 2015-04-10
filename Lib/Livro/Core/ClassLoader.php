@@ -1,6 +1,9 @@
 <?php
 Namespace Livro\Core;
 
+/**
+ * Carrega a classe do framework
+ */
 class ClassLoader
 {
     protected $prefixes = array();

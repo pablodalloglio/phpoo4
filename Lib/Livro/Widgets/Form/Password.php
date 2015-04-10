@@ -2,14 +2,13 @@
 Namespace Livro\Widgets\Form;
 
 /**
- * classe Password
- * classe para construção de campos de digitação de senhas
+ * Representa um campo para digitação de senhas
+ * @author Pablo Dall'Oglio
  */
 class Password extends Field implements FormElementInterface
 {
     /**
-     * método show()
-     * exibe o widget na tela
+     * Exibe o widget na tela
      */
     public function show()
     {

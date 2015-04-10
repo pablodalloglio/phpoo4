@@ -4,8 +4,8 @@ Namespace Livro\Widgets\Form;
 use Livro\Widgets\Base\Element;
 
 /**
- * classe TForm
- * classe para construção de formulários
+ * Representa um formulário
+ * @author Pablo Dall'Oglio
  */
 class Form
 {
@@ -13,8 +13,7 @@ class Form
     private   $name;        // nome do formulário
     
     /**
-     * método construtor
-     * instancia o formulário
+     * Instancia o formulário
      * @param $name = nome do formulário
      */
     public function __construct($name = 'my_form')
@@ -23,8 +22,7 @@ class Form
     }
     
     /**
-     * método setName()
-     * define o nome do formulário
+     * Define o nome do formulário
      * @param $name      = nome do formulário
      */
     public function setName($name)
@@ -33,8 +31,7 @@ class Form
     }
     
     /**
-     * método setEditable()
-     * define se o formulário poderá ser editado
+     * Define se o formulário poderá ser editado
      * @param $bool = TRUE ou FALSE
      */
     public function setEditable($bool)
@@ -49,8 +46,7 @@ class Form
     }
     
     /**
-     * método setFields()
-     * define quais são os campos do formulário
+     * Define quais são os campos do formulário
      * @param $fields = array de objetos TField
      */
     public function setFields($fields)
@@ -70,8 +66,7 @@ class Form
     }
     
     /**
-     * método getField()
-     * retorna um campo do formulário por seu nome
+     * Retorna um campo do formulário por seu nome
      * @param $name      = nome do campo
      */
     public function getField($name)
@@ -80,8 +75,7 @@ class Form
     }
     
     /**
-     * método setData()
-     * atribui dados aos campos do formulário
+     * Atribui dados aos campos do formulário
      * @param $object = objeto com dados
      */
     public function setData($object)
@@ -96,8 +90,7 @@ class Form
     }
     
     /**
-     * método getData()
-     * retorna os dados do formulário em forma de objeto
+     * Retorna os dados do formulário em forma de objeto
      */
     public function getData($class = 'StdClass')
     {
@@ -126,8 +119,7 @@ class Form
     }
     
     /**
-     * método add()
-     * adiciona um objeto no formulário
+     * Adiciona um objeto no formulário
      * @param $object = objeto a ser adicionado
      */
     public function add($object)
@@ -148,7 +140,6 @@ class Form
     }
     
     /**
-     * método show()
      * Exibe o formulário na tela
      */
     public function show()

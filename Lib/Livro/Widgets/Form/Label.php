@@ -4,8 +4,8 @@ Namespace Livro\Widgets\Form;
 use Livro\Widgets\Base\Element;
 
 /**
- * classe Label
- * classe para construção de rótulos de texto
+ * Representa um rótulo de texto
+ * @author Pablo Dall'Oglio
  */
 class Label extends Field implements FormElementInterface
 {
@@ -14,8 +14,8 @@ class Label extends Field implements FormElementInterface
     protected $id;
     
     /**
-     * Class Constructor
-     * @param  $value text label
+     * Construtor
+     * @param $value text label
      */
     public function __construct($value)
     {
@@ -29,11 +29,9 @@ class Label extends Field implements FormElementInterface
         $this->tag = new Element('label');
     }
     
-    public function add($value)
-    {
-        $this->tag->add($value);
-    }
-    
+    /**
+     * Exibe o widget
+     */
     public function show()
     {
         $this->tag->add($this->value);

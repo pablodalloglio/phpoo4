@@ -2,14 +2,13 @@
 Namespace Livro\Widgets\Form;
 
 /**
- * classe Hidden
- * classe para construção de campos escondidos
+ * Representa um campo escondido
+ * @author Pablo Dall'Oglio
  */
 class Hidden extends Field implements FormElementInterface
 {
     /**
-     * método show()
-     * exibe o widget na tela
+     * Exibe o widget na tela
      */
     public function show()
     {

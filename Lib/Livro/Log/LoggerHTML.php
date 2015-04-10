@@ -1,15 +1,14 @@
 <?php
 Namespace Livro\Database;
 
-/*
- * classe LoggerHTML
- * implementa o algoritmo de LOG em HTML
+/**
+ * Implementa o algoritmo de LOG em HTML
+ * @author Pablo Dall'Oglio
  */
 class LoggerHTML extends TLogger
 {
-    /*
-     * método write()
-     * escreve uma mensagem no arquivo de LOG
+    /**
+     * Escreve uma mensagem no arquivo de LOG
      * @param $message = mensagem a ser escrita
      */
     public function write($message)

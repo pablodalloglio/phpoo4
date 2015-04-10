@@ -2,8 +2,8 @@
 Namespace Livro\Widgets\Form;
 
 /**
- * classe RadioGroup
- * classe para exibição de um grupo de Radio Buttons
+ * Representa um grupo de Radio Buttons
+ * @author Pablo Dall'Oglio
  */
 class RadioGroup extends Field implements FormElementInterface
 {
@@ -11,8 +11,7 @@ class RadioGroup extends Field implements FormElementInterface
     private $items;
     
     /**
-     * método setLayout()
-     * define a direção das opções (vertical ou horizontal)
+     * Define a direção das opções (vertical ou horizontal)
      */
     public function setLayout($dir)
     {
@@ -20,8 +19,7 @@ class RadioGroup extends Field implements FormElementInterface
     }
     
     /**
-     * método addItems($items)
-     * adiciona itens (botões de rádio)
+     * Adiciona itens (botões de rádio)
      * @param $items = array indexado contendo os itens
      */
     public function addItems($items)
@@ -30,8 +28,7 @@ class RadioGroup extends Field implements FormElementInterface
     }
     
     /**
-     * método show()
-     * exibe o widget na tela
+     * Exibe o widget na tela
      */
     public function show()
     {

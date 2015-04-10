@@ -1,17 +1,16 @@
 <?php
 Namespace Livro\Database;
 
-/*
- * classe TSqlSelect
- * Esta classe provê meios para manipulação de uma instrução de SELECT no banco de dados
+/**
+ * Representa uma instrução de SELECT no banco de dados
+ * @author Pablo Dall'Oglio
  */
 final class SqlSelect extends SqlInstruction
 {
     private $columns;		   // array de colunas a serem retornadas.
     
-    /*
-     * método addColumn
-     * adiciona uma coluna a ser retornada pelo SELECT
+    /**
+     * Adiciona uma coluna a ser retornada pelo SELECT
      * @param $column = coluna da tabela
      */
     public function addColumn($column)
@@ -20,9 +19,8 @@ final class SqlSelect extends SqlInstruction
         $this->columns[] = $column;
     }
     
-    /*
-     * método getInstruction()
-     * retorna a instrução de SELECT em forma de string.
+    /**
+     * Retorna a instrução de SELECT em forma de string.
      */
     public function getInstruction()
     {

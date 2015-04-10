@@ -1,9 +1,9 @@
 <?php
 Namespace Livro\Database;
 
-/*
- * classe Expression
- * classe abstrata para gerenciar expressões
+/**
+ * Classe abstrata para permitir definição de expressões
+ * @author Pablo Dall'Oglio
  */
 abstract class Expression
 {

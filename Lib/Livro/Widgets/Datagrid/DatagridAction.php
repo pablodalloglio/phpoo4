@@ -4,8 +4,8 @@ Namespace Livro\Widgets\Datagrid;
 use Livro\Control\Action;
 
 /**
- * class TDataGridAction
- * representa uma ação de uma listagem
+ * Representa uma ação de uma datagrid
+ * @author Pablo Dall'Oglio
  */
 class DatagridAction extends Action
 {
@@ -14,8 +14,7 @@ class DatagridAction extends Action
     private $field;
     
     /**
-     * método setImage()
-     * atribui uma imagem à ação
+     * Atribui uma imagem à ação
      * @param $image = local do arquivo de imagem
      */
     public function setImage($image)
@@ -24,8 +23,7 @@ class DatagridAction extends Action
     }
     
     /**
-     * método getImage()
-     * retorna a imagem da ação
+     * Retorna a imagem da ação
      */
     public function getImage()
     {
@@ -33,8 +31,7 @@ class DatagridAction extends Action
     }
     
     /**
-     * método setLabel()
-     * define o rótulo de texto da ação
+     * Define o rótulo de texto da ação
      * @param $label = rótulo de texto da ação
      */
     public function setLabel($label)
@@ -43,8 +40,7 @@ class DatagridAction extends Action
     }
     
     /**
-     * método getLabel()
-     * retorna o rótulo de texto da ação
+     * Retorna o rótulo de texto da ação
      */
     public function getLabel()
     {
@@ -52,8 +48,7 @@ class DatagridAction extends Action
     }
     
     /**
-     * método setField()
-     * define o nome do campo do banco de dados que será passado juntamente com a ação
+     * Define o nome do campo que será passado juntamente com a ação
      * @param $field = nome do campo do banco de dados
      */
     public function setField($field)
@@ -62,8 +57,7 @@ class DatagridAction extends Action
     }
     
     /**
-     * método getField()
-     * retorna o nome do campo de dados definido pelo método setField()
+     * Retorna o nome do campo definido pelo método setField()
      */
     public function getField()
     {

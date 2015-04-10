@@ -3,23 +3,21 @@ Namespace Livro\Database;
 
 use Livro\Log\Logger;
 
-/*
- * classe TTransaction
- * esta classe provê os métodos necessários manipular transações
+/**
+ * Fornece os métodos necessários manipular transações
+ * @author Pablo Dall'Oglio
  */
 final class Transaction
 {
     private static $conn;   // conexão ativa
     private static $logger; // objeto de LOG
     
-    /*
-     * método __construct()
-     * Está declarado como private para impedir que se crie instâncias de TTransaction
+    /**
+     * Private para impedir que se crie instâncias de TTransaction
      */
     private function __construct() {}
     
-    /*
-     * método open()
+    /**
      * Abre uma transação e uma conexão ao BD
      * @param $database = nome do banco de dados
      */
@@ -36,9 +34,8 @@ final class Transaction
         }
     }
     
-    /*
-     * método get()
-     * retorna a conexão ativa da transação
+    /**
+     * Retorna a conexão ativa da transação
      */
     public static function get()
     {
@@ -46,9 +43,8 @@ final class Transaction
         return self::$conn;
     }
     
-    /*
-     * método rollback()
-     * desfaz todas operações realizadas na transação
+    /**
+     * Desfaz todas operações realizadas na transação
      */
     public static function rollback()
     {
@@ -60,34 +56,29 @@ final class Transaction
         }
     }
     
-    /*
-     * método close()
+    /**
      * Aplica todas operações realizadas e fecha a transação
      */
     public static function close()
     {
         if (self::$conn)
         {
-            // aplica as operações realizadas
-            // durante a transação
+            // aplica as operações realizadas durante a transação
             self::$conn->commit();
             self::$conn = NULL;
         }
     }
     
-    /*
-     * método setLogger()
-     * define qual estratégia (algoritmo de LOG será usado)
+    /**
+     * Define qual estratégia (algoritmo de LOG será usado)
      */
     public static function setLogger(LoggerInterface $logger)
     {
         self::$logger = $logger;
     }
     
-    /*
-     * método log()
-     * armazena uma mensagem no arquivo de LOG
-     * baseada na estratégia ($logger) atual
+    /**
+     * Armazena uma mensagem no arquivo de LOG conforme o logger atual
      */
     public static function log($message)
     {

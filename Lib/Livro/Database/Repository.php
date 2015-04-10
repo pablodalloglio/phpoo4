@@ -3,16 +3,16 @@ Namespace Livro\Database;
 
 use Exception;
 
-/*
- * classe Repository
- * esta classe provê os métodos necessários para manipular coleções de objetos.
+/**
+ * Manipular coleções de objetos.
+ * @author Pablo Dall'Oglio
  */
 final class Repository
 {
     private $class; // nome da classe manipulada pelo repositório
     
-    /* método __construct()
-     * instancia um Repositório de objetos
+    /**
+     * Instancia um Repositório de objetos
      * @param $class = Classe dos Objetos
      */
     function __construct($class)
@@ -20,15 +20,12 @@ final class Repository
         $this->class = $class;
     }
     
-    /*
-     * método load()
-     * Recuperar um conjunto de objetos (collection) da base de dados
-     * através de um critério de seleção, e instanciá-los em memória
+    /**
+     * Carrega um conjunto de objetos (collection) da base de dados
      * @param $criteria = objeto do tipo TCriteria
      */
     function load(Criteria $criteria)
     {
-        
         // instancia a instrução de SELECT
         $sql = new SqlSelect;
         $sql->addColumn('*');
@@ -65,10 +62,8 @@ final class Repository
         }
     }
     
-    /*
-     * método delete()
+    /**
      * Excluir um conjunto de objetos (collection) da base de dados
-     * através de um critério de seleção.
      * @param $criteria = objeto do tipo Criteria
      */
     function delete(Criteria $criteria)
@@ -97,8 +92,7 @@ final class Repository
         }
     }
     
-    /*
-     * método count()
+    /**
      * Retorna a quantidade de objetos da base de dados
      * que satisfazem um determinado critério de seleção.
      * @param $criteria = objeto do tipo TCriteria

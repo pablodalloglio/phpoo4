@@ -4,14 +4,13 @@ Namespace Livro\Widgets\Dialog;
 use Livro\Control\Action;
 
 /**
- * classe TQuestion
  * Exibe perguntas ao usuário
+ * @author Pablo Dall'Oglio
  */
 class Question
 {
     /**
-     * método construtor
-     * instancia objeto TQuestion
+     * Instancia questionamento
      * @param $message = pergunta ao usuário
      * @param $action_yes = ação para resposta positiva
      * @param $action_no = ação para resposta negativa

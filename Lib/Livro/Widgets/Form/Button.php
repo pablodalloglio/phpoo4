@@ -4,8 +4,9 @@ Namespace Livro\Widgets\Form;
 use Livro\Control\Action;
 use Livro\Control\ActionInterface;
 
-/* classe Button
- * responsável por exibir um botão
+/**
+ * Representa um botão
+ * @author Pablo Dall'Oglio
  */
 class Button extends Field implements FormElementInterface
 {
@@ -14,7 +15,7 @@ class Button extends Field implements FormElementInterface
     private $formName;
     
     /**
-     * Create a button with icon and action
+     * Cria o botão com ícone e ação
      */
     public static function create($name, $callback, $label, $image)
     {
@@ -25,8 +26,7 @@ class Button extends Field implements FormElementInterface
     }
     
     /**
-     * método setAction
-     * define a ação do botão (função a ser executada)
+     * Define a ação do botão (função a ser executada)
      * @param $action = ação do botão
      * @param $label    = rótulo do botão
      */
@@ -37,20 +37,17 @@ class Button extends Field implements FormElementInterface
     }
     
     /**
-     * método setFormName
-     * define o nome do formulário para a ação botão
+     * Define o nome do formulário para a ação botão
      * @param $name = nome do formulário
      */
     public function setFormName($name)
     {
         $this->formName = $name;
-        
     }
     
     /**
-    * método show()
-    * exibe o botão
-    */
+     * exibe o botão
+     */
     public function show()
     {
         $url = $this->action->serialize();

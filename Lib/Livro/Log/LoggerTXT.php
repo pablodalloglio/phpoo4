@@ -1,15 +1,14 @@
 <?php
 Namespace Livro\Database;
 
-/*
- * classe LoggerTXT
- * implementa o algoritmo de LOG em TXT
+/**
+ * Implementa o algoritmo de LOG em TXT
+ * @author Pablo Dall'Oglio
  */
 class LoggerTXT extends TLogger
 {
-    /*
-     * método write()
-     * escreve uma mensagem no arquivo de LOG
+    /**
+     * Escreve uma mensagem no arquivo de LOG
      * @param $message = mensagem a ser escrita
      */
     public function write($message)

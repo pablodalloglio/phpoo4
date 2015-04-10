@@ -3,17 +3,16 @@ Namespace Livro\Database;
 
 use Exception;
 
-/*
- * classe Record
- * Esta classe provê os métodos necessários para persistir e
- * recuperar objetos da base de dados (Active Record)
+/**
+ * Permite definir um Active Record
+ * @author Pablo Dall'Oglio
  */
-abstract class Record
+abstract class Record implements RecordInterface
 {
     protected $data; // array contendo os dados do objeto
     
-    /* método __construct()
-     * instancia um Active Record. Se passado o $id, já carrega o objeto
+    /**
+     * Instancia um Active Record. Se passado o $id, já carrega o objeto
      * @param [$id] = ID do objeto
      */
     public function __construct($id = NULL)
@@ -29,19 +28,16 @@ abstract class Record
         }
     }
     
-    /*
-     * método __clone()
-     * executado quando o objeto for clonado.
-     * limpa o ID para que seja gerado um novo ID para o clone.
+    /**
+     * Limpa o ID para que seja gerado um novo ID para o clone.
      */
     public function __clone()
     {
         unset($this->id);
     }
     
-    /*
-     * método __set()
-     * executado sempre que uma propriedade for atribuída.
+    /**
+     * Executado sempre que uma propriedade for atribuída.
      */
     public function __set($prop, $value)
     {
@@ -65,9 +61,8 @@ abstract class Record
         }
     }
     
-    /*
-     * método __get()
-     * executado sempre que uma propriedade for requerida
+    /**
+     * Executado sempre que uma propriedade for requerida
      */
     public function __get($prop)
     {
@@ -87,9 +82,8 @@ abstract class Record
         }
     }
     
-    /*
-     * método getEntity()
-     * retorna o nome da entidade (tabela)
+    /**
+     * Retorna o nome da entidade (tabela)
      */
     private function getEntity()
     {
@@ -100,28 +94,24 @@ abstract class Record
         return constant("{$class}::TABLENAME");
     }
     
-    /*
-     * método fromArray
-     * preenche os dados do objeto com um array
+    /**
+     * Preenche os dados do objeto com um array
      */
     public function fromArray($data)
     {
         $this->data = $data;
     }
     
-    /*
-     * método toArray
-     * retorna os dados do objeto como array
+    /**
+     * Retorna os dados do objeto como array
      */
     public function toArray()
     {
         return $this->data;
     }
     
-    /*
-     * método store()
-     * armazena o objeto na base de dados e retorna
-     * o número de linhas afetadas pela instrução SQL (zero ou um)
+    /**
+     * Armazena o objeto na base de dados
      */
     public function store()
     {
@@ -164,9 +154,9 @@ abstract class Record
                 
             }
         }
+        
         // obtém transação ativa
         if ($conn = Transaction::get())
-        
         {
             // faz o log e executa o SQL
             Transaction::log($sql->getInstruction());
@@ -182,9 +172,7 @@ abstract class Record
     }
     
     /*
-     * método load()
-     * recupera (retorna) um objeto da base de dados
-     * através de seu ID e instancia ele na memória
+     * Recupera (retorna) um objeto da base de dados pelo seu ID
      * @param $id = ID do objeto
      */
     public function load($id)
@@ -223,9 +211,8 @@ abstract class Record
         }
     }
     
-    /*
-     * método delete()
-     * exclui um objeto da base de dados através de seu ID.
+    /**
+     * Exclui um objeto da base de dados através de seu ID.
      * @param $id = ID do objeto
      */
     public function delete($id = NULL)
@@ -260,9 +247,8 @@ abstract class Record
         }
     }
     
-    /*
-     * método getLast()
-     * retorna o último ID
+    /**
+     * Retorna o último ID
      */
     private function getLast()
     {

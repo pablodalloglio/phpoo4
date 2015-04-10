@@ -4,23 +4,21 @@ Namespace Livro\Control;
 use Livro\Widgets\Base\Element;
 
 /**
- * classe Page
- * classe para controle do fluxo de execução
+ * Encapsula uma página
+ * @author Pablo Dall'Oglio
  */
 class Page extends Element
 {
     /**
-     * método __construct()
+     * Define o elemento wrapper
      */
     public function __construct()
     {
-        // define o elemento que irá representar
         parent::__construct('div');
     }
     
     /**
-     * método show()
-     * exibe o conteúdo da página
+     * Exibe o conteúdo da página
      */
     public function show()
     {
@@ -29,8 +27,7 @@ class Page extends Element
     }
     
     /**
-     * método run()
-     * executa determinado método de acordo com os parâmetros recebidos
+     * Executa determinado método de acordo com os parâmetros recebidos
      */
     public function run()
     {
@@ -38,6 +35,7 @@ class Page extends Element
         {
             $class = isset($_GET['class']) ? $_GET['class'] : NULL;
             $method = isset($_GET['method']) ? $_GET['method'] : NULL;
+            
             if ($class)
             {
                 $object = $class == get_class($this) ? $this : new $class;
@@ -45,10 +43,6 @@ class Page extends Element
                 {
                     call_user_func(array($object, $method), $_GET);
                 }
-            }
-            else if (function_exists($method))
-            {
-                call_user_func($method, $_GET);
             }
         }
     }

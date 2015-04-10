@@ -4,16 +4,15 @@ Namespace Livro\Widgets\Form;
 use Livro\Widgets\Base\Element;
 
 /**
- * classe Image
- * classe para exibição de imagens
+ * Representa uma imagem
+ * @author Pablo Dall'Oglio
  */
 class Image extends Element
 {
     private $source; // localização da imagem
     
     /**
-     * método construtor
-     * instancia objeto TImage
+     * Instancia uma imagem
      * @param $source = localização da imagem
      */
     public function __construct($source)

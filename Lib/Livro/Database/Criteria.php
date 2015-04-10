@@ -1,9 +1,9 @@
 <?php
 Namespace Livro\Database;
 
-/*
- * classe Criteria
- * Esta classe provê uma interface utilizada para definição de critérios
+/**
+ * Permite definição de critérios
+ * @author Pablo Dall'Oglio
  */
 class Criteria extends Expression
 {
@@ -11,7 +11,7 @@ class Criteria extends Expression
     private $operators;     // armazena a lista de operadores
     private $properties;    // propriedades do critério
     
-    /*
+    /**
      * Método Construtor
      */
     function __construct()
@@ -20,11 +20,10 @@ class Criteria extends Expression
         $this->operators = array();
     }
     
-    /*
-     * método add()
-     * adiciona uma expressão ao critério
+    /**
+     * Adiciona uma expressão ao critério
      * @param $expression = expressão (objeto Expression)
-     * @param $operator     = operador lógico de comparação
+     * @param $operator   = operador lógico de comparação
      */
     public function add(Expression $expression, $operator = self::AND_OPERATOR)
     {
@@ -39,9 +38,8 @@ class Criteria extends Expression
         $this->operators[]    = $operator;
     }
     
-    /*
-     * método dump()
-     * retorna a expressão final
+    /**
+     * Retorna a expressão final
      */
     public function dump()
     {
@@ -63,11 +61,10 @@ class Criteria extends Expression
         }
     }
     
-    /*
-     * método setProperty()
-     * define o valor de uma propriedade
+    /**
+     * Define o valor de uma propriedade
      * @param $property = propriedade
-     * @param $value      = valor
+     * @param $value    = valor
      */
     public function setProperty($property, $value)
     {
@@ -81,9 +78,8 @@ class Criteria extends Expression
         }
     }
     
-    /*
-     * método getProperty()
-     * retorna o valor de uma propriedade
+    /**
+     * Retorna o valor de uma propriedade
      * @param $property = propriedade
      */
     public function getProperty($property)

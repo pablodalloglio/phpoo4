@@ -2,12 +2,11 @@
 Namespace Livro\Widgets\Datagrid;
 
 use Livro\Widgets\Container\Table;
-
 use Livro\Widgets\Base\Element;
 
 /**
- * classe Datagrid
- * classe para construção de Listagens
+ * Representa uma Datagrid
+ * @author Pablo Dall'Oglio
  */
 class Datagrid extends Table
 {
@@ -16,8 +15,7 @@ class Datagrid extends Table
     private $rowcount;
     
     /**
-     * método __construct()
-     * instancia uma nova DataGrid
+     * Instancia uma nova Datagrid
      */
     public function __construct()
     {
@@ -26,8 +24,7 @@ class Datagrid extends Table
     }
     
     /**
-     * método addColumn()
-     * adiciona uma coluna à listagem
+     * Adiciona uma coluna à datagrid
      * @param $object = objeto do tipo DatagridColumn
      */
     public function addColumn(DatagridColumn $object)
@@ -36,8 +33,7 @@ class Datagrid extends Table
     }
     
     /**
-     * método addAction()
-     * adiciona uma ação à listagem
+     * Adiciona uma ação à datagrid
      * @param $object = objeto do tipo DatagridAction
      */
     public function addAction(DatagridAction $object)
@@ -46,8 +42,7 @@ class Datagrid extends Table
     }
     
     /**
-     * método clear()
-     * elimina todas linhas de dados da DataGrid
+     * Elimina todas linhas de dados da DataGrid
      */
     function clear()
     {
@@ -65,8 +60,7 @@ class Datagrid extends Table
     }
     
     /**
-     * método createModel()
-     * cria a estrutura da Grid, com seu cabeçalho
+     * Cria a estrutura da Grid, com seu cabeçalho
      */
     public function createModel()
     {
@@ -114,8 +108,7 @@ class Datagrid extends Table
     }
     
     /**
-     * método addItem()
-     * adiciona um objeto na grid
+     * Adiciona um objeto na grid
      * @param $object = Objeto que contém os dados
      */
     public function addItem($object)

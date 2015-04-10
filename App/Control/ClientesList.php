@@ -14,6 +14,7 @@ use Livro\Widgets\Dialog\Message;
 use Livro\Database\Transaction;
 use Livro\Database\Repository;
 use Livro\Database\Criteria;
+use Livro\Database\Filter;
 
 /*
  * classe ClientesList
@@ -141,7 +142,7 @@ class ClientesList extends Page
         if ($dados->nome)
         {
             // filtra pelo nome do cliente
-            $criteria->add(new TFilter('nome', 'like', "%{$dados->nome}%"));
+            $criteria->add(new Filter('nome', 'like', "%{$dados->nome}%"));
         }
 
         // carrega os produtos que satisfazem o critério

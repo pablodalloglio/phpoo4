@@ -4,21 +4,19 @@ Namespace Livro\Database;
 use PDO;
 use Exception;
 
-/*
- * classe Connection
- * gerencia conexões com bancos de dados através de arquivos de configuração.
+/**
+ * Cria conexões com bancos de dados
+ * @author Pablo Dall'Oglio
  */
 final class Connection
 {
-    /*
-     * método __construct()
-     * não existirão instâncias de TConnection, por isto estamos marcando-o como private
+    /**
+     * Não podem existir instâncias de TConnection
      */
     private function __construct() {}
     
-    /*
-     * método open()
-     * recebe o nome do banco de dados e instancia o objeto PDO correspondente
+    /**
+     * Recebe o nome do conector de BD e instancia o objeto PDO
      */
     public static function open($name)
     {
@@ -69,7 +67,6 @@ final class Connection
         }
         // define para que o PDO lance exceções na ocorrência de erros
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        // retorna o objeto instanciado.
         return $conn;
     }
 }

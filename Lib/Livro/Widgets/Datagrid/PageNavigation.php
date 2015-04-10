@@ -2,8 +2,8 @@
 Namespace Livro\Widgets\Datagrid;
 
 /**
- * classe PageNavigation
- * Cria uma barra de navegação para um TDataGrid
+ * Representa a paginação de uma datagrid
+ * @author Pablo Dall'Oglio
  */
 class PageNavigation
 {

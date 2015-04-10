@@ -4,14 +4,13 @@ Namespace Livro\Widgets\Container;
 use Livro\Widgets\Base\Element;
 
 /**
- * classe Table
- * responsável pela exibição de tabelas
+ * Representa uma tabela
+ * @author Pablo Dall'Oglio
  */
 class Table extends Element
 {
     /**
-     * método construtor
-     * instancia uma nova tabela
+     * Instancia uma nova tabela
      */
     public function __construct()
     {
@@ -19,8 +18,7 @@ class Table extends Element
     }
     
     /**
-     * método addRow
-     * agrega um novo objeto linha (TableRow) na tabela
+     * Agrega um novo objeto linha (TableRow) na tabela
      */
     public function addRow()
     {
