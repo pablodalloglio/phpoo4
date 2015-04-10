@@ -16,6 +16,7 @@ abstract class Field implements FormElementInterface
     protected $editable;
     protected $tag;
     protected $validations;
+    protected $formLabel;
     
     /**
      * Instancia um campo do formulario
@@ -74,6 +75,24 @@ abstract class Field implements FormElementInterface
         return $this->name;
     }
     
+    /**
+     * Define o label do widget
+     * @param $label = widget label
+     */
+    public function setLabel($label)
+    {
+        $this->formLabel = $label;
+    }
+    
+    /**
+     * Retorna o label do widget
+     */
+    public function getLabel()
+    {
+        return $this->formLabel;
+    }
+
+
     /**
      * Define o valor de um campo
      * @param $value    = valor do campo

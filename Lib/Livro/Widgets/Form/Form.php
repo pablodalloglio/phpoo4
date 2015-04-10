@@ -28,10 +28,11 @@ class Form extends Element
     {
         parent::__construct('form');
         $this->enctype = "multipart/form-data";
-        $this->method = 'post';    // método de transferência
+        $this->method  = 'post';    // método de transferência
         $this->setName($name);
         
         $this->table = new Table;
+        $this->table->width = '100%';
         parent::add($this->table);
     }
     
@@ -42,6 +43,14 @@ class Form extends Element
     public function setName($name)
     {
         $this->name = $name;
+    }
+    
+    /**
+     * Retorna o nome do formulário
+     */
+    public function getName()
+    {
+        return $this->name;
     }
     
     /**
@@ -69,6 +78,7 @@ class Form extends Element
     {
         $object->setSize($size, $size);
         $this->fields[$object->getName()] = $object;
+        $object->setLabel($label);
         
         // adiciona linha
         $row = $this->table->addRow();
@@ -136,6 +146,22 @@ class Form extends Element
     }
     
     /**
+     * Retorna os campos
+     */
+    public function getFields()
+    {
+        return $this->fields;
+    }
+    
+    /**
+     * Retorna as ações
+     */
+    public function getActions()
+    {
+        return $this->actions;
+    }
+    
+    /**
      * Atribui dados aos campos do formulário
      * @param $object = objeto com dados
      */
@@ -156,6 +182,7 @@ class Form extends Element
     public function getData($class = 'StdClass')
     {
         $object = new $class;
+        
         foreach ($this->fields as $key => $fieldObject)
         {
             $val = isset($_POST[$key])? $_POST[$key] : '';

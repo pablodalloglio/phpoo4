@@ -24,7 +24,7 @@ class VBox extends Element
      */
     public function add($child)
     {
-        $wrapper = new TElement('div');
+        $wrapper = new Element('div');
         $wrapper->{'style'} = 'clear:both';
         $wrapper->add($child);
         parent::add($wrapper);

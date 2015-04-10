@@ -7,6 +7,7 @@ use Livro\Widgets\Form\Combo;
 use Livro\Widgets\Form\Label;
 use Livro\Widgets\Form\Button;
 use Livro\Widgets\Container\Table;
+use Livro\Widgets\Container\VBox;
 use Livro\Widgets\Datagrid\Datagrid;
 use Livro\Widgets\Datagrid\DatagridColumn;
 use Livro\Widgets\Datagrid\DatagridAction;
@@ -18,6 +19,7 @@ use Livro\Database\Criteria;
 use Livro\Validation\RequiredValidator;
 
 use Bootstrap\Wrapper\DatagridWrapper;
+use Bootstrap\Wrapper\FormWrapper;
 
 /*
  * classe CidadesList
@@ -38,7 +40,7 @@ class CidadesList extends Page
         parent::__construct();
 
         // instancia um formulário
-        $this->form = new Form('form_cidades');
+        $this->form = new FormWrapper(new Form('form_cidades'));
         
         // cria os campos do formulário
         $codigo    = new Entry('id');
@@ -92,18 +94,12 @@ class CidadesList extends Page
         $this->datagrid->createModel();
 
         // monta a página através de uma tabela
-        $table = new Table;
-
-        // cria uma linha para o formulário
-        $row = $table->addRow();
-        $row->addCell($this->form);
-
-        // cria uma linha para a datagrid
-        $row = $table->addRow();
-        $row->addCell($this->datagrid);
-
-        // adiciona a tabela à página
-        parent::add($table);
+        $box = new VBox;
+        $box->style = 'display:block';
+        $box->add($this->form);
+        $box->add($this->datagrid);
+        
+        parent::add($box);
     }
 
     /*
@@ -154,6 +150,7 @@ class CidadesList extends Page
             Transaction::open('livro');
             // obtém os dados no formulário em um objeto Cidade
             $cidade = $this->form->getData('Cidade');
+            
             // armazena o objeto
             $cidade->store();
             // finaliza a transação

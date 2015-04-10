@@ -1,6 +1,6 @@
 <?php
 Namespace Bootstrap\Wrapper;
-use Livro\Widgets\Container\Table;
+use Livro\Widgets\Datagrid\Datagrid;
 
 /**
  * Decora datagrids no formato Bootstrap
@@ -12,7 +12,7 @@ class DatagridWrapper
     /**
      * Constrói o decorator
      */
-    public function __construct(Table $datagrid)
+    public function __construct(Datagrid $datagrid)
     {
         $this->decorated = $datagrid;
         $this->decorated->class = 'table table-striped table-hover';
@@ -23,6 +23,6 @@ class DatagridWrapper
      */
     public function __call($method, $parameters)
     {
-        call_user_func_array(array($this->decorated, $method),$parameters);
+        return call_user_func_array(array($this->decorated, $method),$parameters);
     }
 }
