@@ -77,6 +77,7 @@ class Datagrid extends Table
             foreach ($this->actions as $action)
             {
                 $celula = new Element('th');
+                $celula->width = '40px';
                 $row->add($celula);
             }
         }
@@ -104,9 +105,7 @@ class Datagrid extends Table
                 if ($column->getAction())
                 {
                     $url = $column->getAction();
-                    $celula->onmouseover = "this.className='tdatagrid_col_over';";
-                    $celula->onmouseout  = "this.className='tdatagrid_col'";
-                    $celula->onclick     = "document.location='$url'";
+                    $celula->onclick = "document.location='$url'";
                 }
             }
         }
@@ -145,7 +144,7 @@ class Datagrid extends Table
                 {
                     // adiciona a imagem ao link
                     $img = new Element('img');
-                    $img->src="App/Images/$image";
+                    $img->src   = "App/Images/$image";
                     $img->title = $label;
                     $link->add($img);
                 }

@@ -17,6 +17,8 @@ $al->register();
 
 $template = file_get_contents('App/Templates/template.html');
 $content = '';
+$class   = 'Home';
+
 if ($_GET)
 {
     $class = $_GET['class'];
@@ -36,4 +38,6 @@ if ($_GET)
         }
     }
 }
-echo str_replace('{content}', $content, $template);
+$content = str_replace('{content}', $content, $template);
+$content = str_replace('{class}',   $class, $content);
+echo $content;

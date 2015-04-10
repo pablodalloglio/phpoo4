@@ -36,37 +36,14 @@ class ClientesList extends Page
         // instancia um formulário
         $this->form = new Form('form_busca_clientes');
 
-        // instancia uma tabela
-        $table = new Table;
-
-        // adiciona a tabela ao formulário
-        $this->form->add($table);
-
         // cria os campos do formulário
         $nome = new Entry('nome');
-
-        // adiciona uma linha para o campo nome
-        $row=$table->addRow();
-        $row->addCell(new Label('Nome:'));
-        $row->addCell($nome);
-
-        // cria dois botões de ação para o formulário
-        $find_button = new Button('busca');
-        $new_button = new Button('cadastra');
-
-        // define as ações dos botões
-        $find_button->setAction(new Action(array($this, 'onReload')), 'Buscar');
-        $obj = new ClientesForm;
-        $new_button->setAction(new Action(array($obj, 'onEdit')), 'Cadastrar');
-
-        // adiciona uma linha para aas ações do formulário
-        $row=$table->addRow();
-        $row->addCell($find_button);
-        $row->addCell($new_button);
-
-        // define quais são os campos do formulário
-        $this->form->setFields(array($nome, $find_button, $new_button));
-
+        
+        $this->form->addField('Nome', $nome, 40);
+        
+        $this->form->addAction('Buscar', new Action(array($this, 'onReload')));
+        $this->form->addAction('Novo', new Action(array(new ClientesForm, 'onEdit')));
+        
         // instancia objeto DataGrid
         $this->datagrid = new DataGrid;
 
@@ -83,8 +60,7 @@ class ClientesList extends Page
         $this->datagrid->addColumn($cidade);
 
         // instancia duas ações da DataGrid
-        //$obj = new ClientesForm;
-        $action1 = new DataGridAction(array($obj, 'onEdit'));
+        $action1 = new DataGridAction(array(new ClientesForm, 'onEdit'));
         $action1->setLabel('Editar');
 
         $action1->setImage('ico_edit.png');
