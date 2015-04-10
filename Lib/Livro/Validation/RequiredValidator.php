@@ -1,6 +1,8 @@
 <?php
 Namespace Livro\Validation;
 
+use Exception;
+
 /**
  * Validador de campo obrigatório
  * @author Pablo Dall'Oglio

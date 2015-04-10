@@ -1,6 +1,8 @@
 <?php
 Namespace Livro\Validation;
 
+use Exception;
+
 /**
  * Validador de emails
  * @author Pablo Dall'Oglio

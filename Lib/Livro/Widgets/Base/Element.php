@@ -33,6 +33,16 @@ class Element
     }
     
     /**
+     * Retorna a propriedade
+     * @param $name   = nome da propriedade
+     */
+    public function __get($name)
+    {
+        // retorna o valores atribuídos ao array properties
+        return $this->properties[$name];
+    }
+    
+    /**
      * Adiciona um elemento filho
      * @param $child = objeto filho
      */

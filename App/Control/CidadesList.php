@@ -11,9 +11,11 @@ use Livro\Widgets\Datagrid\Datagrid;
 use Livro\Widgets\Datagrid\DatagridColumn;
 use Livro\Widgets\Datagrid\DatagridAction;
 use Livro\Widgets\Dialog\Message;
+use Livro\Widgets\Dialog\Question;
 use Livro\Database\Transaction;
 use Livro\Database\Repository;
 use Livro\Database\Criteria;
+use Livro\Validation\RequiredValidator;
 
 use Bootstrap\Wrapper\DatagridWrapper;
 
@@ -37,60 +39,27 @@ class CidadesList extends Page
 
         // instancia um formulário
         $this->form = new Form('form_cidades');
-
-        // instancia uma tabela
-        $table = new Table;
-
-        // adiciona a tabela ao formulário
-        $this->form->add($table);
-
+        
         // cria os campos do formulário
         $codigo    = new Entry('id');
         $descricao = new Entry('nome');
         $estado    = new Combo('estado');
-
+        
+        $codigo->setEditable(FALSE);
+        
         // cria um vetor com as opções da combo
         $items= array();
         $items['RS'] = 'Rio Grande do Sul';
         $items['SP'] = 'São Paulo';
         $items['MG'] = 'Minas Gerais';
         $items['PR'] = 'Paraná';
-
-        // adiciona as opções na combo
         $estado->addItems($items);
-
-        // define os tamanhos dos campos
-        $codigo->setSize(40);
-        $estado->setSize(200);
-
-        // adiciona uma linha para o campo código
-        $row=$table->addRow();
-        $row->addCell(new Label('Código:'));
-        $row->addCell($codigo);
-
-        // adiciona uma linha para o campo descrição
-        $row=$table->addRow();
-        $row->addCell(new Label('Descrição:'));
-        $row->addCell($descricao);
-
-        // adiciona uma linha para o campo estado
-        $row=$table->addRow();
-        $row->addCell(new Label('Estado:'));
-        $row->addCell($estado);
-
-        // cria um botão de ação (salvar)
-        $save_button=new Button('save');
-
-        // define a ação do botão
-        $save_button->setAction(new Action(array($this, 'onSave')), 'Salvar');
-
-        // adiciona uma linha para a ação do formulário
-        $row=$table->addRow();
-        $row->addCell($save_button);
-
-        // define quais são os campos do formulário
-        $this->form->setFields(array($codigo, $descricao, $estado, $save_button));
-
+        
+        $this->form->addField('Código', $codigo, 40, new RequiredValidator);
+        $this->form->addField('Descrição', $descricao, 200, new RequiredValidator);
+        $this->form->addField('Estado', $estado, 200);
+        $this->form->addAction('Salvar', new Action(array($this, 'onSave')));
+        
         // instancia objeto DataGrid
         $this->datagrid = new DatagridWrapper(new DataGrid);
 
@@ -109,6 +78,7 @@ class CidadesList extends Page
         $action1->setLabel('Editar');
         $action1->setImage('ico_edit.png');
         $action1->setField('id');
+        
         $action2 = new DataGridAction(array($this, 'onDelete'));
         $action2->setLabel('Deletar');
         $action2->setImage('ico_delete.png');
@@ -176,18 +146,27 @@ class CidadesList extends Page
      */
     function onSave()
     {
-        // inicia transação com o banco 'livro'
-        Transaction::open('livro');
-        // obtém os dados no formulário em um objeto Cidade
-        $cidade = $this->form->getData('Cidade');
-        // armazena o objeto
-        $cidade->store();
-        // finaliza a transação
-        Transaction::close();
-        // exibe mensagem de sucesso
-        new Message('info', 'Dados armazenados com sucesso');
-        // recarrega listagem
-        $this->onReload();
+        try
+        {
+            $this->form->validate();
+            
+            // inicia transação com o banco 'livro'
+            Transaction::open('livro');
+            // obtém os dados no formulário em um objeto Cidade
+            $cidade = $this->form->getData('Cidade');
+            // armazena o objeto
+            $cidade->store();
+            // finaliza a transação
+            Transaction::close();
+            // exibe mensagem de sucesso
+            new Message('info', 'Dados armazenados com sucesso');
+            // recarrega listagem
+            $this->onReload();
+        }
+        catch (Exception $e)
+        {
+            new Message('error', $e->getMessage());
+        }
     }
 
 
@@ -202,13 +181,11 @@ class CidadesList extends Page
         $key=$param['key'];
         // define duas ações
         $action1 = new Action(array($this, 'Delete'));
-        $action2 = new Action(array($this, 'teste'));
         // define os parâmetros de cada ação
         $action1->setParameter('key', $key);
-        $action2->setParameter('key', $key);
 
-      // exibe um diálogo ao usuário
-      new TQuestion('Deseja realmente excluir o registro?', $action1, $action2);
+        // exibe um diálogo ao usuário
+        new Question('Deseja realmente excluir o registro?', $action1);
     }
 
     /*

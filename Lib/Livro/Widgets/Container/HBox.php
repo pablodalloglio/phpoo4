@@ -1,5 +1,5 @@
 <?php
-Namespace Livro\Widget\Container;
+Namespace Livro\Widgets\Container;
 
 use Livro\Widgets\Base\Element;
 

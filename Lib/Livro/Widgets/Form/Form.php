@@ -2,15 +2,23 @@
 Namespace Livro\Widgets\Form;
 
 use Livro\Widgets\Base\Element;
+use Livro\Widgets\Container\Table;
+use Livro\Validation\FieldValidator;
+use Livro\Control\ActionInterface;
+use Livro\Widgets\Container\HBox;
+use Livro\Validation\RequiredValidator;
 
 /**
  * Representa um formulário
  * @author Pablo Dall'Oglio
  */
-class Form
+class Form extends Element
 {
     protected $fields;      // array de objetos contidos pelo form
-    private   $name;        // nome do formulário
+    protected $actions;
+    protected $table;
+    private $has_action;
+    private $actions_container;
     
     /**
      * Instancia o formulário
@@ -18,7 +26,13 @@ class Form
      */
     public function __construct($name = 'my_form')
     {
+        parent::__construct('form');
+        $this->enctype = "multipart/form-data";
+        $this->method = 'post';    // método de transferência
         $this->setName($name);
+        
+        $this->table = new Table;
+        parent::add($this->table);
     }
     
     /**
@@ -31,47 +45,94 @@ class Form
     }
     
     /**
-     * Define se o formulário poderá ser editado
-     * @param $bool = TRUE ou FALSE
+     * Define o título do formulário
+     * @param $title Título
      */
-    public function setEditable($bool)
+    public function setFormTitle($title)
     {
-        if ($this->fields)
-        {
-            foreach ($this->fields as $object)
-            {
-                $object->setEditable($bool);
-            }
-        }
+        // add the field to the container
+        $row = $this->table->addRow();
+        $row->{'class'} = 'form-title';
+        $this->table->{'width'} = '100%';
+        $cell = $row->addCell( $title );
+        $cell->{'colspan'} = 2;
     }
     
     /**
-     * Define quais são os campos do formulário
-     * @param $fields = array de objetos TField
+     * Add a form field
+     * @param $label     Field Label
+     * @param $object    Field Object
+     * @param $size      Field Size
+     * @param $validator Field Validator
      */
-    public function setFields($fields)
+    public function addField($label, FormElementInterface $object, $size = 200, FieldValidator $validator = NULL)
     {
-        foreach ($fields as $field)
+        $object->setSize($size, $size);
+        $this->fields[$object->getName()] = $object;
+        
+        // adiciona linha
+        $row = $this->table->addRow();
+        
+        if ($validator instanceof RequiredValidator)
         {
-            if ($field instanceof Field)
-            {
-                $name = $field->getName();
-                $this->fields[$name] = $field;
-                if ($field instanceof Button)
-                {
-                    $field->setFormName($this->name);
-                }
-            }
+            $label_field = new Label($label . ' (*)');
+            $label_field->style = 'color:#FF0000';
         }
+        else
+        {
+            $label_field = new Label($label);
+        }
+        if ($object instanceof Hidden)
+        {
+            $row->addCell( '' );
+        }
+        else
+        {
+            $row->addCell( $label_field );
+        }
+        $row->addCell( $object );
+        
+        if ($validator)
+        {
+            $object->addValidation($label, $validator);
+        }
+        
+        return $row;
     }
     
     /**
-     * Retorna um campo do formulário por seu nome
-     * @param $name      = nome do campo
+     * Adiciona uma ação
+     * @param $label  Action Label
+     * @param $action TAction Object
      */
-    public function getField($name)
+    public function addAction($label, ActionInterface $action)
     {
-        return $this->fields[$name];
+        $name   = strtolower(str_replace(' ', '_', $label));
+        $button = new Button($name);
+        $this->fields[] = $button;
+        
+        $button->setFormName($this->name);
+        
+        // define the button action
+        $button->setAction($action, $label);
+        
+        if (!$this->has_action)
+        {
+            $this->actions_container = new HBox;
+            
+            $row  = $this->table->addRow();
+            $row->{'class'} = 'formaction';
+            $cell = $row->addCell( $this->actions_container );
+            $cell->colspan = 2;
+        }
+        
+        // add cell for button
+        $this->actions_container->add($button);
+        
+        $this->has_action = TRUE;
+        $this->actions[] = $button;
+        
+        return $button;
     }
     
     /**
@@ -98,14 +159,7 @@ class Form
         foreach ($this->fields as $key => $fieldObject)
         {
             $val = isset($_POST[$key])? $_POST[$key] : '';
-            if (get_class($this->fields[$key]) == 'TCombo')
-            {
-                if ($val !== '0')
-                {
-                    $object->$key = $val;
-                }
-            }
-            else if (!$fieldObject instanceof Button)
+            if (!$fieldObject instanceof Button)
             {
                 $object->$key = $val;
             }
@@ -119,15 +173,6 @@ class Form
     }
     
     /**
-     * Adiciona um objeto no formulário
-     * @param $object = objeto a ser adicionado
-     */
-    public function add($object)
-    {
-        $this->child = $object;
-    }
-    
-    /**
      * Valida o formulário
      */
     public function validate()
@@ -137,23 +182,5 @@ class Form
         {
             $fieldObject->validate();
         }
-    }
-    
-    /**
-     * Exibe o formulário na tela
-     */
-    public function show()
-    {
-        // instancia TAG de formulário
-        $tag = new Element('form');
-        $tag->enctype = "multipart/form-data";
-        $tag->name = $this->name; // nome do formulário
-        $tag->method = 'post';    // método de transferência
-        
-        // adiciona o objeto filho ao formulário
-        $tag->add($this->child);
-        
-        // exibe o formulário
-        $tag->show();
     }
 }

@@ -2,6 +2,7 @@
 Namespace Livro\Widgets\Form;
 
 use Livro\Widgets\Base\Element;
+use Livro\Validation\FieldValidator;
 
 /**
  * Representa um campo de um formulário
@@ -29,7 +30,31 @@ abstract class Field implements FormElementInterface
         
         // cria uma tag HTML do tipo <input>
         $this->tag = new Element('input');
-        $this->tag->class = 'tfield';		  // classe CSS
+        $this->tag->class = 'field';		  // classe CSS
+    }
+    
+    /**
+     * Intercepta a atribuição de propriedades
+     * @param $name     Nome da propriedade
+     * @param $value    Valor da propriedade
+     */
+    public function __set($name, $value)
+    {
+        // Somente valores escalares
+        if (is_scalar($value))
+        {              
+            // Armazena o valor da propriedade
+            $this->setProperty($name, $value);
+        }
+    }
+    
+    /**
+     * Retorna o valor da propriedade
+     * @param $name Nome da propriedade
+     */
+    public function __get($name)
+    {
+        return $this->getProperty($name);
     }
     
     /**
@@ -110,7 +135,7 @@ abstract class Field implements FormElementInterface
      * @param $validator Validador TFieldValidator
      * @param $parameters Parâmetros adicionais
      */
-    public function addValidation($label, IFieldValidator $validator, $parameters = NULL)
+    public function addValidation($label, FieldValidator $validator, $parameters = NULL)
     {
         $this->validations[] = array($label, $validator, $parameters);
     }

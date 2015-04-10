@@ -1,6 +1,8 @@
 <?php
 Namespace Livro\Validation;
 
+use Exception;
+
 /**
  * Validador de tamanho mínimo
  * @author Pablo Dall'Oglio
