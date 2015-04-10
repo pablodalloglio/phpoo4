@@ -15,6 +15,8 @@ use Livro\Database\Transaction;
 use Livro\Database\Repository;
 use Livro\Database\Criteria;
 
+use Bootstrap\Wrapper\DatagridWrapper;
+
 /*
  * classe CidadesList
  * cadastro de cidades: contém o formuláro e a listagem
@@ -90,7 +92,7 @@ class CidadesList extends Page
         $this->form->setFields(array($codigo, $descricao, $estado, $save_button));
 
         // instancia objeto DataGrid
-        $this->datagrid = new DataGrid;
+        $this->datagrid = new DatagridWrapper(new DataGrid);
 
         // instancia as colunas da DataGrid
         $codigo   = new DataGridColumn('id',     'Código', 'right', 50);
@@ -259,7 +261,7 @@ class CidadesList extends Page
          // se a listagem ainda não foi carregada
          if (!$this->loaded)
          {
-	            $this->onReload();
+	        $this->onReload();
          }
          parent::show();
     }
