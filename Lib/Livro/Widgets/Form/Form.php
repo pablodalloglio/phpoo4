@@ -84,7 +84,7 @@ class Form
         {
             if ($name) // labels não possuem nome
             {
-                @$field->setValue($object->$name);
+                $field->setValue($object->$name);
             }
         }
     }

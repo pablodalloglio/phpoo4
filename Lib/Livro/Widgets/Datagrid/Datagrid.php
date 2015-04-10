@@ -20,7 +20,6 @@ class Datagrid extends Table
     public function __construct()
     {
         parent::__construct();
-        $this->class = 'tdatagrid_table';
     }
     
     /**
@@ -73,7 +72,6 @@ class Datagrid extends Table
             foreach ($this->actions as $action)
             {
                 $celula = $row->addCell('');
-                $celula->class = 'tdatagrid_col';
             }
         }
         
@@ -91,7 +89,6 @@ class Datagrid extends Table
                 
                 // adiciona a célula com a coluna
                 $celula = $row->addCell($label);
-                $celula->class = 'tdatagrid_col';
                 $celula->align = $align;
                 $celula->width = $width;
                 
@@ -113,12 +110,8 @@ class Datagrid extends Table
      */
     public function addItem($object)
     {
-        // cria um estilo com cor variável
-        $bgcolor = ($this->rowcount % 2) == 0 ? '#ffffff' : '#e0e0e0';
-        
         // adiciona uma linha na DataGrid
         $row = parent::addRow();
-        $row->bgcolor = $bgcolor;
         
         // verifica se a listagem possui ações
         if ($this->actions)
@@ -127,7 +120,7 @@ class Datagrid extends Table
             foreach ($this->actions as $action)
             {
                 // obtém as propriedades da ação
-                $url    = $action->serialize();
+                $url   = $action->serialize();
                 $label = $action->getLabel();
                 $image = $action->getImage();
                 $field = $action->getField();
@@ -137,13 +130,13 @@ class Datagrid extends Table
                 
                 // cria um link
                 $link = new Element('a');
-                $link->href="{$url}&key={$key}";
+                $link->href = "{$url}&key={$key}";
                 
                 // verifica se o link será com imagem ou com texto
                 if ($image)
                 {
                     // adiciona a imagem ao link
-                    $img=new Element('img');
+                    $img = new Element('img');
                     $img->src="App/Images/$image";
                     $link->add($img);
                 }
