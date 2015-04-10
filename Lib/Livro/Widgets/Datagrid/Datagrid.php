@@ -2,6 +2,7 @@
 Namespace Livro\Widgets\Datagrid;
 
 use Livro\Widgets\Container\Table;
+use Livro\Widgets\Container\TableRow;
 use Livro\Widgets\Base\Element;
 
 /**
@@ -63,15 +64,20 @@ class Datagrid extends Table
      */
     public function createModel()
     {
+        $thead = new Element('thead');
+        parent::add($thead);
+        
         // adiciona uma linha à tabela
-        $row = parent::addRow();
+        $row = new Element('tr');
+        $thead->add($row);
         
         // adiciona células para as ações
         if ($this->actions)
         {
             foreach ($this->actions as $action)
             {
-                $celula = $row->addCell('');
+                $celula = new Element('th');
+                $row->add($celula);
             }
         }
         
@@ -87,8 +93,10 @@ class Datagrid extends Table
                 $align = $column->getAlign();
                 $width = $column->getWidth();
                 
+                $celula = new Element('th');
+                $celula->add($label);
                 // adiciona a célula com a coluna
-                $celula = $row->addCell($label);
+                $row->add($celula);
                 $celula->align = $align;
                 $celula->width = $width;
                 
@@ -138,6 +146,7 @@ class Datagrid extends Table
                     // adiciona a imagem ao link
                     $img = new Element('img');
                     $img->src="App/Images/$image";
+                    $img->title = $label;
                     $link->add($img);
                 }
                 else
