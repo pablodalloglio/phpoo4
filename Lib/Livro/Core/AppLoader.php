@@ -13,25 +13,28 @@ class AppLoader
 {
     protected $directories;
     
+    /**
+     * Adiciona um diretório a ser vasculhado
+     */
     public function addDirectory($directory)
     {
         $this->directories[] = $directory;
     }
     
+    /**
+     * Registra o AppLoader
+     */
     public function register()
     {
         spl_autoload_register(array($this, 'loadClass'));
     }
     
+    /**
+     * Carrega uma classe
+     */
     public function loadClass($class)
     {
         $folders = $this->directories;
-        
-        if (file_exists("{$class}.php"))
-        {
-            require_once "{$class}.php";
-            return TRUE;
-        }
         
         foreach ($folders as $folder)
         {
