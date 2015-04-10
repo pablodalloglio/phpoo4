@@ -1,17 +1,16 @@
 <?php
 Namespace Livro\Database;
 
-/*
- * classe Logger
- * Esta classe provê uma interface abstrata para definição de algoritmos de LOG
+/**
+ * Fornece uma interface abstrata para definição de algoritmos de LOG
+ * @author Pablo Dall'Oglio
  */
 abstract class Logger
 {
     protected $filename;  // local do arquivo de LOG
     
-    /*
-     * método __construct()
-     * instancia um logger
+    /**
+     * Instancia um logger
      * @param $filename = local do arquivo de LOG
      */
     public function __construct($filename)

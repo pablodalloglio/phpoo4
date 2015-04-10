@@ -13,6 +13,7 @@ use Livro\Widgets\Dialog\Message;
 use Livro\Database\Transaction;
 use Livro\Database\Repository;
 use Livro\Database\Criteria;
+use Livro\Database\Filter;
 
 /*
  * classe ProdutosList
@@ -137,7 +138,7 @@ class ProdutosList extends Page
         if ($dados->descricao)
         {
             // filtra pela descrição do produto
-            $criteria->add(new TFilter('descricao', 'like', "%{$dados->descricao}%"));
+            $criteria->add(new Filter('descricao', 'like', "%{$dados->descricao}%"));
         }
         
         // carreta os produtos que satisfazem o critério

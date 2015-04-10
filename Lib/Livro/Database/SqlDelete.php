@@ -1,9 +1,9 @@
 <?php
 Namespace Livro\Database;
 
-/*
- * classe TSqlDelete
- * Esta classe provê meios para manipulação de uma instrução de DELETE no banco de dados
+/**
+ * Representa uma instrução de DELETE no banco de dados
+ * @author Pablo Dall'Oglio
  */
 final class SqlDelete extends SqlInstruction
 {

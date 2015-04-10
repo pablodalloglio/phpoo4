@@ -4,14 +4,13 @@ Namespace Livro\Widgets\Container;
 use Livro\Widgets\Base\Element;
 
 /**
- * classe TableRow
- * reponsável pela exibição de uma linha de uma tabela
+ * Representa uma linha de uma tabela
+ * @author Pablo Dall'Oglio
  */
 class TableRow extends Element
 {
     /**
-     * método construtor
-     * instancia uma nova linha
+     * Instancia uma nova linha
      */
     public function __construct()
     {
@@ -19,8 +18,7 @@ class TableRow extends Element
     }
     
     /**
-     * método addCell
-     * agrega um novo objeto célula (TTableCell) à linha
+     * Agrega um novo objeto célula (TTableCell) à linha
      * @param $value = conteúdo da célula
      */
     public function addCell($value)

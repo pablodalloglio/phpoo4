@@ -1,9 +1,9 @@
 <?php
 Namespace Livro\Database;
 
-/*
- * classe Filter
- * Esta classe provê uma interface para definição de filtros de seleção
+/**
+ * Permite definir filtros de seleção
+ * @author Pablo Dall'Oglio
  */
 class Filter extends Expression
 {
@@ -11,9 +11,8 @@ class Filter extends Expression
     private $operator; // operador
     private $value;    // valor
     
-    /*
-     * método __construct()
-     * instancia um novo filtro
+    /**
+     * Instancia um novo filtro
      * @param $variable = variável
      * @param $operator = operador (>,<)
      * @param $value      = valor a ser comparado
@@ -29,11 +28,9 @@ class Filter extends Expression
         $this->value     = $this->transform($value);
     }
     
-    /*
-     * método transform()
-     * recebe um valor e faz as modificações necessárias
-     * para ele ser interpretado pelo banco de dados
-     * podendo ser um integer/string/boolean ou array.
+    /**
+     * Recebe um valor e faz as modificações necessárias
+     *   para ele ser interpretado pelo banco de dados
      * @param $value = valor a ser transformado
      */
     private function transform($value)
@@ -85,9 +82,8 @@ class Filter extends Expression
         return $result;
     }
     
-    /*
-     * método dump()
-     * retorna o filtro em forma de expressão
+    /**
+     * Retorna o filtro em forma de expressão
      */
     public function dump()
     {

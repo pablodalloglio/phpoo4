@@ -4,16 +4,15 @@ Namespace Livro\Widgets\Form;
 use Livro\Widgets\Base\Element;
 
 /**
- * classe Combo
- * classe para construção de combo boxes
+ * Representa uma combo boxe
+ * @author Pablo Dall'Oglio
  */
 class Combo extends Field implements FormElementInterface
 {
     private $items; // array contendo os itens da combo
     
     /**
-     * método construtor
-     * instancia a combo box
+     * Instancia a combo box
      * @param $name = nome do campo
      */
     public function __construct($name)
@@ -27,8 +26,7 @@ class Combo extends Field implements FormElementInterface
     }
     
     /**
-     * método addItems()
-     * adiciona items à combo box
+     * Adiciona items à combo box
      * @param $items = array de itens
      */
     public function addItems($items)
@@ -37,8 +35,7 @@ class Combo extends Field implements FormElementInterface
     }
     
     /**
-     * método show()
-     * exibe o widget na tela
+     * Exibe o widget na tela
      */
     public function show()
     {

@@ -4,19 +4,13 @@ Namespace Adianti\Widget\Container;
 use Livro\Widgets\Base\Element;
 
 /**
- * Vertical Box
- *
- * @version    2.0
- * @package    widget
- * @subpackage container
- * @author     Pablo Dall'Oglio
- * @copyright  Copyright (c) 2006-2014 Adianti Solutions Ltd. (http://www.adianti.com.br)
- * @license    http://www.adianti.com.br/framework-license
+ * Caixa vertical
+ * @author Pablo Dall'Oglio
  */
 class VBox extends Element
 {
     /**
-     * Class Constructor
+     * Método construtor
      */
     public function __construct()
     {
@@ -25,8 +19,8 @@ class VBox extends Element
     }
     
     /**
-     * Add an child element
-     * @param $child Any object that implements the show() method
+     * Adiciona um elemento filho
+     * @param $child Objeto filho
      */
     public function add($child)
     {

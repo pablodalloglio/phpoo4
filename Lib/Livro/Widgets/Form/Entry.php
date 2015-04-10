@@ -4,12 +4,12 @@ Namespace Livro\Widgets\Form;
 /**
  * classe Entry
  * classe para construção de caixas de texto
+ * @author Pablo Dall'Oglio
  */
 class Entry extends Field implements FormElementInterface
 {
     /**
-     * método show()
-     * exibe o widget na tela
+     * Exibe o widget na tela
      */
     public function show()
     {

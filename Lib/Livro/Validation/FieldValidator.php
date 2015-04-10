@@ -1,6 +1,9 @@
 <?php
+Namespace Livro\Validation;
+
 /**
  * Classe abstrata para validação
+ * @author Pablo Dall'Oglio
  */
 abstract class FieldValidator
 {

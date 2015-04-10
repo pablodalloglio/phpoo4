@@ -3,10 +3,9 @@ Namespace Livro\Database;
 
 use Exception;
 
-/*
- * classe TSqlInstruction
- * Esta classe provê os métodos em comum entre todas instruções
- * SQL (SELECT, INSERT, DELETE e UPDATE)
+/**
+ * Fornece os métodos em comum entre todas instruções SQL (SELECT, INSERT, DELETE e UPDATE)
+ * @author Pablo Dall'Oglio
  */
 abstract class SqlInstruction
 {
@@ -14,9 +13,8 @@ abstract class SqlInstruction
     protected $criteria;	 // armazena o objeto critério
     protected $entity;
     
-    /*
-     * método setEntity()
-     * define o nome da entidade (tabela) manipulada pela instrução SQL
+    /**
+     * Define o nome da entidade (tabela) manipulada pela instrução SQL
      * @param $entity = tabela
      */
     final public function setEntity($entity)
@@ -24,19 +22,16 @@ abstract class SqlInstruction
         $this->entity = $entity;
     }
     
-    /*
-     * método getEntity()
-     * retorna o nome da entidade (tabela)
+    /**
+     * Retorna o nome da entidade (tabela)
      */
     final public function getEntity()
     {
         return $this->entity;
     }
     
-    /*
-     * método setCriteria()
-     * Define um critério de seleção dos dados através da composição de um objeto
-     * do tipo Criteria, que oferece uma interface para definição de critérios
+    /**
+     * Define um critério de seleção dos dados
      * @param $criteria = objeto do tipo Criteria
      */
     public function setCriteria(Criteria $criteria)
@@ -44,10 +39,9 @@ abstract class SqlInstruction
         $this->criteria = $criteria;
     }
     
-    /*
-     * método getInstruction()
-     * declarando-o como <abstract> obrigamos sua declaração nas classes filhas,
-     * uma vez que seu comportamento será distinto em cada uma delas, configurando polimorfismo.
+    /**
+     * Obrigamos sua declaração nas classes filhas,
+     *     uma vez que seu comportamento será distinto em cada uma delas
      */
     abstract function getInstruction();
 }

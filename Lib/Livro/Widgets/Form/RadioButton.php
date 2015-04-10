@@ -2,14 +2,13 @@
 Namespace Livro\Widgets\Form;
 
 /**
- * classe RadioButton
- * classe para construção de rádio
+ * Representa um RadioButton
+ * @author Pablo Dall'Oglio
  */
 class RadioButton extends Field implements FormElementInterface
 {
     /**
-     * método show()
-     * exibe o widget na tela
+     * Exibe o widget na tela
      */
     public function show()
     {

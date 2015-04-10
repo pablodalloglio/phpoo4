@@ -4,8 +4,8 @@ Namespace Livro\Widgets\Form;
 use Livro\Widgets\Base\Element;
 
 /**
- * classe TField
- * classe base para construção dos widgets para formuláros
+ * Representa um campo de um formulário
+ * @author Pablo Dall'Oglio
  */
 abstract class Field implements FormElementInterface
 {
@@ -17,8 +17,7 @@ abstract class Field implements FormElementInterface
     protected $validations;
     
     /**
-     * método construtor
-     * instancia um campo do formulario
+     * Instancia um campo do formulario
      * @param $name = nome do campo
      */
     public function __construct($name)
@@ -34,8 +33,7 @@ abstract class Field implements FormElementInterface
     }
     
     /**
-     * método setName()
-     * define o nome do widget
+     * Define o nome do widget
      * @param $name     = nome do widget
      */
     public function setName($name)
@@ -44,8 +42,7 @@ abstract class Field implements FormElementInterface
     }
     
     /**
-     * método getName()
-     * retorna o nome do widget
+     * Retorna o nome do widget
      */
     public function getName()
     {
@@ -53,8 +50,7 @@ abstract class Field implements FormElementInterface
     }
     
     /**
-     * método setValue()
-     * define o valor de um campo
+     * Define o valor de um campo
      * @param $value    = valor do campo
      */
     public function setValue($value)
@@ -63,8 +59,7 @@ abstract class Field implements FormElementInterface
     }
     
     /**
-     * método getValue()
-     * retorna o valor de um campo
+     * Retorna o valor de um campo
      */
     public function getValue()
     {
@@ -72,8 +67,7 @@ abstract class Field implements FormElementInterface
     }
     
     /**
-     * método setEditable()
-     * define se o campo poderá ser editado
+     * Define se o campo poderá ser editado
      * @param $editable = TRUE ou FALSE
      */
     public function setEditable($editable)
@@ -82,8 +76,7 @@ abstract class Field implements FormElementInterface
     }
     
     /**
-     * método getEditable()
-     * retorna o valor da propriedade $editable
+     * Retorna o valor da propriedade $editable
      */
     public function getEditable()
     {
@@ -91,8 +84,7 @@ abstract class Field implements FormElementInterface
     }
     
     /**
-     * método setProperty()
-     * define uma propriedade para o campo
+     * Define uma propriedade para o campo
      * @param $name = nome da propriedade
      * @param $valor = valor da propriedade
      */
@@ -103,8 +95,7 @@ abstract class Field implements FormElementInterface
     }
     
     /**
-     * método setSize()
-     * define a largura do widget
+     * Define a largura do widget
      * @param $width = largura em pixels
      * @param $height = altura em pixels (usada em TText)
      */

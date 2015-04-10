@@ -3,16 +3,15 @@ Namespace Livro\Database;
 
 use Exception;
 
-/*
- * classe TSqlInsert
- * Esta classe provê meios para manipulação de uma instrução de INSERT no banco de dados
+/**
+ * Representa uma instrução de INSERT no banco de dados
+ * @author Pablo Dall'Oglio
  */
 final class SqlInsert extends SqlInstruction
 {
     private $columnValues;
     
-    /*
-     * método setRowData()
+    /**
      * Atribui valores à determinadas colunas no banco de dados que serão inseridas
      * @param $column = coluna da tabela
      * @param $value = valor a ser armazenado
@@ -47,9 +46,8 @@ final class SqlInsert extends SqlInstruction
         }
     }
     
-    /*
-     * método setCriteria()
-     * não existe no contexto desta classe, logo, irá lançar um erro ser for executado
+    /**
+     * Não existe no contexto desta classe, logo, lançará exceção
      */
     public function setCriteria(Criteria $criteria)
     {
@@ -57,9 +55,8 @@ final class SqlInsert extends SqlInstruction
         throw new Exception("Cannot call setCriteria from " . __CLASS__);
     }
     
-    /*
-     * método getInstruction()
-     * retorna a instrução de INSERT em forma de string.
+    /**
+     * Retorna a instrução de INSERT em forma de string.
      */
     public function getInstruction()
     {

@@ -4,13 +4,12 @@ Namespace Livro\Widgets\Container;
 use Livro\Widgets\Base\Element;
 
 /**
- * classe TableCell
- * reponsável pela exibição de uma célula de uma tabela
+ * Representa uma célula de uma tabela
+ * @author Pablo Dall'Oglio
  */
 class TableCell extends Element
 {
     /**
-     * método construtor
      * instancia uma nova célula
      * @param $value = conteúdo da célula
      */

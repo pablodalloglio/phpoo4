@@ -4,14 +4,13 @@ Namespace Livro\Widgets\Dialog;
 use Livro\Widgets\Base\Element;
 
 /**
- * classe TMessage
- * exibe mensagens ao usuário
+ * Exibe mensagens ao usuário
+ * @author Pablo Dall'Oglio
  */
 class Message
 {
     /**
-     * método construtor
-     * instancia objeto TMessage
+     * Instancia a mensagem
      * @param $type      = tipo de mensagem (info, error)
      * @param $message = mensagem ao usuário
      */

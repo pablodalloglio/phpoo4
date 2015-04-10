@@ -2,19 +2,21 @@
 Namespace Livro\Widgets\Form;
 
 /**
- * classe CheckButton
- * classe para construção de botões de verificação
+ * Representa botões de verificação
+ * @author Pablo Dall'Oglio
  */
 class CheckButton extends Field implements FormElementInterface
 {
+    /**
+     * Define o valor a ser postado
+     */
     public function setIndexValue($index)
     {        
         $this->indexValue = $index;
     }
     
     /**
-     * método show()
-     * exibe o widget na tela
+     * Exibe o widget na tela
      */
     public function show()
     {

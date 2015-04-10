@@ -1,9 +1,9 @@
 <?php
 Namespace Livro\Database;
 
-/*
- * classe LoggerXML
- * implementa o algoritmo de LOG em XML
+/**
+ * Implementa o algoritmo de LOG em XML
+ * @author Pablo Dall'Oglio
  */
 class LoggerXML extends Logger
 {

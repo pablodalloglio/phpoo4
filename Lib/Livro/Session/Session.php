@@ -2,13 +2,12 @@
 Namespace Livro\Session;
 
 /**
- * classe Session
- * gerencia uma seção com o usuário
+ * Gerencia o registro da seção
+ * @author Pablo Dall'Oglio
  */
 class Session
 {
     /**
-     * método construtor
      * inicializa uma seção
      */
     public function __construct()
@@ -17,8 +16,7 @@ class Session
     }
 
     /**
-     * método setValue()
-     * armazena uma variável na seção
+     * Armazena uma variável na seção
      * @param $var     = Nome da variável
      * @param $value = Valor
      */
@@ -28,8 +26,7 @@ class Session
     }
 
     /**
-     * método getValue()
-     * retorna uma variável da seção
+     * Retorna uma variável da seção
      * @param $var = Nome da variável
      */
     public static function getValue($var)
@@ -41,8 +38,7 @@ class Session
     }
 
     /**
-     * método freeSession()
-     * destrói os dados de uma seção
+     * Destrói os dados de uma seção
      */
     public static function freeSession()
     {

@@ -4,8 +4,8 @@ Namespace Livro\Widgets\Form;
 use Livro\Control\Action;
 
 /**
- * classe TCheckGroup
- * classe para exibição um grupo de CheckButtons
+ * Representa um grupo de CheckButtons
+ * @author Pablo Dall'Oglio
  */
 class CheckGroup extends Field
 {
@@ -13,16 +13,15 @@ class CheckGroup extends Field
     private $items;
     
     /**
-     * método setLayout()
-     * define a direção das opções (vertical ou horizontal)
+     * Define a direção das opções (vertical ou horizontal)
      */
     public function setLayout($dir)
     {
         $this->layout = $dir;
     }
     
-    /* método addItems($items)
-     * adiciona itens ao check group
+    /**
+     * Adiciona itens ao check group
      * @param $items = um vetor indexado de itens
      */
     public function addItems($items)
@@ -31,7 +30,6 @@ class CheckGroup extends Field
     }
     
     /**
-     * método show()
      * exibe o widget na tela
      */
     public function show()

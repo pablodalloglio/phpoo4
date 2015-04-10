@@ -1,16 +1,15 @@
 <?php
 Namespace Livro\Database;
 
-/*
- * classe TSqlUpdate
- * Esta classe provê meios para manipulação de uma instrução de UPDATE no banco de dados
+/**
+ * Representa uma instrução de UPDATE no banco de dados
+ * @author Pablo Dall'Oglio
  */
 final class SqlUpdate extends SqlInstruction
 {
     private $columnValues;
     
-    /*
-     * método setRowData()
+    /**
      * Atribui valores à determinadas colunas no banco de dados que serão modificadas
      * @param $column = coluna da tabela
      * @param $value = valor a ser armazenado
@@ -45,9 +44,8 @@ final class SqlUpdate extends SqlInstruction
         }
     }
     
-    /*
-     * método getInstruction()
-     * retorna a instrução de UPDATE em forma de string.
+    /**
+     * Retorna a instrução de UPDATE em forma de string.
      */
     public function getInstruction()
     {
