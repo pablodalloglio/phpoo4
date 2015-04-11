@@ -14,23 +14,31 @@ use Livro\Database\Criteria;
 
 use Bootstrap\Wrapper\DatagridWrapper;
 use Bootstrap\Wrapper\FormWrapper;
+use Bootstrap\Widgets\Panel;
 
-/*
- * classe ProdutosForm
- * Formulário de cadastro de Produtos
+use Livro\Traits\SaveTrait;
+use Livro\Traits\EditTrait;
+
+/**
+ * Cadastro de Produtos
  */
 class ProdutosForm extends Page
 {
     private $form; // formulário
     
-    /*
-     * método construtor
-     * Cria a página e o formulário de cadastro
+    use SaveTrait;
+    use EditTrait;
+    
+    /**
+     * Construtor da página
      */
     function __construct()
     {
         parent::__construct();
 
+        $this->activeRecord = 'Produto';
+        $this->connection = 'livro';
+        
         // instancia um formulário
         $this->form = new FormWrapper(new Form('form_produtos'));
         
@@ -64,70 +72,10 @@ class ProdutosForm extends Page
         $this->form->addField('Fabricante',   $fabricante, 200);
         $this->form->addAction('Salvar', new Action(array($this, 'onSave')));
         
-        // adiciona o formulário na página
-        parent::add($this->form);
-    }
+        $panel = new Panel('Produtos');
+        $panel->add($this->form);
         
-    
-    /*
-     * método onEdit
-     * Edita os dados de um registro
-     */
-    function onEdit($param)
-    {
-        try
-        {
-            if (isset($param['key']))
-            {
-                // inicia transação com o banco 'livro'
-                Transaction::open('livro');
-                
-                // obtém o Produto de acordo com o parâmetro
-                $produto = new Produto($param['key']);
-                // lança os dados do produto no formulário
-                $this->form->setData($produto);
-                
-                // finaliza a transação
-                Transaction::close();
-            }
-        }
-        catch (Exception $e) // em caso de exceção
-        {
-            // exibe a mensagem gerada pela exceção
-            new Message('error', '<b>Erro</b>' . $e->getMessage());
-            // desfaz todas alterações no banco de dados
-            Transaction::rollback();
-        }
-    }
-    
-    /*
-     * método onSave
-     * Executado quando o usuário clicar no botão salvar
-     */
-    function onSave()
-    {
-        try
-        {
-            // inicia transação com o banco 'livro'
-            Transaction::open('livro');
-            
-            // lê os dados do formulário e instancia um objeto Produto
-            $produto = $this->form->getData('Produto');
-            // armazena o objeto no banco de dados
-            $produto->store();
-            
-            // finaliza a transação
-            Transaction::close();
-            // exibe mensagem de sucesso
-            new Message('info', 'Dados armazenados com sucesso');
-        }
-        catch (Exception $e) // em caso de exceção
-        {
-            // exibe a mensagem gerada pela exceção
-            new Message('error', '<b>Erro</b>' . $e->getMessage());
-            // desfaz todas alterações no banco de dados
-            Transaction::rollback();
-        }
+        // adiciona o formulário na página
+        parent::add($panel);
     }
 }
-?>

@@ -3,6 +3,7 @@ use Livro\Control\Page;
 use Livro\Control\Action;
 use Livro\Widgets\Form\Form;
 use Livro\Widgets\Container\Table;
+use Livro\Widgets\Container\VBox;
 use Livro\Widgets\Datagrid\Datagrid;
 use Livro\Widgets\Datagrid\DatagridColumn;
 use Livro\Widgets\Datagrid\DatagridAction;
@@ -25,19 +26,17 @@ function formata_money($valor)
     return number_format($valor, 2, ',', '.');
 	
 }
-/*
- * classe VendasForm
- * formulário de vendas
+/**
+ * Página de vendas
  */
 class VendasForm extends Page
 {
-    private $form;       // formulário de novo item
-    private $datagrid;   // listagem de itens
+    private $form;
+    private $datagrid;
     private $loaded;
 
-    /*
-     * método construtor
-     * cria a página e o formulário de cadastro
+    /**
+     * Construtor da página
      */
     public function __construct()
     {
@@ -88,26 +87,18 @@ class VendasForm extends Page
         // cria o modelo da DataGrid, montando sua estrutura
         $this->datagrid->createModel();
 
-        // monta a página através de uma tabela
-        $table = new Table;
-
-        // cria uma linha para o formulário
-        $row = $table->addRow();
-
-        $row->addCell($this->form);
-        // cria uma linha para a datagrid
-
-        $row = $table->addRow();
-        $row->addCell($this->datagrid);
-
-        // adiciona a tabela à página
-        parent::add($table);
+        // monta a página através de uma caixa
+        $box = new VBox;
+        $box->style = 'display:block';
+        $box->add($this->form);
+        $box->add($this->datagrid);
+        
+        parent::add($box);
     }
 
 
-    /*
-     * método onAdiciona()
-     * executada quando o usuário clicar no botão salvar do formulário
+    /**
+     * Adiciona item
      */
     function onAdiciona()
     {
@@ -127,9 +118,8 @@ class VendasForm extends Page
         $this->onReload();
     }
 
-    /*
-     * método onDelete()
-     * executada quando o usuário clicar no botão excluir da datagrid
+    /**
+     * Exclui item
      */
     function onDelete($param)
     {
@@ -146,9 +136,8 @@ class VendasForm extends Page
         $this->onReload();
     }
 
-    /*
-     * método onReload()
-     * carrega a DataGrid com os objetos
+    /**
+     * Carrega datagrid com objetos
      */
     function onReload()
     {
@@ -159,9 +148,9 @@ class VendasForm extends Page
         $this->datagrid->clear();
         if ($list)
         {
-            // inicia transação com o banco 'livro'
+            // inicia transação com o BD
             Transaction::open('livro');
-            // percorre o array $list
+            
             foreach ($list as $item)
             {
                 // adiciona cada objeto $item na datagrid
@@ -173,9 +162,8 @@ class VendasForm extends Page
         $this->loaded = true;
     }
 
-    /*
-     * método onFinal()
-     * executada quando o usuário finalizar a Venda
+    /**
+     * Finaliza venda
      */
     function onFinal()
     {
@@ -216,9 +204,8 @@ class VendasForm extends Page
         $janela->show();
     }
 
-    /*
-     * método onGravaVenda()
-     * executada quando o usuário Finalizar a venda
+    /**
+     * Finaliza venda
      */
     function onGravaVenda()
     {
@@ -267,9 +254,8 @@ class VendasForm extends Page
         $this->onReload();
     }
 
-    /*
-     * função show()
-     * executada quando o usuário clicar no botão excluir
+    /**
+     * Exibe a página
      */
     function show()
     {

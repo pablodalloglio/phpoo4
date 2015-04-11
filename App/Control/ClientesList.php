@@ -7,6 +7,7 @@ use Livro\Widgets\Form\Combo;
 use Livro\Widgets\Form\Label;
 use Livro\Widgets\Form\Button;
 use Livro\Widgets\Container\Table;
+use Livro\Widgets\Container\VBox;
 use Livro\Widgets\Datagrid\Datagrid;
 use Livro\Widgets\Datagrid\DatagridColumn;
 use Livro\Widgets\Datagrid\DatagridAction;
@@ -16,9 +17,8 @@ use Livro\Database\Repository;
 use Livro\Database\Criteria;
 use Livro\Database\Filter;
 
-/*
- * classe ClientesList
- * listagem de Clientes
+/**
+ * Listagem de Clientes
  */
 class ClientesList extends Page
 {
@@ -26,9 +26,8 @@ class ClientesList extends Page
     private $datagrid; // listagem
     private $loaded;
 
-    /*
-     * método construtor
-     * cria a página, o formulário de buscas e a listagem
+    /**
+     * Construtor da página
      */
     public function __construct()
     {
@@ -40,7 +39,6 @@ class ClientesList extends Page
         $nome = new Entry('nome');
         
         $this->form->addField('Nome', $nome, 40);
-        
         $this->form->addAction('Buscar', new Action(array($this, 'onReload')));
         $this->form->addAction('Novo', new Action(array(new ClientesForm, 'onEdit')));
         
@@ -77,38 +75,25 @@ class ClientesList extends Page
         // cria o modelo da DataGrid, montando sua estrutura
         $this->datagrid->createModel();
 
-        // monta a página através de uma tabela
-        $table = new Table;
-        $table->width='100%';
-
-        // cria uma linha para o formulário
-        $row = $table->addRow();
-        $row->addCell($this->form);
-
-        // cria uma linha para a datagrid
-        $row = $table->addRow();
-        $row->addCell($this->datagrid);
-
-        // adiciona a tabela à página
-        parent::add($table);
+        // monta a página através de uma caixa
+        $box = new VBox;
+        $box->style = 'display:block';
+        $box->add($this->form);
+        $box->add($this->datagrid);
+        
+        parent::add($box);
     }
 
-    /*
-     * método onReload()
-     * carrega a DataGrid com os objetos do banco de dados
+    /**
+     * Carrega a Datagrid com os objetos do banco de dados
      */
     function onReload()
     {
-        // inicia transação com o banco 'livro'
-        Transaction::open('livro');
-
-        // instancia um repositório para Cliente
+        Transaction::open('livro'); // inicia transação com o BD
         $repository = new Repository('Cliente');
 
         // cria um critério de seleção de dados
         $criteria = new Criteria;
-
-        // ordena pelo campo id
         $criteria->setProperty('order', 'id');
 
         // obtém os dados do formulário de buscas
@@ -138,67 +123,50 @@ class ClientesList extends Page
         $this->loaded = true;
     }
 
-    /*
-     * método onDelete()
-     * executada quando o usuário clicar no botão excluir da datagrid
-     * pergunta ao usuário se deseja realmente excluir um registro
+    /**
+     * Pergunta sobre a exclusão de registro
      */
     function onDelete($param)
     {
-        // obtém o parâmetro $key
-        $key=$param['key'];
-
-        // define duas ações
+        $key = $param['key']; // obtém o parâmetro $key
         $action1 = new Action(array($this, 'Delete'));
-        $action2 = new Action(array($this, 'teste'));
-
-        // define os parâmetros de cada ação
         $action1->setParameter('key', $key);
-        $action2->setParameter('key', $key);
-
-        // exibe um diálogo ao usuário
-        new TQuestion('Deseja realmente excluir o registro?', $action1, $action2);
+        
+        new Question('Deseja realmente excluir o registro?', $action1);
     }
 
-    /*
-     * método Delete()
-     * exclui um registro
+    /**
+     * Exclui um registro
      */
     function Delete($param)
     {
-        // obtém o parâmetro $key
-        $key=$param['key'];
-
-        // inicia transação com o banco 'livro'
-        Transaction::open('livro');
-
-        // instancia objeto Cliente
-        $cliente = new Cliente($key);
-
-        // deleta objeto do banco de dados
-        $cliente->delete();
-
-        // finaliza a transação
-        Transaction::close();
-
-        // recarrega a datagrid
-        $this->onReload();
-
-        // exibe mensagem de sucesso
-        new Message('info', "Registro excluído com sucesso");
+        try
+        {
+            
+            $key = $param['key']; // obtém a chave
+            Transaction::open('livro'); // inicia transação com o banco 'livro'
+            $cidade = new Cliente($key); // instancia objeto Cidade
+            $cidade->delete(); // deleta objeto do banco de dados
+            Transaction::close(); // finaliza a transação
+            $this->onReload(); // recarrega a datagrid
+            new Message('info', "Registro excluído com sucesso");
+        }
+        catch (Exception $e)
+        {
+            new Message('error', $e->getMessage());
+        }
     }
 
-    /*
-    * método show()
-    * executada quando o usuário clicar no botão excluir
-    */
+    /**
+     * Exibe a página
+     */
     function show()
     {
-        // se a listagem ainda não foi carregada
-        if (!$this->loaded)
-        {
-            $this->onReload();
-        }
-        parent::show();
+         // se a listagem ainda não foi carregada
+         if (!$this->loaded)
+         {
+	        $this->onReload();
+         }
+         parent::show();
     }
 }

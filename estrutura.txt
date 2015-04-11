@@ -1,0 +1,54 @@
+Estado
+======
+Id
+Nome
+
+Cidade
+======
+Id
+Nome
+Ref_Estado
+
+Fabricante
+==========
+Id
+Nome
+Site
+
+Produto
+=======
+Id
+Descricao
+Estoque
+Preco custo
+Preco venda
+Fabricante - combo
+Tipo (máquina, insumo, periférico, acessório) - rádio
+Unidade (peça, litro, ...) combo
+
+Pessoa
+======
+Id
+Nome
+Endereço
+Bairro
+Cidade
+Grupo
+Documento
+Fone
+Email
+Grupo (cliente, fornecedor, colaborador) - check ou select
+
+Tela de Vendas
+==============
+Page transition
+
+1a parte adiciona produtos
+2a parte seleciona cliente
+    total, descontos, cliente.
+    dom template
+    
+Relatório de Vendas
+===================
+DomTemplate ou twig
+

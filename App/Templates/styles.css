@@ -29,3 +29,11 @@ footer {
     -o-border-radius: 10px;
     border-radius: 10px;
 }
+
+.form-group {
+    margin-bottom: 10px;
+}
+
+code {
+    background-color: white;
+}

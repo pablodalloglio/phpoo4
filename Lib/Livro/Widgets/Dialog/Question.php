@@ -13,55 +13,38 @@ use Livro\Widgets\Form\Image;
 class Question
 {
     /**
-     * Instancia questionamento
+     * Instancia o questionamento
      * @param $message = pergunta ao usuário
      * @param $action_yes = ação para resposta positiva
      * @param $action_no = ação para resposta negativa
      */
     function __construct($message, Action $action_yes, Action $action_no = NULL)
     {
+        $div = new Element('div');
+        $div->class = 'alert alert-warning';
+        
         // converte os nomes de métodos em URL's
         $url_yes = $action_yes->serialize();
+        
+        $link_yes = new Element('a');
+        $link_yes->href = $url_yes;
+        $link_yes->class = 'btn btn-success';
+        $link_yes->add('Sim');
+        
+        $message .= '&nbsp;' . $link_yes;
         if ($action_no)
         {
             $url_no = $action_no->serialize();
+            
+            $link_no = new Element('a');
+            $link_no->href = $url_no;
+            $link_no->class = 'btn btn-default';
+            $link_no->add('Não');
+            
+            $message .= $link_no;
         }
         
-        // instancia o painel para exibir o diálogo
-        $painel = new Element('div');
-        $painel->class = "tquestion";
-        
-        // cria um botão para a resposta positiva
-        $button1 = new Element('input');
-        $button1->type = 'button';
-        $button1->value = 'Sim';
-        $button1->onclick="javascript:location='$url_yes'";
-        
-        // cria um botão para a resposta negativa
-        $button2 = new Element('input');
-        $button2->type = 'button';
-        $button2->value = 'Não';
-        $button2->onclick="javascript:location='$url_no'";
-        
-        // cria uma tabela para organizar o layout
-        $table = new Table;
-        $table->align = 'center';
-        $table->cellspacing = 10;
-        
-        // cria uma linha para o ícone e a mensagem
-        $row=$table->addRow();
-        $row->addCell(new Image('App/Images/question.png'));
-        $row->addCell($message);
-        
-        // cria uma linha para os botões
-        $row=$table->addRow();
-        $row->addCell($button1);
-        $row->addCell($button2);
-        
-        // adiciona a tabela ao painél
-        $painel->add($table);
-        
-        // exibe o painél
-        $painel->show();
+        $div->add($message);
+        $div->show();
     }
 }

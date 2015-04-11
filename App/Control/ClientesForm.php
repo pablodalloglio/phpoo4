@@ -13,17 +13,15 @@ use Livro\Database\Repository;
 use Livro\Database\Criteria;
 use Livro\Validation\RequiredValidator;
 
-/*
- * classe ClientesForm
- * formulário de cadastro de Clientes
+/**
+ * Formulário de clientes
  */
 class ClientesForm extends Page
 {
-    private $form; // formulário
+    private $form;
 
-    /*
-     * método construtor
-     * cria a página e o formulário de cadastro
+    /**
+     * Construtor da página
      */
     function __construct()
     {
@@ -49,7 +47,7 @@ class ClientesForm extends Page
         $cidade->addItems($items);
         Transaction::close();
         
-        $this->form->addField('Código', $codigo, 40, new RequiredValidator);
+        $this->form->addField('Código', $codigo, 40);
         $this->form->addField('Nome', $nome, 40, new RequiredValidator);
         $this->form->addField('Endereço', $endereco, 40);
         $this->form->addField('Telefone', $telefone, 40);
@@ -67,10 +65,8 @@ class ClientesForm extends Page
         parent::add($this->form);
     }
 
-
-    /*
-     * método onEdit
-     * edita os dados de um registro
+    /**
+     * Carrega registro para edição
      */
     function onEdit($param)
     {
@@ -78,17 +74,11 @@ class ClientesForm extends Page
         {
             if (isset($param['key']))
             {
-                // inicia transação com o banco 'livro'
-                Transaction::open('livro');
-
-                // obtém o Cliente de acordo com o parâmetro
-                $cliente = new Cliente($param['key']);
-
-                // lança os dados do cliente no formulário
-                $this->form->setData($cliente);
-
-                // finaliza a transação
-                Transaction::close();
+                $key = $param['key']; // obtém a chave
+                Transaction::open('livro'); // inicia transação com o BD
+                $cliente = new Cliente($key); // instancia o Active Record
+                $this->form->setData($cliente); // lança os dados da cidade no formulário
+                Transaction::close(); // finaliza a transação
             }
         }
         catch (Exception $e)		    // em caso de exceção
@@ -99,31 +89,25 @@ class ClientesForm extends Page
             Transaction::rollback();
         }
     }
-
-    /*
-     * método onSave
-     * executado quando o usuário clicar no botão salvar
+    
+    /**
+     * Salva os dados do formulário
      */
     function onSave()
     {
         try
         {
-            // inicia transação com o banco 'livro'
+            // inicia transação com o BD
             Transaction::open('livro');
 
-            // lê os dados do formulário e instancia um objeto Cliente
-            $cliente = $this->form->getData('Cliente');
-
-            // armazena o objeto no banco de dados
-            $cliente->store();
-
-            // finaliza a transação
-            Transaction::close();
-
-            // exibe mensagem de sucesso
+            $dados = $this->form->getData();
+            $cliente = new Cliente; // instancia objeto
+            $cliente->fromArray( (array) $dados); // carrega os dados
+            $cliente->store(); // armazena o objeto no banco de dados
+            Transaction::close(); // finaliza a transação
             new Message('info', 'Dados armazenados com sucesso');
         }
-        catch (Exception $e)		     // em caso de exceção
+        catch (Exception $e)
         {
             // exibe a mensagem gerada pela exceção
             new Message('error', '<b>Erro</b>' . $e->getMessage());
@@ -133,4 +117,3 @@ class ClientesForm extends Page
         }
     }
 }
-?>

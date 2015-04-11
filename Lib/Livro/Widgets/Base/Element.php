@@ -63,7 +63,10 @@ class Element
             // percorre as propriedades
             foreach ($this->properties as $name=>$value)
             {
-                echo " {$name}=\"{$value}\"";
+                if (is_scalar($value))
+                {
+                    echo " {$name}=\"{$value}\"";
+                }
             }
         }
         echo '>';
@@ -97,6 +100,18 @@ class Element
             // fecha a tag
             $this->close();
         }
+    }
+    
+    /**
+     * Converte elemento em string
+     */
+    public function __toString()
+    {
+        ob_start();
+        $this->show();
+        $content = ob_get_clean();
+        
+        return $content;
     }
     
     /**

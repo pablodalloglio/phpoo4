@@ -65,4 +65,3 @@ class ConcluiVendaForm extends TForm
         parent::setFields(array($cliente, $desconto, $valor_total, $valor_pago, $this->button));
     }
 }
-?>

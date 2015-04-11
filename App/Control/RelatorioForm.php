@@ -1,4 +1,22 @@
 <?php
+use Livro\Control\Page;
+use Livro\Control\Action;
+use Livro\Widgets\Form\Form;
+use Livro\Widgets\Form\Entry;
+use Livro\Widgets\Form\Label;
+use Livro\Widgets\Form\Button;
+use Livro\Widgets\Container\Table;
+use Livro\Widgets\Container\VBox;
+use Livro\Widgets\Dialog\Message;
+use Livro\Widgets\Dialog\Question;
+use Livro\Database\Transaction;
+use Livro\Database\Repository;
+use Livro\Database\Criteria;
+use Livro\Database\Filter;
+use Livro\Validation\RequiredValidator;
+
+use Bootstrap\Wrapper\FormWrapper;
+
 /*
  * classe RelatorioForm
  * relatório de vendas por período
@@ -16,45 +34,16 @@ class RelatorioForm extends Page
         parent::__construct();
 
         // instancia um formulário
-        $this->form = new TForm('form_relat_vendas');
-
-        // instancia uma tabela
-        $table = new Table;
-
-        // adiciona a tabela ao formulário
-        $this->form->add($table);
+        $this->form = new Form('form_relat_vendas');
 
         // cria os campos do formulário
         $data_ini = new Entry('data_ini');
         $data_fim = new Entry('data_fim');
-
-        // define os tamanhos
-        $data_ini->setSize(100);
-        $data_fim->setSize(100);
-
-        // adiciona uma linha para o campo data inicial
-        $row=$table->addRow();
-        $row->addCell(new Label('Data Inicial:'));
-        $row->addCell($data_ini);
-
-        // adiciona uma linha para o campo data final
-        $row=$table->addRow();
-        $row->addCell(new Label('Data Final:'));
-        $row->addCell($data_fim);
-
-        // cria um botão de ação
-        $gera_button=new Button('gera');
-
-        // define a ação do boão
-        $gera_button->setAction(new TAction(array($this, 'onGera')), 'Gerar Relatório');
-
-        // adiciona uma linha para a ação do formulário
-        $row=$table->addRow();
-        $row->addCell($gera_button);
-
-        // define quais são os campos do formulário
-        $this->form->setFields(array($data_ini, $data_fim, $gera_button));
-
+        
+        $this->form->addField('Data Inicial', $data_ini, 200);
+        $this->form->addField('Data Final', $data_fim, 200);
+        $this->form->addAction('Gerar', new Action(array($this, 'onGera')));
+        
         // adiciona o formulário à página
         parent::add($this->form);
     }
@@ -103,10 +92,14 @@ class RelatorioForm extends Page
 
             // cria um critério de seleção por intervalo de datas
             $criterio = new Criteria;
-            $criterio->add(new TFilter('data_venda', '>=', $data_ini));
-            $criterio->add(new TFilter('data_venda', '<=', $data_fim));
             $criterio->setProperty('order', 'data_venda');
-
+            
+            if ($dados->data_ini)
+                $criterio->add(new Filter('data_venda', '>=', $data_ini));
+            if ($dados->data_fim)
+                $criterio->add(new Filter('data_venda', '<=', $data_fim));
+            
+            var_dump($criterio->dump());
             // lê todas vendas que satisfazem ao critério
             $vendas = $repositorio->load($criterio);
 
@@ -204,4 +197,3 @@ class RelatorioForm extends Page
         return "{$dia}/{$mes}/{$ano}";
     }
 }
-?>
