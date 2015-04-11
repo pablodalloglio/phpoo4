@@ -12,6 +12,8 @@ use Livro\Database\Transaction;
 use Livro\Database\Repository;
 use Livro\Database\Criteria;
 
+use Bootstrap\Wrapper\DatagridWrapper;
+use Bootstrap\Wrapper\FormWrapper;
 
 /*
  * classe ProdutosForm
@@ -30,13 +32,7 @@ class ProdutosForm extends Page
         parent::__construct();
 
         // instancia um formulário
-        $this->form = new Form('form_produtos');
-
-        // instancia uma tabela
-        $table = new Table;
-        
-        // adiciona a tabela ao formulário
-        $this->form->add($table);
+        $this->form = new FormWrapper(new Form('form_produtos'));
         
         // cria os campos do formulário
         $codigo      = new Entry('id');
@@ -48,11 +44,8 @@ class ProdutosForm extends Page
         
         // carrega os fabricantes do banco de dados
         Transaction::open('livro');
-        // instancia um repositório de Fabricante
         $repository = new Repository('Fabricante');
-        // carrega todos objetos
         $collection = $repository->load(new Criteria);
-        // adiciona objetos na combo
         foreach ($collection as $object)
         {
             $items[$object->id] = $object->nome;
@@ -62,53 +55,14 @@ class ProdutosForm extends Page
         
         // define alguns atributos para os campos do formulário
         $codigo->setEditable(FALSE);
-        $codigo->setSize(100);
-        $estoque->setSize(100);
-        $preco_custo->setSize(100);
-        $preco_venda->setSize(100);
         
-        // adiciona uma linha para o campo código
-        $row=$table->addRow();
-        $row->addCell(new Label('Código:'));
-        $row->addCell($codigo);
-        
-        // adiciona uma linha para o campo descrição
-        $row=$table->addRow();
-        $row->addCell(new Label('Descrição:'));
-        $row->addCell($descricao);
-        
-        // adiciona uma linha para o campo estoque
-        $row=$table->addRow();
-        $row->addCell(new Label('Estoque:'));
-        $row->addCell($estoque);
-        
-        // adiciona uma linha para o campo preco de custo
-        $row=$table->addRow();
-        $row->addCell(new Label('Preço Custo:'));
-        $row->addCell($preco_custo);
-        
-        // adiciona uma linha para o campo preço de venda
-        $row=$table->addRow();
-        $row->addCell(new Label('Preço Venda:'));
-        $row->addCell($preco_venda);
-        
-        // adiciona uma linha para o campo fabricante
-        $row=$table->addRow();
-        $row->addCell(new Label('Fabricante:'));
-        $row->addCell($fabricante);
-        
-        // cria um botão de ação para o formulário
-        $button1=new Button('action1');
-        // define a ação dos botão
-        $button1->setAction(new Action(array($this, 'onSave')), 'Salvar');
-        
-        // adiciona uma linha para a ação do formulário
-        $row=$table->addRow();
-        $row->addCell('');
-        $row->addCell($button1);
-        
-        // define quais são os campos do formulário
-        $this->form->setFields(array($codigo, $descricao, $estoque, $preco_custo, $preco_venda, $fabricante, $button1));
+        $this->form->addField('Código',    $codigo, 100);
+        $this->form->addField('Descrição', $descricao, 200);
+        $this->form->addField('Estoque',   $estoque, 200);
+        $this->form->addField('Preço custo',   $preco_custo, 200);
+        $this->form->addField('Preço venda',   $preco_venda, 200);
+        $this->form->addField('Fabricante',   $fabricante, 200);
+        $this->form->addAction('Salvar', new Action(array($this, 'onSave')));
         
         // adiciona o formulário na página
         parent::add($this->form);

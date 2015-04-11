@@ -10,10 +10,14 @@ use Livro\Widgets\Datagrid\Datagrid;
 use Livro\Widgets\Datagrid\DatagridColumn;
 use Livro\Widgets\Datagrid\DatagridAction;
 use Livro\Widgets\Dialog\Message;
+use Livro\Widgets\Dialog\Question;
 use Livro\Database\Transaction;
 use Livro\Database\Repository;
 use Livro\Database\Criteria;
 use Livro\Database\Filter;
+
+use Bootstrap\Wrapper\DatagridWrapper;
+use Bootstrap\Wrapper\FormWrapper;
 
 /*
  * classe ProdutosList
@@ -34,40 +38,17 @@ class ProdutosList extends Page
         parent::__construct();
         
         // instancia um formulário
-        $this->form = new Form('form_busca_produtos');
-        // instancia uma tabela
-        $table = new Table;
-        
-        // adiciona a tabela ao formulário
-        $this->form->add($table);
+        $this->form = new FormWrapper(new Form('form_busca_produtos'));
         
         // cria os campos do formulário
         $descricao= new Entry('descricao');
         
-        // adiciona uma linha para o campo descriçao
-        $row=$table->addRow();
-        $row->addCell(new Label('Descrição:'));
-        $row->addCell($descricao);
-        
-        // cria dois botões de ação para o formulário
-        $find_button = new Button('busca');
-        $new_button  = new Button('cadastrar');
-        // define as ações dos botões
-        $find_button->setAction(new Action(array($this, 'onReload')), 'Buscar');
-        
-        $obj = new ProdutosForm;
-        $new_button->setAction(new Action(array($obj, 'onEdit')), 'Cadastrar');
-        
-        // adiciona uma linha para as ações do formulário
-        $row=$table->addRow();
-        $row->addCell($find_button);
-        $row->addCell($new_button);
-        
-        // define quais são os campos do formulário
-        $this->form->setFields(array($descricao, $find_button, $new_button));
+        $this->form->addField('Descrição',   $descricao, 200);
+        $this->form->addAction('Buscar', new Action(array($this, 'onReload')));
+        $this->form->addAction('Cadastrar', new Action(array(new ProdutosForm, 'onEdit')));
         
         // instancia objeto DataGrid
-        $this->datagrid = new DataGrid;
+        $this->datagrid = new DatagridWrapper(new DataGrid);
         
         // instancia as colunas da DataGrid
         $codigo   = new DataGridColumn('id',             'Código',    'right',  50);
@@ -169,14 +150,12 @@ class ProdutosList extends Page
         
         // define duas ações
         $action1 = new Action(array($this, 'Delete'));
-        $action2 = new Action(array($this, 'teste'));
         
         // define os parâmetros de cada ação
         $action1->setParameter('key', $key);
-        $action2->setParameter('key', $key);
         
         // exibe um diálogo ao usuário
-        new TQuestion('Deseja realmente excluir o registro ?', $action1, $action2);
+        new Question('Deseja realmente excluir o registro ?', $action1);
     }
     
     /*

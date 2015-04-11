@@ -50,18 +50,27 @@ class FormWrapper
             $col->class = 'col-sm-10';
             $col->add($field);
             
-            if ($field instanceof Button)
-            {
-                $field->class = 'btn btn-success';
-            }
-            else
-            {
-                $field->class = 'form-control';
-            }
+            $field->class = 'form-control';
+            
             $group->add($col);
             $element->add($group);
-            
         }
+        
+        $group = new Element('div');
+        $group->class = 'form-group';
+        
+        $col = new Element('div');
+        $col->class = 'col-sm-offset-2 col-sm-10"';
+        
+        foreach ($this->decorated->getActions() as $action)
+        {
+            $col->add($action);
+            $action->class = 'btn btn-success';
+        }
+        
+        $group->add($col);
+        $element->add($group);
+        
         $element->width = '100%';
         $element->show();
     }
