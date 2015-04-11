@@ -49,45 +49,15 @@ class VendasForm extends Page
         // instancia um formulário
         $this->form = new Form('form_vendas');
 
-        // instancia uma tabela
-        $table = new Table;
-
-        // adiciona a tabela ao formulário
-        $this->form->add($table);
-
         // cria os campos do formulário
         $codigo      = new Entry('id_produto');
         $quantidade = new Entry('quantidade');
-
-        // define os tamanhos
-        $codigo->setSize(100);
-
-        // adiciona uma linha para o campo código
-        $row=$table->addRow();
-        $row->addCell(new Label('Código:'));
-        $row->addCell($codigo);
-
-        // adiciona uma linha para o campo quantidade
-        $row=$table->addRow();
-        $row->addCell(new Label('Quantidade:'));
-        $row->addCell($quantidade);
-
-        // cria dois botões de ação para o formulário
-        $save_button = new Button('save');
-        $fim_button = new Button('fim');
-
-        // define as ações dos botões
-        $save_button->setAction(new Action(array($this, 'onAdiciona')), 'Adicionar');
-        $fim_button->setAction(new Action(array($this, 'onFinal')), 'Finalizar');
-
-        // adiciona uma linha para as ações do formulário
-        $row=$table->addRow();
-        $row->addCell($save_button);
-        $row->addCell($fim_button);
-
-        // define quais são os campos do formulário
-        $this->form->setFields(array($codigo, $quantidade, $save_button, $fim_button));
-
+        
+        $this->form->addField('Código', $codigo, 100);
+        $this->form->addField('Quantidade', $quantidade, 200);
+        $this->form->addAction('Adicionar', new Action(array($this, 'onAdiciona')));
+        $this->form->addAction('Terminar', new Action(array($this, 'onFinal')));
+        
         // instancia objeto DataGrid
         $this->datagrid = new DataGrid;
 
@@ -310,4 +280,3 @@ class VendasForm extends Page
         parent::show();
     }
 }
-?>

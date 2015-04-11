@@ -10,9 +10,13 @@ use Livro\Widgets\Datagrid\Datagrid;
 use Livro\Widgets\Datagrid\DatagridColumn;
 use Livro\Widgets\Datagrid\DatagridAction;
 use Livro\Widgets\Dialog\Message;
+use Livro\Widgets\Dialog\Question;
 use Livro\Database\Transaction;
 use Livro\Database\Repository;
 use Livro\Database\Criteria;
+
+use Bootstrap\Wrapper\DatagridWrapper;
+use Bootstrap\Wrapper\FormWrapper;
 
 /*
  * classe FabricantesList
@@ -34,52 +38,26 @@ class FabricantesList extends Page
         parent::__construct();
         
         // instancia um formulário
-        $this->form = new Form('form_fabricantes');
-        
-        // instancia uma tabela
-        $table = new Table;
-        
-        // adiciona a tabela ao formulário
-        $this->form->add($table);
+        $this->form = new FormWrapper(new Form('form_fabricantes'));
         
         // cria os campos do formulário
         $codigo = new Entry('id');
         $nome   = new Entry('nome');
         $site   = new Entry('site');
+        $codigo->setEditable(FALSE);
+        
+        $this->form->addField('Código', $codigo, 200);
+        $this->form->addField('Nome',   $nome, 200);
+        $this->form->addField('Site',   $site, 200);
+        $this->form->addAction('Salvar', new Action(array($this, 'onSave')));
+        $this->form->addAction('Limpar', new Action(array($this, 'onEdit')));
         
         // define os tamanhos
         $codigo->setSize(40);
         $site->setSize(200);
         
-        // adiciona uma linha para o campo código
-        $row=$table->addRow();
-        $row->addCell(new Label('Código:'));
-        $row->addCell($codigo);
-        
-        // adiciona uma linha para o campo nome
-        $row=$table->addRow();
-        $row->addCell(new Label('Nome:'));
-        $row->addCell($nome);
-        
-        // adiciona uma linha para o campo site
-        $row=$table->addRow();
-        $row->addCell(new Label('Site:'));
-        $row->addCell($site);
-        
-        // cria um botão de ação (salvar)
-        $save_button=new Button('save');
-        // define a ação do botão
-        $save_button->setAction(new Action(array($this, 'onSave')), 'Salvar');
-        
-        // adiciona uma linha para a ação do formulário
-        $row=$table->addRow();
-        $row->addCell($save_button);
-        
-        // define quais são os campos do formulário
-        $this->form->setFields(array($codigo, $nome, $site, $save_button));
-        
         // instancia objeto DataGrid
-        $this->datagrid = new DataGrid;
+        $this->datagrid = new DatagridWrapper(new DataGrid);
         
         // instancia as colunas da DataGrid
         $codigo   = new DataGridColumn('id',       'Código',  'right',  50);
@@ -186,14 +164,12 @@ class FabricantesList extends Page
         
         // define duas ações
         $action1 = new Action(array($this, 'Delete'));
-        $action2 = new Action(array($this, 'teste'));
         
         // define os parâmetros de cada ação
         $action1->setParameter('key', $key);
-        $action2->setParameter('key', $key);
         
         // exibe um diálogo ao usuário
-        new TQuestion('Deseja realmente excluir o registro ?', $action1, $action2);
+        new Question('Deseja realmente excluir o registro ?', $action1);
     }
     
     /*
@@ -228,19 +204,22 @@ class FabricantesList extends Page
      */
     function onEdit($param)
     {
-        // obtém o parâmetro e exibe mensagem
-        $key=$param['key'];
-        // inicia transação com o banco 'livro'
-        Transaction::open('livro');
-        
-        // instanicia objeto Fabricante
-        $fabricante = new Fabricante($key);
-        // lança os dados do fabricante no formulário
-        $this->form->setData($fabricante);
-        
-        // finaliza a transação
-        Transaction::close();
-        $this->onReload();
+        if (isset($param['key']))
+        {
+            // obtém o parâmetro e exibe mensagem
+            $key=$param['key'];
+            // inicia transação com o banco 'livro'
+            Transaction::open('livro');
+            
+            // instanicia objeto Fabricante
+            $fabricante = new Fabricante($key);
+            // lança os dados do fabricante no formulário
+            $this->form->setData($fabricante);
+            
+            // finaliza a transação
+            Transaction::close();
+            $this->onReload();
+        }
     }
     
     /*

@@ -119,7 +119,7 @@ class Form extends Element
     {
         $name   = strtolower(str_replace(' ', '_', $label));
         $button = new Button($name);
-        $this->fields[] = $button;
+        //$this->fields[] = $button;
         
         $button->setFormName($this->name);
         
