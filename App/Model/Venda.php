@@ -1,5 +1,8 @@
 <?php
 use Livro\Database\Record;
+use Livro\Database\Repository;
+use Livro\Database\Criteria;
+use Livro\Database\Filter;
 
 class Venda extends Record
 {
@@ -37,10 +40,10 @@ class Venda extends Record
 	 public function get_itens()
 	 {
 		    // instancia um repositório de Item
-		    $repositorio = new TRepository('Item');
+		    $repositorio = new Repository('Item');
 		    // define o critério de seleção
-		    $criterio = new TCriteria;
-		    $criterio->add(new TFilter('id_venda', '=', $this->id));
+		    $criterio = new Criteria;
+		    $criterio->add(new Filter('id_venda', '=', $this->id));
 		    // carrega a coleção de itens
 		    $this->itens = $repositorio->load($criterio);
 		    // retorna os itens

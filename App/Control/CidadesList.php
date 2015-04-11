@@ -18,27 +18,41 @@ use Livro\Database\Repository;
 use Livro\Database\Criteria;
 use Livro\Validation\RequiredValidator;
 
+use Livro\Traits\DeleteTrait;
+use Livro\Traits\ReloadTrait;
+use Livro\Traits\SaveTrait;
+
 use Bootstrap\Wrapper\DatagridWrapper;
 use Bootstrap\Wrapper\FormWrapper;
+use Bootstrap\Widgets\Panel;
 
-/*
- * classe CidadesList
- * cadastro de cidades: contém o formuláro e a listagem
+/**
+ * Cadastro de cidades
  */
 class CidadesList extends Page
 {
-    private $form;        // formulário de cadastro
-    private $datagrid;   // listagem
+    private $form;
+    private $datagrid;
     private $loaded;
 
-    /*
-     * método construtor
-     * Cria a página, o formulário e a listagem
+    use DeleteTrait;
+    use ReloadTrait {
+        onReload as onReloadTrait;
+    }
+    use SaveTrait {
+        onSave as onSaveTrait;
+    }
+    
+    /**
+     * Construtor da página
      */
     public function __construct()
     {
         parent::__construct();
 
+        $this->activeRecord = 'Cidade';
+        $this->connection   = 'livro';
+        
         // instancia um formulário
         $this->form = new FormWrapper(new Form('form_cidades'));
         
@@ -57,12 +71,14 @@ class CidadesList extends Page
         $items['PR'] = 'Paraná';
         $estado->addItems($items);
         
-        $this->form->addField('Código', $codigo, 40, new RequiredValidator);
+        $this->form->addField('Código', $codigo, 40);
         $this->form->addField('Descrição', $descricao, 200, new RequiredValidator);
         $this->form->addField('Estado', $estado, 200);
-        $this->form->addAction('Salvar', new Action(array($this, 'onSave')));
         
-        // instancia objeto DataGrid
+        $this->form->addAction('Salvar', new Action(array($this, 'onSave')));
+        $this->form->addAction('Limpar', new Action(array($this, 'onEdit')));
+        
+        // instancia a Datagrid
         $this->datagrid = new DatagridWrapper(new DataGrid);
 
         // instancia as colunas da DataGrid
@@ -90,144 +106,59 @@ class CidadesList extends Page
         $this->datagrid->addAction($action1);
         $this->datagrid->addAction($action2);
 
-        // cria o modelo da DataGrid, montando sua estrutura
+        // cria o modelo da Datagrid, montando sua estrutura
         $this->datagrid->createModel();
-
+        
+        $panel = new Panel('Cidades');
+        $panel->add($this->form);
+        
+        $panel2 = new Panel();
+        $panel2->add($this->datagrid);
+        
         // monta a página através de uma tabela
         $box = new VBox;
         $box->style = 'display:block';
-        $box->add($this->form);
-        $box->add($this->datagrid);
+        $box->add($panel);
+        $box->add($panel2);
         
         parent::add($box);
     }
-
-    /*
-     * método onReload()
-     * carrega a DataGrid com os objetos do banco de dados
+    
+    /**
+     * Salva os dados
      */
-    function onReload()
+    public function onSave()
     {
-        // inicia transação com o banco 'livro'
-        Transaction::open('livro');
-
-        // instancia um repositório para Cidade
-        $repository = new Repository('Cidade');
-
-        // cria um critério de seleção, ordenado pelo id
-        $criteria = new Criteria;
-        $criteria->setProperty('order', 'id');
-
-        // carrega os objetos de acordo com o criterio
-        $cidades = $repository->load($criteria);
-        $this->datagrid->clear();
-        if ($cidades)
-        {
-            // percorre os objetos retornados
-            foreach ($cidades as $cidade)
-            {
-                // adiciona o objeto na DataGrid
-                $this->datagrid->addItem($cidade);
-            }
-        }
-        // finaliza a transação
-        Transaction::close();
+        $this->onSaveTrait();
+        $this->onReload();
+    }
+    
+    /**
+     * Carrega os dados
+     */
+    public function onReload()
+    {
+        $this->onReloadTrait();   
         $this->loaded = true;
     }
-
-
-    /*
-     * método onSave()
-     * executada quando o usuário clicar no botão salvar do formulário
-     */
-    function onSave()
-    {
-        try
-        {
-            $this->form->validate();
-            
-            // inicia transação com o banco 'livro'
-            Transaction::open('livro');
-            // obtém os dados no formulário em um objeto Cidade
-            $cidade = $this->form->getData('Cidade');
-            
-            // armazena o objeto
-            $cidade->store();
-            // finaliza a transação
-            Transaction::close();
-            // exibe mensagem de sucesso
-            new Message('info', 'Dados armazenados com sucesso');
-            // recarrega listagem
-            $this->onReload();
-        }
-        catch (Exception $e)
-        {
-            new Message('error', $e->getMessage());
-        }
-    }
-
-
-    /*
-     * método onDelete()
-     * executada quando o usuário clicar no botão excluir da datagrid
-     * pergunta ao usuário se deseja realmente excluir um registro
-     */
-    function onDelete($param)
-    {
-        // obtém o parâmetro $key
-        $key=$param['key'];
-        // define duas ações
-        $action1 = new Action(array($this, 'Delete'));
-        // define os parâmetros de cada ação
-        $action1->setParameter('key', $key);
-
-        // exibe um diálogo ao usuário
-        new Question('Deseja realmente excluir o registro?', $action1);
-    }
-
-    /*
-     * método Delete()
-     * exclui um registro
-     */
-    function Delete($param)
-    {
-        // obtém o parâmetro $key
-        $key=$param['key'];
-        // inicia transação com o banco 'livro'
-        Transaction::open('livro');
-        // instancia objeto Cidade
-        $cidade = new Cidade($key);
-        // deleta objeto do banco de dados
-        $cidade->delete();
-        // finaliza a transação
-        Transaction::close();
-        // recarrega a datagrid
-        $this->onReload();
-        // exibe mensagem de sucesso
-        new Message('info', "Registro excluído com sucesso");
-    }
-
-    /*
-     * método onEdit()
-     * executada quando o usuário clicar no botão editar da datagrid
+    
+    /**
+     * Carrega registro para edição
      */
     function onEdit($param)
     {
-        // obtém o parâmetro $key
-        $key=$param['key'];
-        // inicia transação com o banco 'livro'
-        Transaction::open('livro');
-        // instancia objeto Cidade
-        $cidade = new Cidade($key);
-        // lança os dados da cidade no formulário
-        $this->form->setData($cidade);
-        // finaliza a transação
-        Transaction::close();
-        $this->onReload();
+        if (isset($param['key']))
+        {
+            $key = $param['key']; // obtém a chave
+            Transaction::open('livro'); // inicia transação com o BD
+            $cidade = new Cidade($key); // instancia o Active Record
+            $this->form->setData($cidade); // lança os dados da cidade no formulário
+            Transaction::close(); // finaliza a transação
+            $this->onReload();
+        }
     }
 
-    /*
-     * método show()
+    /**
      * exibe a página
      */
     function show()

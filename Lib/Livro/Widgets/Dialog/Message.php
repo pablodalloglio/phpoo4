@@ -16,6 +16,16 @@ class Message
      */
     public function __construct($type, $message)
     {
-        echo $message;
+        $div = new Element('div');
+        if ($type == 'info')
+        {
+            $div->class = 'alert alert-info';
+        }
+        else if ($type == 'error')
+        {
+            $div->class = 'alert alert-danger';
+        }
+        $div->add($message);
+        $div->show();
     }
 }

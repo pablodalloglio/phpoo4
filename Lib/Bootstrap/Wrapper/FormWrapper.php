@@ -28,6 +28,9 @@ class FormWrapper
         return call_user_func_array(array($this->decorated, $method),$parameters);
     }
     
+    /**
+     * Exibe o formulário
+     */
     public function show()
     {
         $element = new Element('form');
@@ -42,7 +45,7 @@ class FormWrapper
             $group->class = 'form-group';
             
             $label = new Element('label');
-            //$label->for = uniqid();
+            
             $label->class= 'col-sm-2 control-label';
             $label->add($field->getLabel());
             $group->add($label);
@@ -62,10 +65,13 @@ class FormWrapper
         $col = new Element('div');
         $col->class = 'col-sm-offset-2 col-sm-10"';
         
+        $i = 0;
         foreach ($this->decorated->getActions() as $action)
         {
             $col->add($action);
-            $action->class = 'btn btn-success';
+            $class = ($i==0) ? 'btn-success' : 'btn-default';
+            $action->class = 'btn '.$class;
+            $i ++;
         }
         
         $group->add($col);
