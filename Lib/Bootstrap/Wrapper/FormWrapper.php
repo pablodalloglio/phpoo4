@@ -6,7 +6,7 @@ use Livro\Widgets\Form\Button;
 use Livro\Widgets\Base\Element;
 
 /**
- * Decora datagrids no formato Bootstrap
+ * Decora formulários no formato Bootstrap
  */
 class FormWrapper
 {

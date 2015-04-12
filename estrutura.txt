@@ -49,7 +49,6 @@ Page transition
     dom template
     
     
-    
 Relatório de Vendas
 ===================
 DomTemplate ou twig
