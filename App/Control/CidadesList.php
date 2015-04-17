@@ -59,21 +59,24 @@ class CidadesList extends Page
         // cria os campos do formulário
         $codigo    = new Entry('id');
         $descricao = new Entry('nome');
-        $estado    = new Combo('estado');
+        $estado    = new Combo('id_estado');
         
         $codigo->setEditable(FALSE);
         
-        // cria um vetor com as opções da combo
-        $items= array();
-        $items['RS'] = 'Rio Grande do Sul';
-        $items['SP'] = 'São Paulo';
-        $items['MG'] = 'Minas Gerais';
-        $items['PR'] = 'Paraná';
+        Transaction::open('livro');
+        $estados = Estado::all();
+        $items = array();
+        foreach ($estados as $obj_estado)
+        {
+            $items[$obj_estado->id] = $obj_estado->nome;
+        }
+        Transaction::close();
+        
         $estado->addItems($items);
         
         $this->form->addField('Código', $codigo, 40);
-        $this->form->addField('Descrição', $descricao, 200, new RequiredValidator);
-        $this->form->addField('Estado', $estado, 200);
+        $this->form->addField('Descrição', $descricao, 300, new RequiredValidator);
+        $this->form->addField('Estado', $estado, 300);
         
         $this->form->addAction('Salvar', new Action(array($this, 'onSave')));
         $this->form->addAction('Limpar', new Action(array($this, 'onEdit')));
@@ -83,8 +86,8 @@ class CidadesList extends Page
 
         // instancia as colunas da DataGrid
         $codigo   = new DataGridColumn('id',     'Código', 'right', 50);
-        $nome     = new DataGridColumn('nome',   'Nome',   'left', 200);
-        $estado   = new DataGridColumn('estado', 'Estado', 'left', 40);
+        $nome     = new DataGridColumn('nome',   'Nome',   'left', 150);
+        $estado   = new DataGridColumn('estado', 'Estado', 'left', 150);
 
         // adiciona as colunas à DataGrid
         $this->datagrid->addColumn($codigo);

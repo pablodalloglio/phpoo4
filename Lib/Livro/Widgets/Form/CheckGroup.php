@@ -2,6 +2,7 @@
 Namespace Livro\Widgets\Form;
 
 use Livro\Control\Action;
+use Livro\Widgets\Base\Element;
 
 /**
  * Representa um grupo de CheckButtons
@@ -47,13 +48,14 @@ class CheckGroup extends Field
                 {
                     $button->setProperty('checked', '1');
                 }
-                $button->show();
-                $obj = new TLabel($label);
+                
+                $obj = new Label($label);
+                $obj->add($button);
                 $obj->show();
                 if ($this->layout == 'vertical')
                 {
                     // exibe uma tag de quebra de linha
-                    $br = new TElement('br');
+                    $br = new Element('br');
                     $br->show();
                     echo "\n";
                 }

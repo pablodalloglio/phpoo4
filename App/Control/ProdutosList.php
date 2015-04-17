@@ -57,7 +57,7 @@ class ProdutosList extends Page
         // cria os campos do formulário
         $descricao = new Entry('descricao');
         
-        $this->form->addField('Descrição',   $descricao, 200);
+        $this->form->addField('Descrição',   $descricao, 300);
         $this->form->addAction('Buscar', new Action(array($this, 'onReload')));
         $this->form->addAction('Cadastrar', new Action(array(new ProdutosForm, 'onEdit')));
         

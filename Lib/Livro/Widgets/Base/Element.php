@@ -39,7 +39,7 @@ class Element
     public function __get($name)
     {
         // retorna o valores atribuídos ao array properties
-        return $this->properties[$name];
+        return isset($this->properties[$name])? $this->properties[$name] : NULL;
     }
     
     /**

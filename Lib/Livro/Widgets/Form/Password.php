@@ -22,7 +22,6 @@ class Password extends Field implements FormElementInterface
         if (!parent::getEditable())
         {
             $this->tag->readonly = "1";
-            $this->tag->class = 'tfield_disabled';		           // classe CSS
         }
         // exibe a tag
         $this->tag->show();

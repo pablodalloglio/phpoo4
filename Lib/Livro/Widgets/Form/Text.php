@@ -21,7 +21,7 @@ class Text extends Field implements FormElementInterface
         
         // cria uma tag HTML do tipo <textarea >
         $this->tag = new Element('textarea');
-        $this->tag->class = 'tfield';        // classe CSS
+        $this->tag->class = 'field';        // classe CSS
         
         // define a altura padrão da caixa de texto
         $this->height= 100;
@@ -54,7 +54,6 @@ class Text extends Field implements FormElementInterface
         {
             // desabilita a TAG input
             $this->tag->readonly = "1";
-            $this->tag->class = 'tfield_disabled'; // classe CSS
         }
         
         // adiciona conteúdo ao textarea

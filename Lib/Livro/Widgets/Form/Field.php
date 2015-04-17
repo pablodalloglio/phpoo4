@@ -139,6 +139,14 @@ abstract class Field implements FormElementInterface
     }
     
     /**
+     * Retorna uma propriedade do campo
+     */
+    public function getProperty($name)
+    {
+        return $this->tag->$name;
+    }
+    
+    /**
      * Define a largura do widget
      * @param $width = largura em pixels
      * @param $height = altura em pixels (usada em TText)
@@ -151,7 +159,7 @@ abstract class Field implements FormElementInterface
     /**
      * Adiciona um validador para o campo
      * @param $label nome do campo
-     * @param $validator Validador TFieldValidator
+     * @param $validator Validador FieldValidator
      * @param $parameters Parâmetros adicionais
      */
     public function addValidation($label, FieldValidator $validator, $parameters = NULL)

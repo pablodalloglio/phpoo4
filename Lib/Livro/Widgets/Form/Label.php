@@ -30,6 +30,14 @@ class Label extends Field implements FormElementInterface
     }
     
     /**
+     * Adiciona conteúdo no label
+     */
+    public function add($child)
+    {
+        $this->tag->add($child);
+    }
+    
+    /**
      * Exibe o widget
      */
     public function show()

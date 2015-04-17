@@ -7,6 +7,7 @@ use Livro\Widgets\Dialog\Message;
 use Livro\Widgets\Form\Label;
 use Livro\Widgets\Form\Entry;
 use Livro\Widgets\Form\Combo;
+use Livro\Widgets\Form\CheckGroup;
 use Livro\Widgets\Form\Button;
 use Livro\Database\Transaction;
 use Livro\Database\Repository;
@@ -14,9 +15,9 @@ use Livro\Database\Criteria;
 use Livro\Validation\RequiredValidator;
 
 /**
- * Formulário de clientes
+ * Formulário de pessoas
  */
-class ClientesForm extends Page
+class PessoasForm extends Page
 {
     private $form;
 
@@ -27,31 +28,45 @@ class ClientesForm extends Page
     {
         parent::__construct();
         // instancia um formulário
-        $this->form = new Form('form_clientes');
+        $this->form = new Form('form_pessoas');
         
         // cria os campos do formulário
         $codigo    = new Entry('id');
         $nome      = new Entry('nome');
         $endereco  = new Entry('endereco');
+        $bairro    = new Entry('bairro');
         $telefone  = new Entry('telefone');
+        $email     = new Entry('email');
         $cidade    = new Combo('id_cidade');
+        $grupo     = new CheckGroup('grupos');
         
         // carrega as cidades do banco de dados
         Transaction::open('livro');
-        $repository = new Repository('Cidade');
-        $collection = $repository->load(new Criteria);
-        foreach ($collection as $object)
+        $cidades = Cidade::all();
+        $items = array();
+        foreach ($cidades as $obj_cidade)
         {
-            $items[$object->id] = $object->nome;
+            $items[$obj_cidade->id] = $obj_cidade->nome;
         }
         $cidade->addItems($items);
+        
+        $grupos = Grupo::all();
+        $items = array();
+        foreach ($grupos as $obj_grupo)
+        {
+            $items[$obj_grupo->id] = $obj_grupo->nome;
+        }
+        $grupo->addItems($items);
         Transaction::close();
         
         $this->form->addField('Código', $codigo, 40);
-        $this->form->addField('Nome', $nome, 40, new RequiredValidator);
-        $this->form->addField('Endereço', $endereco, 40);
-        $this->form->addField('Telefone', $telefone, 40);
-        $this->form->addField('Cidade', $cidade, 40);
+        $this->form->addField('Nome', $nome, 300, new RequiredValidator);
+        $this->form->addField('Endereço', $endereco, 300);
+        $this->form->addField('Bairro', $bairro, 200);
+        $this->form->addField('Telefone', $telefone, 200);
+        $this->form->addField('Email', $email, 200);
+        $this->form->addField('Cidade', $cidade, 200);
+        $this->form->addField('Grupo', $grupo, 200);
         
         // define alguns atributos para os campos do formulário
         $codigo->setEditable(FALSE);
@@ -76,8 +91,9 @@ class ClientesForm extends Page
             {
                 $key = $param['key']; // obtém a chave
                 Transaction::open('livro'); // inicia transação com o BD
-                $cliente = new Cliente($key); // instancia o Active Record
-                $this->form->setData($cliente); // lança os dados da cidade no formulário
+                $pessoa = new Pessoa($key); // instancia o Active Record
+                $pessoa->grupos = explode(',', $pessoa->grupos);
+                $this->form->setData($pessoa); // lança os dados da cidade no formulário
                 Transaction::close(); // finaliza a transação
             }
         }
@@ -101,9 +117,14 @@ class ClientesForm extends Page
             Transaction::open('livro');
 
             $dados = $this->form->getData();
-            $cliente = new Cliente; // instancia objeto
-            $cliente->fromArray( (array) $dados); // carrega os dados
-            $cliente->store(); // armazena o objeto no banco de dados
+            $this->form->setData($dados);
+            $dados->grupos = implode(',', $dados->grupos);
+            
+            $pessoa = new Pessoa; // instancia objeto
+            $pessoa->fromArray( (array) $dados); // carrega os dados
+            $pessoa->store(); // armazena o objeto no banco de dados
+            
+            
             Transaction::close(); // finaliza a transação
             new Message('info', 'Dados armazenados com sucesso');
         }

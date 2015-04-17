@@ -1,5 +1,6 @@
 <?php
 Namespace Livro\Widgets\Form;
+use Livro\Widgets\Base\Element;
 
 /**
  * Representa um grupo de Radio Buttons
@@ -45,8 +46,9 @@ class RadioGroup extends Field implements FormElementInterface
                     // marca o radio button
                     $button->setProperty('checked', '1');
                 }
-                $button->show();
+                
                 $obj = new Label($label);
+                $obj->add($button);
                 $obj->show();
                 if ($this->layout == 'vertical')
                 {

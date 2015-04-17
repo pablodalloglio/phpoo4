@@ -55,12 +55,7 @@ class Button extends Field implements FormElementInterface
         $this->tag->name    = $this->name;    // nome da TAG
         $this->tag->type    = 'button';       // tipo de input
         $this->tag->value   = $this->label;   // rótulo do botão
-        // se o campo não é editável
-        if (!parent::getEditable())
-        {
-            $this->tag->disabled = "1";
-            $this->tag->class = 'tfield_disabled'; // classe CSS
-        }
+        
         // define a ação do botão
         $this->tag->onclick =	"document.{$this->formName}.action='{$url}'; ".
                                 "document.{$this->formName}.submit()";

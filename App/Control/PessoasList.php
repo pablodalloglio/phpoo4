@@ -12,15 +12,16 @@ use Livro\Widgets\Datagrid\Datagrid;
 use Livro\Widgets\Datagrid\DatagridColumn;
 use Livro\Widgets\Datagrid\DatagridAction;
 use Livro\Widgets\Dialog\Message;
+use Livro\Widgets\Dialog\Question;
 use Livro\Database\Transaction;
 use Livro\Database\Repository;
 use Livro\Database\Criteria;
 use Livro\Database\Filter;
 
 /**
- * Listagem de Clientes
+ * Listagem de Pessoas
  */
-class ClientesList extends Page
+class PessoasList extends Page
 {
     private $form;     // formulário de buscas
     private $datagrid; // listagem
@@ -33,22 +34,22 @@ class ClientesList extends Page
     {
         parent::__construct();
         // instancia um formulário
-        $this->form = new Form('form_busca_clientes');
+        $this->form = new Form('form_busca_pessoas');
 
         // cria os campos do formulário
         $nome = new Entry('nome');
         
-        $this->form->addField('Nome', $nome, 40);
+        $this->form->addField('Nome', $nome, 300);
         $this->form->addAction('Buscar', new Action(array($this, 'onReload')));
-        $this->form->addAction('Novo', new Action(array(new ClientesForm, 'onEdit')));
+        $this->form->addAction('Novo', new Action(array(new PessoasForm, 'onEdit')));
         
         // instancia objeto DataGrid
         $this->datagrid = new DataGrid;
 
         // instancia as colunas da DataGrid
         $codigo   = new DataGridColumn('id',         'Código', 'right', 50);
-        $nome     = new DataGridColumn('nome',       'Nome',    'left', 140);
-        $endereco = new DataGridColumn('endereco',   'Endereco','left', 140);
+        $nome     = new DataGridColumn('nome',       'Nome',    'left', 200);
+        $endereco = new DataGridColumn('endereco',   'Endereco','left', 200);
         $cidade   = new DataGridColumn('nome_cidade','Cidade', 'left', 140);
 
         // adiciona as colunas à DataGrid
@@ -58,7 +59,7 @@ class ClientesList extends Page
         $this->datagrid->addColumn($cidade);
 
         // instancia duas ações da DataGrid
-        $action1 = new DataGridAction(array(new ClientesForm, 'onEdit'));
+        $action1 = new DataGridAction(array(new PessoasForm, 'onEdit'));
         $action1->setLabel('Editar');
 
         $action1->setImage('ico_edit.png');
@@ -90,7 +91,7 @@ class ClientesList extends Page
     function onReload()
     {
         Transaction::open('livro'); // inicia transação com o BD
-        $repository = new Repository('Cliente');
+        $repository = new Repository('Pessoa');
 
         // cria um critério de seleção de dados
         $criteria = new Criteria;
@@ -102,19 +103,19 @@ class ClientesList extends Page
         // verifica se o usuário preencheu o formulário
         if ($dados->nome)
         {
-            // filtra pelo nome do cliente
+            // filtra pelo nome do pessoa
             $criteria->add(new Filter('nome', 'like', "%{$dados->nome}%"));
         }
 
         // carrega os produtos que satisfazem o critério
-        $clientes = $repository->load($criteria);
+        $pessoas = $repository->load($criteria);
         $this->datagrid->clear();
-        if ($clientes)
+        if ($pessoas)
         {
-            foreach ($clientes as $cliente)
+            foreach ($pessoas as $pessoa)
             {
                 // adiciona o objeto na DataGrid
-                $this->datagrid->addItem($cliente);
+                $this->datagrid->addItem($pessoa);
             }
         }
 
@@ -145,7 +146,7 @@ class ClientesList extends Page
             
             $key = $param['key']; // obtém a chave
             Transaction::open('livro'); // inicia transação com o banco 'livro'
-            $cidade = new Cliente($key); // instancia objeto Cidade
+            $cidade = new Pessoa($key); // instancia objeto Cidade
             $cidade->delete(); // deleta objeto do banco de dados
             Transaction::close(); // finaliza a transação
             $this->onReload(); // recarrega a datagrid
