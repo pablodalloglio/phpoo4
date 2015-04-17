@@ -7,7 +7,8 @@ class Pessoa extends Record
     private $cidade;
     
     /**
-     * Executado sempre se for acessada a propriedade "nome_cidade"
+     * Retorna o nome da cidade.
+     * Executado sempre se for acessada a propriedade "->nome_cidade"
      */
     function get_nome_cidade()
     {
