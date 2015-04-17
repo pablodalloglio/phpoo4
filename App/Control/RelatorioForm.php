@@ -99,7 +99,8 @@ class RelatorioForm extends Page
             if ($dados->data_fim)
                 $criterio->add(new Filter('data_venda', '<=', $data_fim));
             
-            var_dump($criterio->dump());
+            //var_dump($criterio->dump());
+
             // lê todas vendas que satisfazem ao critério
             $vendas = $repositorio->load($criterio);
 
