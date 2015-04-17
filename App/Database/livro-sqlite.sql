@@ -208,23 +208,21 @@ INSERT INTO produto VALUES(2,'HD 120 GB',20.0,100.0,180.0,2,10,4);
 
 CREATE TABLE venda (
     id integer PRIMARY KEY NOT NULL,
-    id_pessoa integer references pessoa(id),
+    id_cliente integer references pessoa(id),
+    id_vendedor integer references pessoa(id),
     data_venda date,
-    valor_total float,
-    valor_pago float,
-    desconto float
+    valor float,
+    desconto float,
+    outras_despesas float,
+    frete float,
+    valor_final float,
+    obs text
 );
 
-INSERT INTO venda VALUES(3,6,'2007-07-22',1060.0,1000.0,60.0);
-INSERT INTO venda VALUES(1,4,'2007-07-10',620.0,600.0,20.0);
-INSERT INTO venda VALUES(2,8,'2007-07-15',115.0,100.0,15.0);
-
-CREATE TABLE item (
+CREATE TABLE item_venda (
     id integer PRIMARY KEY NOT NULL,
     id_produto integer references produto(id),
     id_venda integer references venda(id),
     quantidade float
 );
-
-
 COMMIT;
