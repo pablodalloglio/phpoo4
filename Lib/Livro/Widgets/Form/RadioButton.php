@@ -22,7 +22,6 @@ class RadioButton extends Field implements FormElementInterface
         {
             // desabilita a TAG input
             $this->tag->readonly = "1";
-            $this->tag->class = 'tfield_disabled';		 // classe CSS
         }
         // exibe a tag
         $this->tag->show();

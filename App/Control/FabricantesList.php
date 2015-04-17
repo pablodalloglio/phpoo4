@@ -65,14 +65,10 @@ class FabricantesList extends Page
         $codigo->setEditable(FALSE);
         
         $this->form->addField('Código', $codigo, 200);
-        $this->form->addField('Nome',   $nome, 200);
-        $this->form->addField('Site',   $site, 200);
+        $this->form->addField('Nome',   $nome, 300);
+        $this->form->addField('Site',   $site, 300);
         $this->form->addAction('Salvar', new Action(array($this, 'onSave')));
         $this->form->addAction('Limpar', new Action(array($this, 'onEdit')));
-        
-        // define os tamanhos
-        $codigo->setSize(40);
-        $site->setSize(200);
         
         // instancia objeto DataGrid
         $this->datagrid = new DatagridWrapper(new DataGrid);

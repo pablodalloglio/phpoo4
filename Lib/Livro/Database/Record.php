@@ -274,4 +274,24 @@ abstract class Record implements RecordInterface
             throw new Exception('Não há transação ativa!!');
         }
     }
+    
+    /**
+     * Retorna todos objetos
+     */
+    public static function all()
+    {
+        $classname = get_called_class();
+        $rep = new Repository($classname);
+        return $rep->load(new Criteria);
+    }
+    
+    /**
+     * Busca um objeto pelo id
+     */
+    public static function find($id)
+    {
+        $classname = get_called_class();
+        $ar = new $classname;
+        return $ar->load($id);
+    }
 }
