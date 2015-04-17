@@ -1,9 +1,9 @@
 <?php
 use Livro\Database\Record;
 
-class Item extends Record
+class ItemVenda extends Record
 {
-	   const TABLENAME = 'item';
+	   const TABLENAME = 'item_venda';
 	   private $produto;
 	   /*
 	    * método get_descricao()
