@@ -5,7 +5,7 @@ use Livro\Control\Action;
 use Livro\Control\ActionInterface;
 
 /**
- * Representa um botão
+ * Representa um botÃ£o
  * @author Pablo Dall'Oglio
  */
 class Button extends Field implements FormElementInterface
@@ -15,7 +15,7 @@ class Button extends Field implements FormElementInterface
     private $formName;
     
     /**
-     * Cria o botão com ícone e ação
+     * Cria o botÃ£o com Ã­cone e aÃ§Ã£o
      */
     public static function create($name, $callback, $label, $image)
     {
@@ -26,9 +26,9 @@ class Button extends Field implements FormElementInterface
     }
     
     /**
-     * Define a ação do botão (função a ser executada)
-     * @param $action = ação do botão
-     * @param $label    = rótulo do botão
+     * Define a aÃ§Ã£o do botÃ£o (funÃ§Ã£o a ser executada)
+     * @param $action = aÃ§Ã£o do botÃ£o
+     * @param $label    = rÃ³tulo do botÃ£o
      */
     public function setAction(ActionInterface $action, $label)
     {
@@ -37,8 +37,8 @@ class Button extends Field implements FormElementInterface
     }
     
     /**
-     * Define o nome do formulário para a ação botão
-     * @param $name = nome do formulário
+     * Define o nome do formulÃ¡rio para a aÃ§Ã£o botÃ£o
+     * @param $name = nome do formulÃ¡rio
      */
     public function setFormName($name)
     {
@@ -46,20 +46,20 @@ class Button extends Field implements FormElementInterface
     }
     
     /**
-     * exibe o botão
+     * exibe o botÃ£o
      */
     public function show()
     {
         $url = $this->action->serialize();
-        // define as propriedades do botão
+        // define as propriedades do botÃ£o
         $this->tag->name    = $this->name;    // nome da TAG
         $this->tag->type    = 'button';       // tipo de input
-        $this->tag->value   = $this->label;   // rótulo do botão
+        $this->tag->value   = $this->label;   // rÃ³tulo do botÃ£o
         
-        // define a ação do botão
+        // define a aÃ§Ã£o do botÃ£o
         $this->tag->onclick =	"document.{$this->formName}.action='{$url}'; ".
                                 "document.{$this->formName}.submit()";
-        // exibe o botão
+        // exibe o botÃ£o
         $this->tag->show();
     }
 }
