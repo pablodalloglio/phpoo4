@@ -8,13 +8,12 @@ class Produto extends Record
     private $fabricante;
     
     /**
-     * Retorna o nome do fabricante do produto
+     * Retorna o nome do fabricante do produto.
+     * Executado sempre se for acessada a propriedade "->nome_fabricante"
      */
     function get_nome_fabricante()
     {
         $this->fabricante = new Fabricante($this->id_fabricante);
         return $this->fabricante->nome;
-        
     }
-    
 }
