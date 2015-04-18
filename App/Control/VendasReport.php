@@ -16,12 +16,12 @@ use Livro\Database\Filter;
 use Livro\Validation\RequiredValidator;
 
 use Bootstrap\Wrapper\FormWrapper;
+use Bootstrap\Widgets\Panel;
 
-/*
- * classe RelatorioForm
- * relatório de vendas por período
+/**
+ * Relatório de vendas
  */
-class RelatorioForm extends Page
+class VendasReport extends Page
 {
     private $form;   // formulário de entrada
 
@@ -34,7 +34,7 @@ class RelatorioForm extends Page
         parent::__construct();
 
         // instancia um formulário
-        $this->form = new Form('form_relat_vendas');
+        $this->form = new FormWrapper(new Form('form_relat_vendas'));
 
         // cria os campos do formulário
         $data_ini = new Entry('data_ini');
@@ -44,16 +44,19 @@ class RelatorioForm extends Page
         $this->form->addField('Data Final', $data_fim, 200);
         $this->form->addAction('Gerar', new Action(array($this, 'onGera')));
         
-        // adiciona o formulário à página
-        parent::add($this->form);
+        $panel = new Panel('Relatório de vendas');
+        $panel->add($this->form);
+        
+        parent::add($panel);
     }
 
-    /*
-     * método onGera
-     * gera o relatório, baseado nos parâmetros do formulário
+    /**
+     * Gera o relatório, baseado nos parâmetros do formulário
      */
     function onGera()
     {
+        echo file_get_contents('App/Resources/vendas_report.html');
+        return;
         // obtém os dados do formulário
         $dados = $this->form->getData();
 
@@ -103,58 +106,7 @@ class RelatorioForm extends Page
 
             // lê todas vendas que satisfazem ao critério
             $vendas = $repositorio->load($criterio);
-
-            // verifica se retornou algum objeto
-            if ($vendas)
-            {
-                // percorre as vendas
-                foreach ($vendas as $venda)
-                {
-                    // adiciona uma linha à tabela e define suas propriedades
-                    $row = $table->addRow();
-                    $row->bgcolor = "#e0e0e0";
-
-                    // adiciona células para data da venda e dados do cliente
-                    $cell = $row->addCell($this->conv_data_to_br($venda->data_venda));
-                    $cell = $row->addCell($venda->id_cliente . ' : ' . $venda->cliente->nome);
-                    $cell->colspan=3;
-
-                    // verifica se a venda possui itens
-                    if ($venda->itens)
-                    {
-                        $sub_total =0;
-                        $total_qtde=0;
-
-                        // percorre os itens da venda
-
-                        foreach ($venda->itens as $item)
-                        {
-                            // adiciona uma linha para cada item da venda
-                            $row = $table->addRow();
-
-                            // adiciona as células com os dados do item
-                            $cell = $row->addCell('');
-                            $cell = $row->addCell($item->id_produto . ' : ' . $item->descricao);
-                            $cell = $row->addCell($item->quantidade);
-                            $cell->align = 'right';
-                            $cell = $row->addCell(number_format($item->preco_venda,2,',','.'));
-                            $cell->align = 'right';
-
-                            // acumula totais de valor e quantidade
-                            $sub_total += $item->quantidade * $item->preco_venda;
-                            $total_qtde += $item->quantidade;
-                        }
-                       // adiciona uma linha para os totais da venda
-                       $row = $table->addRow();
-                       $cell = $row->addCell('');
-                       $cell = $row->addCell('<b>Sub-Total</b>');
-                       $cell = $row->addCell('<b>'.$total_qtde.'</b>');
-                       $cell->align = 'right';
-                       $cell = $row->addCell('<b>'.number_format($sub_total,2,',','.').'</b>');
-                       $cell->align = 'right';
-                    }
-              }
-            }
+            var_dump($vendas);
             // finaliza a transação
             Transaction::close();
         }
