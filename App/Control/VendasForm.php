@@ -56,7 +56,7 @@ class VendasForm extends Page
         $codigo    = new DataGridColumn('id_produto', 'Código', 'right', 50);
         $descricao = new DataGridColumn('descricao',   'Descrição','left', 200);
         $quantidade= new DataGridColumn('quantidade',  'Qtde',      'right', 40);
-        $preco     = new DataGridColumn('preco_venda', 'Preço',    'right', 70);
+        $preco     = new DataGridColumn('preco',       'Preço',    'right', 70);
 
         // define um transformador para a coluna preço
         $preco->setTransformer(array($this, 'formata_money'));
@@ -99,12 +99,20 @@ class VendasForm extends Page
      */
     function onAdiciona()
     {
-        // obtém os dados do formulário
-        $item = $this->form->getData('ItemVenda');
-        
-        $list = Session::getValue('list'); // lê variável $list da seção
-        $list[$item->id_produto]= $item;   // acrescenta produto na variável $list
-        Session::setValue('list', $list);  // grava variável $list de volta à seção
+        try {
+            // obtém os dados do formulário
+            $item = $this->form->getData('ItemVenda');
+            Transaction::open('livro');
+            $item->preco = $item->get_produto()->preco_venda;
+            Transaction::close('livro');
+            $list = Session::getValue('list'); // lê variável $list da seção
+            $list[$item->id_produto]= $item;   // acrescenta produto na variável $list
+            Session::setValue('list', $list);  // grava variável $list de volta à seção
+        }
+        catch (Exception $e)
+        {
+            new Message('error', $e->getMessage());
+        }
         
         // recarrega a listagem
         $this->onReload();

@@ -221,7 +221,8 @@ CREATE TABLE item_venda (
     id integer PRIMARY KEY NOT NULL,
     id_produto integer references produto(id),
     id_venda integer references venda(id),
-    quantidade float
+    quantidade float,
+    preco float
 );
 
 CREATE TABLE conta (

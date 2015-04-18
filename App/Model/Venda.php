@@ -28,6 +28,20 @@ class Venda extends Record
     }
     
     /**
+     * retorna o objeto cliente vinculado à venda
+     */
+    function get_cliente()
+    {
+        if (empty($this->cliente))
+        {
+            $this->cliente = new Pessoa($this->id_cliente);
+        }
+        
+        // Retorna o objeto instanciado
+        return $this->cliente;
+    }
+    
+    /**
      * Armazena uma venda e seus itens no banco de dados
      */
     public function store()
@@ -49,7 +63,7 @@ class Venda extends Record
     public function get_itens()
     {
         // instancia um repositóio de Item
-        $repositorio = new Repository('Item');
+        $repositorio = new Repository('ItemVenda');
         // define o critério
         $criterio = new Criteria;
         $criterio->add(new Filter('id_venda', '=', $this->id));
@@ -57,19 +71,5 @@ class Venda extends Record
         $this->itens = $repositorio->load($criterio);
         // retorna os itens
         return $this->itens;
-    }
-    
-    /**
-     * retorna o objeto cliente vinculado à venda
-     */
-    function get_cliente()
-    {
-        if (empty($this->cliente))
-        {
-            $this->cliente = new Cliente($this->id_cliente);
-        }
-        
-        // Retorna o objeto instanciado
-        return $this->cliente;
     }
 }

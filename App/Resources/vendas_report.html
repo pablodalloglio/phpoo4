@@ -1,16 +1,33 @@
 <html>
+    <h2>Vendas entre {{data_ini}} e {{data_fim}}</h2>
     <table class="table table-bordered" border="0">
-        <tr bgcolor="#7A9BCB">
-            <td colspan="2">c</td>
-        </tr>
-        <tr bgcolor="#C0C3E8">
-            <td>c</td><td>c</td>
-        </tr>
-        <tr>
-            <td>c</td><td>c</td>
-        </tr>
-        <tr>
-            <td>c</td><td>c</td>
-        </tr>
+        {% for venda in vendas %}
+            <tr bgcolor="#7A9BCB" style="color:white">
+                <td colspan="5"><b>Venda de R$ {{venda.valor_final}} para
+                                {{venda.nome_cliente}} em {{venda.data_venda}}</b></td>
+            </tr>
+            <tr bgcolor="#C0C3E8">
+                <td>Código</td>
+                <td>Descrição</td>
+                <td>Quantidade</td>
+                <td>Preço</td>
+                <td>Total</td>
+            </tr>
+            {% set total = 0 %}
+            {% for item in venda.itens %}
+                <tr>
+                    <td align="center">{{item.id_produto}}</td>
+                    <td>{{item.descricao}}</td>
+                    <td align="right">{{item.quantidade}}</td>
+                    <td align="right">{{item.preco |number_format(2, ',', '.')}}</td>
+                    <td align="right">{{(item.quantidade * item.preco)|number_format(2, ',', '.')}}</td>
+                </tr>
+                {% set total = total + (item.quantidade * item.preco) %}
+            {% endfor %}
+            <tr bgcolor="whiteSmoke">
+                <td align="center" colspan="4">Total</td>
+                <td align="right">{{total|number_format(2, ',', '.')}}</td>
+            </tr>
+        {% endfor %}
     </table>
 </html>
