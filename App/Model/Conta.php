@@ -7,7 +7,19 @@ use Livro\Database\Filter;
 class Conta extends Record
 {
     const TABLENAME = 'conta';
+	private $cliente;
 	
+    public function get_cliente()
+    {
+        if (empty($this->cliente))
+        {
+            $this->cliente = new Pessoa($this->id_cliente);
+        }
+        
+        // Retorna o objeto instanciado
+        return $this->cliente;
+    }
+    
 	public static function getByPessoa($id_pessoa)
 	{
 	    $criteria = new Criteria;

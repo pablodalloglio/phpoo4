@@ -86,7 +86,7 @@ class ConcluiVendaForm extends Page
             // percorre os itens
             foreach ($itens as $item)
             {
-                $total += $item->produto->preco_venda * $item->quantidade;
+                $total += $item->preco * $item->quantidade;
             }
             Transaction::close();
         }

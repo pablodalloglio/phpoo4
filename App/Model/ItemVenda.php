@@ -25,12 +25,4 @@ class ItemVenda extends Record
     {
         return $this->get_produto()->descricao;
     }
-    
-    /**
-     * Retorna o preço de venda do produto
-     */
-    function get_preco_venda()
-    {
-        return $this->get_produto()->preco_venda;
-    }
 }
