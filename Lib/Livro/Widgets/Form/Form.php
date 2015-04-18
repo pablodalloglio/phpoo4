@@ -169,7 +169,7 @@ class Form extends Element
     {
         foreach ($this->fields as $name => $field)
         {
-            if ($name) // labels não possuem nome
+            if ($name AND isset($object->$name))
             {
                 $field->setValue($object->$name);
             }

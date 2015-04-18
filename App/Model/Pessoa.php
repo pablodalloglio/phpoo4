@@ -17,4 +17,12 @@ class Pessoa extends Record
         
         return $this->cidade->nome;
     }
+    
+    /**
+     * Retorna o total em débitos
+     */
+    function totalDebitos()
+    {
+        return Conta::debitosPorPessoa($this->id);
+    }
 }
