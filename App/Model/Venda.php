@@ -8,13 +8,23 @@ class Venda extends Record
 {
     const TABLENAME = 'venda';
     private $itens;
+    private $cliente;
     
     /**
      * Adiciona um item (produto) à venda
      */
-    public function addItem(Item $item)
+    public function addItem(ItemVenda $item)
     {
         $this->itens[] = $item;
+    }
+    
+    /**
+     * Atribui o cliente
+     */
+    public function set_cliente(Pessoa $c)
+    {
+        $this->cliente = $c;
+        $this->id_cliente = $c->id;
     }
     
     /**
@@ -54,10 +64,12 @@ class Venda extends Record
      */
     function get_cliente()
     {
-        // Carrega o objeto Cliente
-        $cliente = new Cliente($this->id_cliente);
+        if (empty($this->cliente))
+        {
+            $this->cliente = new Cliente($this->id_cliente);
+        }
         
         // Retorna o objeto instanciado
-        return $cliente;
+        return $this->cliente;
     }
 }

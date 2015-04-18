@@ -2,30 +2,22 @@
 use Livro\Control\Page;
 use Livro\Control\Action;
 use Livro\Widgets\Form\Form;
-use Livro\Widgets\Container\Table;
 use Livro\Widgets\Container\VBox;
 use Livro\Widgets\Datagrid\Datagrid;
 use Livro\Widgets\Datagrid\DatagridColumn;
 use Livro\Widgets\Datagrid\DatagridAction;
-use Livro\Widgets\Dialog\Message;
 use Livro\Widgets\Form\Label;
 use Livro\Widgets\Form\Entry;
-use Livro\Widgets\Form\Combo;
 use Livro\Widgets\Form\Button;
 use Livro\Database\Transaction;
 use Livro\Database\Repository;
 use Livro\Database\Criteria;
 use Livro\Session\Session;
 
-/*
- * função formata_string
- * exibe um valor com as casas decimais
- */
-function formata_money($valor)
-{
-    return number_format($valor, 2, ',', '.');
-	
-}
+use Bootstrap\Wrapper\DatagridWrapper;
+use Bootstrap\Wrapper\FormWrapper;
+use Bootstrap\Widgets\Panel;
+
 /**
  * Página de vendas
  */
@@ -46,19 +38,19 @@ class VendasForm extends Page
         new Session;
 
         // instancia um formulário
-        $this->form = new Form('form_vendas');
+        $this->form = new FormWrapper(new Form('form_vendas'));
 
         // cria os campos do formulário
         $codigo      = new Entry('id_produto');
-        $quantidade = new Entry('quantidade');
+        $quantidade  = new Entry('quantidade');
         
         $this->form->addField('Código', $codigo, 100);
         $this->form->addField('Quantidade', $quantidade, 200);
         $this->form->addAction('Adicionar', new Action(array($this, 'onAdiciona')));
-        $this->form->addAction('Terminar', new Action(array($this, 'onFinal')));
+        $this->form->addAction('Terminar', new Action(array(new ConcluiVendaForm, 'onLoad')));
         
         // instancia objeto DataGrid
-        $this->datagrid = new DataGrid;
+        $this->datagrid = new DatagridWrapper(new DataGrid);
 
         // instancia as colunas da DataGrid
         $codigo    = new DataGridColumn('id_produto', 'Código', 'right', 50);
@@ -67,7 +59,7 @@ class VendasForm extends Page
         $preco     = new DataGridColumn('preco_venda', 'Preço',    'right', 70);
 
         // define um transformador para a coluna preço
-        $preco->setTransformer('formata_money');
+        $preco->setTransformer(array($this, 'formata_money'));
 
         // adiciona as colunas à DataGrid
         $this->datagrid->addColumn($codigo);
@@ -86,34 +78,34 @@ class VendasForm extends Page
 
         // cria o modelo da DataGrid, montando sua estrutura
         $this->datagrid->createModel();
-
+        
+        $panel1 = new Panel('Vendas');
+        $panel1->add($this->form);
+        
+        $panel2 = new Panel();
+        $panel2->add($this->datagrid);
+        
         // monta a página através de uma caixa
         $box = new VBox;
         $box->style = 'display:block';
-        $box->add($this->form);
-        $box->add($this->datagrid);
+        $box->add($panel1);
+        $box->add($panel2);
         
         parent::add($box);
     }
-
-
+    
     /**
      * Adiciona item
      */
     function onAdiciona()
     {
         // obtém os dados do formulário
-        $item = $this->form->getData('Item');
-
-        // lê variável $list da seção
-        $list = Session::getValue('list');
-
-        // acrescenta produto na variável $list
-        $list[$item->id_produto]= $item;
-
-        // grava variável $list de volta à seção
-        Session::setValue('list', $list);
-
+        $item = $this->form->getData('ItemVenda');
+        
+        $list = Session::getValue('list'); // lê variável $list da seção
+        $list[$item->id_produto]= $item;   // acrescenta produto na variável $list
+        Session::setValue('list', $list);  // grava variável $list de volta à seção
+        
         // recarrega a listagem
         $this->onReload();
     }
@@ -161,99 +153,15 @@ class VendasForm extends Page
         }
         $this->loaded = true;
     }
-
+    
     /**
-     * Finaliza venda
+     * Formata valor monetário
      */
-    function onFinal()
+    function formata_money($valor)
     {
-        // instancia uma nova janela
-        $janela = new TWindow('Concui Venda');
-        $janela->setPosition(520,200);
-        $janela->setSize(250,180);
-
-        // lê a variável $list da seção
-        $list = Session::getValue('list');
-
-        // inicia transação com o banco 'livro'
-        Transaction::open('livro');
-
-        $total = 0;
-        foreach ($list as $item)
-        {
-            // soma o total de produtos vendidos
-            $total += $item->preco_venda * $item->quantidade;
-        }
-
-        // fecha a transação
-        Transaction::close();
-
-        // instancia formulário de conclusão de venda
-        $form = new ConcluiVendaForm;
-
-        // define a ação do botão deste formulário
-        $form->button->setAction(new Action(array($this, 'onGravaVenda')), 'Salvar');
-
-        // preenche o formulário com o valor_total
-        $dados = new StdClass;
-        $dados->valor_total = $total;
-        $form->setData($dados);
-
-        // adiciona o formulário à janela
-        $janela->add($form);
-        $janela->show();
+        return number_format($valor, 2, ',', '.');
     }
-
-    /**
-     * Finaliza venda
-     */
-    function onGravaVenda()
-    {
-        date_default_timezone_set('America/Sao_Paulo');
-        // obtém os dados do formulário de conclusão de venda
-        $form = new ConcluiVendaForm;
-        $dados = $form->getData();
-
-        // inicia transação com o banco 'livro'
-        Transaction::open('livro');
-
-        // instancia novo objeto Venda
-        $venda = new Venda;
-
-        // define os atributos a serem gravados
-        $venda->id_cliente  = $dados->id_cliente;
-        $venda->data_venda  = date('Y-m-d');
-        $venda->desconto    = $dados->desconto;
-        $venda->valor_total = $dados->valor_total;
-        $venda->valor_pago  = $dados->valor_pago;
-
-        // lê a variável $list da seção
-        $itens = Session::getValue('list');
-        if ($itens)
-        {
-            // percorre os itens
-            foreach ($itens as $item)
-            {
-                // adiciona o item na venda
-                $venda->addItem($item);
-            }
-        }
-        // armazena venda no banco de dados
-        $venda->store();
-
-        // finaliza a transação
-        Transaction::close();
-
-        // limpa lista de itens da seção
-        Session::setValue('list', array());
-
-        // exibe mensagem de sucesso
-        new Message('info', 'Venda registrada com sucesso');
-
-        // recarrega lista de itens
-        $this->onReload();
-    }
-
+    
     /**
      * Exibe a página
      */

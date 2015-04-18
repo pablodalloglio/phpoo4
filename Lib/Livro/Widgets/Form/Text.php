@@ -1,5 +1,6 @@
 <?php
 Namespace Livro\Widgets\Form;
+use Livro\Widgets\Base\Element;
 
 /**
  * Representa uma caixa de texto

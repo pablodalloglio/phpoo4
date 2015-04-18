@@ -7,16 +7,23 @@ class ItemVenda extends Record
     private $produto;
     
     /**
+     * Retorna o objeto produto
+     */
+    public function get_produto()
+    {
+        if (empty($this->produto)) {
+            $this->produto = new Produto($this->id_produto);
+        }
+        return $this->produto;
+        
+    }
+    
+    /**
      * Retorna a descrição do produto
      */
     function get_descricao()
     {
-        // Carrega o objeto produto 
-        if (empty($this->produto))
-            $this->produto = new Produto($this->id_produto);
-        
-        // retorna a descrição
-        return $this->produto->descricao;
+        return $this->get_produto()->descricao;
     }
     
     /**
@@ -24,11 +31,6 @@ class ItemVenda extends Record
      */
     function get_preco_venda()
     {
-        // Carrega o objeto produto
-        if (empty($this->produto))
-            $this->produto = new Produto($this->id_produto);
-        
-        // retorna o preço de venda
-        return $this->produto->preco_venda;
+        return $this->get_produto()->preco_venda;
     }
 }

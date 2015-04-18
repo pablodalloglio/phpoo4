@@ -39,6 +39,15 @@ Fone
 Email
 Grupo (cliente, fornecedor, colaborador) - check ou select
 
+Conta
+=====
+id
+cliente_id
+dt_emissao
+dt_vencimento
+valor
+paga
+
 Tela de Vendas
 ==============
 Page transition

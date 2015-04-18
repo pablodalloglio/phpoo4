@@ -38,7 +38,7 @@ class Action implements ActionInterface
         if (is_array($this->action))
         {
             // obtém o nome da classe
-            $url['class'] = get_class($this->action[0]);
+            $url['class'] = is_object($this->action[0]) ? get_class($this->action[0]) : $this->action[0];
             // obtém o nome do método
             $url['method'] = $this->action[1];
             

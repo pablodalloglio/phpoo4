@@ -83,6 +83,14 @@ abstract class Record implements RecordInterface
     }
     
     /**
+     * Retorna se a propriedade está definida
+     */
+    public function __isset($prop)
+    {
+        return isset($this->data[$prop]);
+    }
+    
+    /**
      * Retorna o nome da entidade (tabela)
      */
     private function getEntity()
