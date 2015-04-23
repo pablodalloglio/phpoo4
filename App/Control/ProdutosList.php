@@ -20,9 +20,9 @@ use Livro\Database\Filter;
 use Livro\Traits\DeleteTrait;
 use Livro\Traits\ReloadTrait;
 
-use Bootstrap\Wrapper\DatagridWrapper;
-use Bootstrap\Wrapper\FormWrapper;
-use Bootstrap\Widgets\Panel;
+use Livro\Widgets\Wrapper\DatagridWrapper;
+use Livro\Widgets\Wrapper\FormWrapper;
+use Livro\Widgets\Container\Panel;
 
 /**
  * Página de produtos

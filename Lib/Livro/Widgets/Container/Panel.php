@@ -1,9 +1,11 @@
 <?php
-Namespace Bootstrap\Widgets;
+Namespace Livro\Widgets\Container;
+
 use Livro\Widgets\Base\Element;
 
 /**
  * Empacota elementos em painel Bootstrap
+ * @author Pablo Dall'Oglio
  */
 class Panel extends Element
 {
@@ -38,6 +40,9 @@ class Panel extends Element
         
     }
     
+    /**
+     * Adiciona conteúdo
+     */
     public function add($content)
     {
         $this->body->add($content);
