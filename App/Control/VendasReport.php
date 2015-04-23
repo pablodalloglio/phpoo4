@@ -15,8 +15,8 @@ use Livro\Database\Criteria;
 use Livro\Database\Filter;
 use Livro\Validation\RequiredValidator;
 
-use Bootstrap\Wrapper\FormWrapper;
-use Bootstrap\Widgets\Panel;
+use Livro\Widgets\Wrapper\FormWrapper;
+use Livro\Widgets\Container\Panel;
 
 /**
  * Relatório de vendas

@@ -16,8 +16,8 @@ use Livro\Database\Criteria;
 use Livro\Session\Session;
 use Livro\Validation\RequiredValidator;
 
-use Bootstrap\Wrapper\FormWrapper;
-use Bootstrap\Widgets\Panel;
+use Livro\Widgets\Wrapper\FormWrapper;
+use Livro\Widgets\Container\Panel;
 
 /**
  * Formulário de conclusão de venda
