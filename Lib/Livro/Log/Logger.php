@@ -1,5 +1,5 @@
 <?php
-Namespace Livro\Database;
+namespace Livro\Database;
 
 /**
  * Fornece uma interface abstrata para definição de algoritmos de LOG

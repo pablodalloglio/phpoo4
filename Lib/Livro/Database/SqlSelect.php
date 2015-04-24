@@ -1,5 +1,5 @@
 <?php
-Namespace Livro\Database;
+namespace Livro\Database;
 
 /**
  * Representa uma instrução de SELECT no banco de dados

@@ -1,5 +1,5 @@
 <?php
-Namespace Livro\Widgets\Wrapper;
+namespace Livro\Widgets\Wrapper;
 
 use Livro\Widgets\Form\Form;
 use Livro\Widgets\Form\Button;

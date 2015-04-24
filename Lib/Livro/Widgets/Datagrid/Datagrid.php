@@ -1,5 +1,5 @@
 <?php
-Namespace Livro\Widgets\Datagrid;
+namespace Livro\Widgets\Datagrid;
 
 use Livro\Widgets\Container\Table;
 use Livro\Widgets\Container\TableRow;

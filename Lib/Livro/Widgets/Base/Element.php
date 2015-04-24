@@ -1,5 +1,5 @@
 <?php
-Namespace Livro\Widgets\Base;
+namespace Livro\Widgets\Base;
 
 /**
  * Classe suporte para tags

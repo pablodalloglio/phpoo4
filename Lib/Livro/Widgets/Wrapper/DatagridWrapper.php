@@ -1,5 +1,5 @@
 <?php
-Namespace Livro\Widgets\Wrapper;
+namespace Livro\Widgets\Wrapper;
 use Livro\Widgets\Datagrid\Datagrid;
 
 /**

@@ -1,5 +1,5 @@
 <?php
-Namespace Livro\Control;
+namespace Livro\Control;
 
 interface ActionInterface
 {

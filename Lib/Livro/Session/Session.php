@@ -1,5 +1,5 @@
 <?php
-Namespace Livro\Session;
+namespace Livro\Session;
 
 /**
  * Gerencia o registro da seção

@@ -1,5 +1,5 @@
 <?php
-Namespace Livro\Core;
+namespace Livro\Core;
 
 use RecursiveIteratorIterator;
 use RecursiveDirectoryIterator;

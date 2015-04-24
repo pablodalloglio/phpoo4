@@ -1,5 +1,5 @@
 <?php
-Namespace Livro\Widgets\Datagrid;
+namespace Livro\Widgets\Datagrid;
 
 /**
  * Representa a paginação de uma datagrid

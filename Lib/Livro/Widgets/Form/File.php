@@ -1,5 +1,5 @@
 <?php
-Namespace Livro\Widgets\Form;
+namespace Livro\Widgets\Form;
 
 /**
  * Representa um componente de upload de arquivo
