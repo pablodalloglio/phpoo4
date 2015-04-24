@@ -1,5 +1,5 @@
 <?php
-Namespace Livro\Core;
+namespace Livro\Core;
 
 /**
  * Carrega a classe do framework

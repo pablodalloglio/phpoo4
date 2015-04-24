@@ -1,5 +1,5 @@
 <?php
-Namespace Livro\Database;
+namespace Livro\Database;
 
 /**
  * Classe abstrata para permitir definição de expressões

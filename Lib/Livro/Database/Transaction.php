@@ -1,5 +1,5 @@
 <?php
-Namespace Livro\Database;
+namespace Livro\Database;
 
 use Livro\Log\Logger;
 

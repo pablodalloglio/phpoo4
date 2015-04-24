@@ -1,5 +1,5 @@
 <?php
-Namespace Livro\Traits;
+namespace Livro\Traits;
 
 use Livro\Control\Action;
 use Livro\Database\Transaction;

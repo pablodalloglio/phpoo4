@@ -1,5 +1,5 @@
 <?php
-Namespace Livro\Widgets\Dialog;
+namespace Livro\Widgets\Dialog;
 
 use Livro\Widgets\Base\Element;
 
