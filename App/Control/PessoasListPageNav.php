@@ -11,6 +11,7 @@ use Livro\Widgets\Container\VBox;
 use Livro\Widgets\Datagrid\Datagrid;
 use Livro\Widgets\Datagrid\DatagridColumn;
 use Livro\Widgets\Datagrid\DatagridAction;
+use Livro\Widgets\Datagrid\PageNavigation;
 use Livro\Widgets\Dialog\Message;
 use Livro\Widgets\Dialog\Question;
 use Livro\Database\Transaction;
@@ -21,7 +22,7 @@ use Livro\Database\Filter;
 /**
  * Listagem de Pessoas
  */
-class PessoasList extends Page
+class PessoasListPageNav extends Page
 {
     private $form;     // formulário de buscas
     private $datagrid; // listagem
@@ -76,11 +77,15 @@ class PessoasList extends Page
         // cria o modelo da DataGrid, montando sua estrutura
         $this->datagrid->createModel();
 
+        $this->pagenav = new PageNavigation;
+        $this->pagenav->setAction( new Action(array($this, 'onReload')));
+        
         // monta a página através de uma caixa
         $box = new VBox;
         $box->style = 'display:block';
         $box->add($this->form);
         $box->add($this->datagrid);
+        $box->add($this->pagenav);
         
         parent::add($box);
     }
@@ -88,18 +93,17 @@ class PessoasList extends Page
     /**
      * Carrega a Datagrid com os objetos do banco de dados
      */
-    function onReload()
+    function onReload($param)
     {
         Transaction::open('livro'); // inicia transação com o BD
         $repository = new Repository('Pessoa');
-
-        // cria um critério de seleção de dados
-        $criteria = new Criteria;
-        $criteria->setProperty('order', 'id');
-
+        
         // obtém os dados do formulário de buscas
         $dados = $this->form->getData();
-
+        
+        // cria um critério de seleção de dados
+        $criteria = new Criteria;
+        
         // verifica se o usuário preencheu o formulário
         if ($dados->nome)
         {
@@ -108,7 +112,13 @@ class PessoasList extends Page
         }
 
         // carrega os produtos que satisfazem o critério
+        $count   = $repository->count($criteria);
+        
+        $criteria->setProperty('order', 'id');
+        $criteria->setProperty('limit', 10);
+        $criteria->setProperty('offset', isset($param['offset']) ? (int) $param['offset'] : 0);
         $pessoas = $repository->load($criteria);
+        
         $this->datagrid->clear();
         if ($pessoas)
         {
@@ -119,6 +129,9 @@ class PessoasList extends Page
             }
         }
 
+        $this->pagenav->setTotalRecords( $count );
+        $this->pagenav->setCurrentPage( isset($param['page']) ? (int) $param['page'] : 1 );
+        
         // finaliza a transação
         Transaction::close();
         $this->loaded = true;
@@ -165,7 +178,7 @@ class PessoasList extends Page
          // se a listagem ainda não foi carregada
          if (!$this->loaded)
          {
-	        $this->onReload();
+	        $this->onReload( $_GET );
          }
          parent::show();
     }
