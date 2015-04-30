@@ -34,6 +34,11 @@ footer {
     margin-bottom: 10px;
 }
 
+.form-control::-webkit-input-placeholder { color:#BABABA; }
+.form-control::-moz-placeholder { color:#BABABA; } /* firefox 19+ */
+.form-control:-ms-input-placeholder { color:#BABABA; } /* ie */
+.form-control:-moz-placeholder { color:#BABABA; }
+
 code {
     background-color: white;
 }
