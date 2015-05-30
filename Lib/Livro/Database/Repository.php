@@ -27,21 +27,42 @@ final class Repository
     function load(Criteria $criteria)
     {
         // instancia a instrução de SELECT
-        $sql = new SqlSelect;
-        $sql->addColumn('*');
-        $sql->setEntity(constant($this->class.'::TABLENAME'));
+        $sql = "SELECT * FROM " . constant($this->class.'::TABLENAME');
         
-        // atribui o critério passado como parâmetro
-        $sql->setCriteria($criteria);
+        // obtém a cláusula WHERE do objeto criteria.
+        if ($criteria)
+        {
+            $expression = $criteria->dump();
+            if ($expression)
+            {
+                $sql .= ' WHERE ' . $expression;
+            }
+            
+            // obtém as propriedades do critério
+            $order = $criteria->getProperty('order');
+            $limit = $criteria->getProperty('limit');
+            $offset= $criteria->getProperty('offset');
+            
+            // obtém a ordenação do SELECT
+            if ($order) {
+                $sql .= ' ORDER BY ' . $order;
+            }
+            if ($limit) {
+                $sql .= ' LIMIT ' . $limit;
+            }
+            if ($offset) {
+                $sql .= ' OFFSET ' . $offset;
+            }
+        }
         
         // obtém transação ativa
         if ($conn = Transaction::get())
         {
             // registra mensagem de log
-            Transaction::log($sql->getInstruction());
+            Transaction::log($sql);
             
             // executa a consulta no banco de dados
-            $result= $conn->Query($sql->getInstruction());
+            $result= $conn->Query($sql);
             $results = array();
             
             if ($result)
@@ -68,20 +89,20 @@ final class Repository
      */
     function delete(Criteria $criteria)
     {
-        // instancia instrução de DELETE
-        $sql = new SqlDelete;
-        $sql->setEntity(constant($this->class.'::TABLENAME'));
-        
-        // atribui o critério passado como parâmetro
-        $sql->setCriteria($criteria);
+        $expression = $criteria->dump();
+        $sql = "DELETE * FROM " . constant($this->class.'::TABLENAME');
+        if ($expression)
+        {
+            $sql .= ' WHERE ' . $expression;
+        }
         
         // obtém transação ativa
         if ($conn = Transaction::get())
         {
             // registra mensagem de log
-            Transaction::log($sql->getInstruction());
+            Transaction::log($sql);
             // executa instrução de DELETE
-            $result = $conn->exec($sql->getInstruction());
+            $result = $conn->exec($sql);
             return $result;
         }
         else
@@ -99,23 +120,21 @@ final class Repository
      */
     function count(Criteria $criteria)
     {
-        
-        // instancia instrução de SELECT
-        $sql = new SqlSelect;
-        $sql->addColumn('count(*)');
-        $sql->setEntity(constant($this->class.'::TABLENAME'));
-        
-        // atribui o critério passado como parâmetro
-        $sql->setCriteria($criteria);
+        $expression = $criteria->dump();
+        $sql = "SELECT count(*) FROM " . constant($this->class.'::TABLENAME');
+        if ($expression)
+        {
+            $sql .= ' WHERE ' . $expression;
+        }
         
         // obtém transação ativa
         if ($conn = Transaction::get())
         {
             // registra mensagem de log
-            Transaction::log($sql->getInstruction());
+            Transaction::log($sql);
             
             // executa instrução de SELECT
-            $result= $conn->Query($sql->getInstruction());
+            $result= $conn->Query($sql);
             if ($result)
             {
                 $row = $result->fetch();
