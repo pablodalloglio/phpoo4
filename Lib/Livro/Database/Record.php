@@ -123,6 +123,8 @@ abstract class Record implements RecordInterface
      */
     public function store()
     {
+        $prepared = $this->prepare($this->data);
+        
         // verifica se tem ID ou se existe na base de dados
         if (empty($this->data['id']) or (!$this->load($this->id)))
         {
@@ -131,44 +133,35 @@ abstract class Record implements RecordInterface
             {
                 $this->id = $this->getLast() +1;
             }
+            
             // cria uma instrução de insert
-            $sql = new SqlInsert;
-            $sql->setEntity($this->getEntity());
-            // percorre os dados do objeto
-            foreach ($this->data as $key => $value)
-            {
-                // passa os dados do objeto para o SQL
-                $sql->setRowData($key, $this->$key);
-            }
+            $sql = "INSERT INTO {$this->getEntity()} " . 
+                   '('. implode(', ', array_keys($prepared))   . ' )'.
+                   ' values ' .
+                   '('. implode(', ', array_values($prepared)) . ' )';
         }
         else
         {
-            // instancia instrução de update
-            $sql = new SqlUpdate;
-            $sql->setEntity($this->getEntity());
-            // cria um critério de seleção baseado no ID
-            $criteria = new Criteria;
-            $criteria->add(new Filter('id', '=', $this->id));
-            $sql->setCriteria($criteria);
-            // percorre os dados do objeto
-            foreach ($this->data as $key => $value)
-            {
-                if ($key !== 'id') // o ID não precisa ir no UPDATE
-                
-                {
-                    // passa os dados do objeto para o SQL
-                    $sql->setRowData($key, $this->$key);
+            // monsta a string de UPDATE
+            $sql = "UPDATE {$this->getEntity()}";
+            // monta os pares: coluna=valor,...
+            if ($prepared) {
+                foreach ($prepared as $column => $value) {
+                    if ($column !== 'id') {
+                        $set[] = "{$column} = {$value}";
+                    }
                 }
-                
             }
+            $sql .= ' SET ' . implode(', ', $set);
+            $sql .= ' WHERE id=' . (int) $this->data['id'];
         }
         
         // obtém transação ativa
         if ($conn = Transaction::get())
         {
             // faz o log e executa o SQL
-            Transaction::log($sql->getInstruction());
-            $result = $conn->exec($sql->getInstruction());
+            Transaction::log($sql);
+            $result = $conn->exec($sql);
             // retorna o resultado
             return $result;
         }
@@ -186,23 +179,15 @@ abstract class Record implements RecordInterface
     public function load($id)
     {
         // instancia instrução de SELECT
-        $sql = new SqlSelect;
-        $sql->setEntity($this->getEntity());
-        $sql->addColumn('*');
-        
-        // cria critério de seleção baseado no ID
-        $criteria = new Criteria;
-        $criteria->add(new Filter('id', '=', $id));
-        
-        // define o critério de seleção de dados
-        $sql->setCriteria($criteria);
+        $sql = "SELECT * FROM {$this->getEntity()}";
+        $sql .= ' WHERE id=' . (int) $id;
         
         // obtém transação ativa
         if ($conn = Transaction::get())
         {
             // cria mensagem de log e executa a consulta
-            Transaction::log($sql->getInstruction());
-            $result= $conn->Query($sql->getInstruction());
+            Transaction::log($sql);
+            $result= $conn->Query($sql);
             
             // se retornou algum dado
             if ($result)
@@ -228,23 +213,16 @@ abstract class Record implements RecordInterface
         // o ID é o parâmetro ou a propriedade ID
         $id = $id ? $id : $this->id;
         
-        // instancia uma instrução de DELETE
-        $sql = new SqlDelete;
-        $sql->setEntity($this->getEntity());
-        
-        // cria critério de seleção de dados
-        $criteria = new Criteria;
-        $criteria->add(new Filter('id', '=', $id));
-        
-        // define o critério de seleção baseado no ID
-        $sql->setCriteria($criteria);
+        // monsta a string de UPDATE
+        $sql  = "DELETE FROM {$this->getEntity()}";
+        $sql .= ' WHERE id=' . (int) $this->data['id'];
         
         // obtém transação ativa
         if ($conn = Transaction::get())
         {
             // faz o log e executa o SQL
-            Transaction::log($sql->getInstruction());
-            $result = $conn->exec($sql->getInstruction());
+            Transaction::log($sql);
+            $result = $conn->exec($sql);
             // retorna o resultado
             return $result;
         }
@@ -264,13 +242,11 @@ abstract class Record implements RecordInterface
         if ($conn = Transaction::get())
         {
             // instancia instrução de SELECT
-            $sql = new SqlSelect;
-            $sql->addColumn('max(ID) as ID');
-            $sql->setEntity($this->getEntity());
+            $sql  = "SELECT max(id) FROM {$this->getEntity()}";
             
             // cria log e executa instrução SQL
-            Transaction::log($sql->getInstruction());
-            $result= $conn->Query($sql->getInstruction());
+            Transaction::log($sql);
+            $result= $conn->Query($sql);
             
             // retorna os dados do banco
             $row = $result->fetch();
@@ -301,5 +277,48 @@ abstract class Record implements RecordInterface
         $classname = get_called_class();
         $ar = new $classname;
         return $ar->load($id);
+    }
+    
+    public function prepare($data)
+    {
+        $prepared = array();
+        foreach ($data as $key => $value)
+        {
+            if (is_scalar($value))
+            {
+                $prepared[$key] = $this->escape($value);
+            }
+        }
+        return $prepared;
+    }
+    
+    public function escape($value)
+    {
+        // verifica se é um dado escalar (string, inteiro, ...)
+        if (is_scalar($value))
+        {
+            if (is_string($value) and (!empty($value)))
+            {
+                // adiciona \ em aspas
+                $value = addslashes($value);
+                // caso seja uma string
+                return "'$value'";
+            }
+            else if (is_bool($value))
+            {
+                // caso seja um boolean
+                return $value ? 'TRUE': 'FALSE';
+            }
+            else if ($value!=='')
+            {
+                // caso seja outro tipo de dado
+                return $value;
+            }
+            else
+            {
+                // caso seja NULL
+                return "NULL";
+            }
+        }
     }
 }
