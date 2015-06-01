@@ -72,7 +72,7 @@ final class Transaction
     /**
      * Define qual estratégia (algoritmo de LOG será usado)
      */
-    public static function setLogger(LoggerInterface $logger)
+    public static function setLogger(Logger $logger)
     {
         self::$logger = $logger;
     }

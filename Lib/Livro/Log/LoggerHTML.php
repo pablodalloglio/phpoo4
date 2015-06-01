@@ -5,7 +5,7 @@ namespace Livro\Database;
  * Implementa o algoritmo de LOG em HTML
  * @author Pablo Dall'Oglio
  */
-class LoggerHTML extends TLogger
+class LoggerHTML extends Logger
 {
     /**
      * Escreve uma mensagem no arquivo de LOG

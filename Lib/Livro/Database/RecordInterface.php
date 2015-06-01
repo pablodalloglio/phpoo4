@@ -9,4 +9,3 @@ interface RecordInterface
     public function load($id);
     public function delete($id = NULL);
 }
-?>
