@@ -5,7 +5,7 @@ namespace Livro\Database;
  * Implementa o algoritmo de LOG em TXT
  * @author Pablo Dall'Oglio
  */
-class LoggerTXT extends TLogger
+class LoggerTXT extends Logger
 {
     /**
      * Escreve uma mensagem no arquivo de LOG

@@ -33,7 +33,7 @@ abstract class Record implements RecordInterface
      */
     public function __clone()
     {
-        unset($this->id);
+        unset($this->data['id']);
     }
     
     /**
@@ -132,6 +132,7 @@ abstract class Record implements RecordInterface
             if (empty($this->data['id']))
             {
                 $this->id = $this->getLast() +1;
+                $prepared['id'] = $this->id;
             }
             
             // cria uma instrução de insert
@@ -142,7 +143,7 @@ abstract class Record implements RecordInterface
         }
         else
         {
-            // monsta a string de UPDATE
+            // monta a string de UPDATE
             $sql = "UPDATE {$this->getEntity()}";
             // monta os pares: coluna=valor,...
             if ($prepared) {
@@ -187,7 +188,7 @@ abstract class Record implements RecordInterface
         {
             // cria mensagem de log e executa a consulta
             Transaction::log($sql);
-            $result= $conn->Query($sql);
+            $result= $conn->query($sql);
             
             // se retornou algum dado
             if ($result)
@@ -246,7 +247,7 @@ abstract class Record implements RecordInterface
             
             // cria log e executa instrução SQL
             Transaction::log($sql);
-            $result= $conn->Query($sql);
+            $result= $conn->query($sql);
             
             // retorna os dados do banco
             $row = $result->fetch();
