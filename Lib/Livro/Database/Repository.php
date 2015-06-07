@@ -9,7 +9,7 @@ use Exception;
  */
 final class Repository
 {
-    private $class; // nome da classe manipulada pelo repositório
+    private $activeRecord; // classe manipulada pelo repositório
     
     /**
      * Instancia um Repositório de objetos
@@ -17,7 +17,7 @@ final class Repository
      */
     function __construct($class)
     {
-        $this->class = $class;
+        $this->activeRecord = $class;
     }
     
     /**
@@ -27,7 +27,7 @@ final class Repository
     function load(Criteria $criteria)
     {
         // instancia a instrução de SELECT
-        $sql = "SELECT * FROM " . constant($this->class.'::TABLENAME');
+        $sql = "SELECT * FROM " . constant($this->activeRecord.'::TABLENAME');
         
         // obtém a cláusula WHERE do objeto criteria.
         if ($criteria)
@@ -62,13 +62,13 @@ final class Repository
             Transaction::log($sql);
             
             // executa a consulta no banco de dados
-            $result= $conn->Query($sql);
+            $result= $conn->query($sql);
             $results = array();
             
             if ($result)
             {
                 // percorre os resultados da consulta, retornando um objeto
-                while ($row = $result->fetchObject($this->class))
+                while ($row = $result->fetchObject($this->activeRecord))
                 {
                     // armazena no array $results;
                     $results[] = $row;
@@ -90,7 +90,7 @@ final class Repository
     function delete(Criteria $criteria)
     {
         $expression = $criteria->dump();
-        $sql = "DELETE * FROM " . constant($this->class.'::TABLENAME');
+        $sql = "DELETE FROM " . constant($this->activeRecord.'::TABLENAME');
         if ($expression)
         {
             $sql .= ' WHERE ' . $expression;
@@ -121,7 +121,7 @@ final class Repository
     function count(Criteria $criteria)
     {
         $expression = $criteria->dump();
-        $sql = "SELECT count(*) FROM " . constant($this->class.'::TABLENAME');
+        $sql = "SELECT count(*) FROM " . constant($this->activeRecord.'::TABLENAME');
         if ($expression)
         {
             $sql .= ' WHERE ' . $expression;
@@ -134,7 +134,7 @@ final class Repository
             Transaction::log($sql);
             
             // executa instrução de SELECT
-            $result= $conn->Query($sql);
+            $result= $conn->query($sql);
             if ($result)
             {
                 $row = $result->fetch();
