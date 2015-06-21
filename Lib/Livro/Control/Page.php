@@ -4,13 +4,12 @@ namespace Livro\Control;
 use Livro\Widgets\Base\Element;
 
 /**
- * Encapsula uma página
- * @author Pablo Dall'Oglio
+ * Page controller
  */
 class Page extends Element
 {
     /**
-     * Define o elemento wrapper
+     * Método construtor
      */
     public function __construct()
     {
@@ -18,22 +17,13 @@ class Page extends Element
     }
     
     /**
-     * Exibe o conteúdo da página
+     * Executa determinado método de acordo com os parâmetros recebidos
      */
     public function show()
     {
-        $this->run();
-        parent::show();
-    }
-    
-    /**
-     * Executa determinado método de acordo com os parâmetros recebidos
-     */
-    public function run()
-    {
         if ($_GET)
         {
-            $class = isset($_GET['class']) ? $_GET['class'] : NULL;
+            $class  = isset($_GET['class'])  ? $_GET['class']  : NULL;
             $method = isset($_GET['method']) ? $_GET['method'] : NULL;
             
             if ($class)
@@ -45,5 +35,7 @@ class Page extends Element
                 }
             }
         }
+        
+        parent::show();
     }
 }
