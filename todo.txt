@@ -1,6 +1,0 @@
-$this->tag->class = 'tfield_disabled'; // classe CSS
-TAction => ActionInterface
-Buscar por class= para ver se tem class=tfield class=tform em algum lugar
-Usar transação sempre nas controllers (onEdit, onSave), revisar isso.
-Ver PageNavigation
-Usar campo obrigatório em algum form
