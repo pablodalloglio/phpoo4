@@ -1,7 +1,5 @@
 <?php
-namespace Livro\Widgets\Form;
-
-use Livro\Widgets\Base\Element;
+namespace Livro\Widgets\Base;
 
 /**
  * Representa uma imagem

@@ -7,8 +7,8 @@ namespace Livro\Widgets\Base;
  */
 class Element
 {
-    private $name;          // nome da TAG
-    private $properties;    // propriedades da TAG
+    protected $name;          // nome da TAG
+    protected $properties;    // propriedades da TAG
     protected $children;
     
     /**
