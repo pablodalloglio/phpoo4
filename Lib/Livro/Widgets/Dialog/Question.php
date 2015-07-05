@@ -3,8 +3,6 @@ namespace Livro\Widgets\Dialog;
 
 use Livro\Control\Action;
 use Livro\Widgets\Base\Element;
-use Livro\Widgets\Container\Table;
-use Livro\Widgets\Form\Image;
 
 /**
  * Exibe perguntas ao usuário
