@@ -15,17 +15,6 @@ class Button extends Field implements FormElementInterface
     private $formName;
     
     /**
-     * Cria o botão com ícone e ação
-     */
-    public static function create($name, $callback, $label, $image)
-    {
-        $button = new Button( $name );
-        $button->setAction(new Action( $callback ), $label);
-        $button->setImage( $image );
-        return $button;
-    }
-    
-    /**
      * Define a ação do botão (função a ser executada)
      * @param $action = ação do botão
      * @param $label    = rótulo do botão
