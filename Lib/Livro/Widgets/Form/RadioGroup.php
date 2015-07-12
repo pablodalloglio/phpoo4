@@ -1,5 +1,6 @@
 <?php
 namespace Livro\Widgets\Form;
+
 use Livro\Widgets\Base\Element;
 
 /**
@@ -40,7 +41,7 @@ class RadioGroup extends Field implements FormElementInterface
             {
                 $button = new RadioButton($this->name);
                 $button->setValue($index);
-                // se possui qualquer valor
+                // se o índice coincide
                 if ($this->value == $index)
                 {
                     // marca o radio button

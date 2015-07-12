@@ -2,7 +2,6 @@
 namespace Livro\Widgets\Form;
 
 use Livro\Widgets\Base\Element;
-use Livro\Validation\FieldValidator;
 
 /**
  * Representa um campo de um formulário
@@ -15,7 +14,6 @@ abstract class Field implements FormElementInterface
     protected $value;
     protected $editable;
     protected $tag;
-    protected $validations;
     protected $formLabel;
     
     /**
@@ -154,34 +152,5 @@ abstract class Field implements FormElementInterface
     public function setSize($width, $height = NULL)
     {
         $this->size = $width;
-    }
-    
-    /**
-     * Adiciona um validador para o campo
-     * @param $label nome do campo
-     * @param $validator Validador FieldValidator
-     * @param $parameters Parâmetros adicionais
-     */
-    public function addValidation($label, FieldValidator $validator, $parameters = NULL)
-    {
-        $this->validations[] = array($label, $validator, $parameters);
-    }
-    
-    /**
-     * Valida o campo
-     */
-    public function validate()
-    {
-        if ($this->validations)
-        {
-            foreach ($this->validations as $validation)
-            {
-                $label      = $validation[0];
-                $validator  = $validation[1];
-                $parameters = $validation[2];
-                
-                $validator->validate($label, $this->getValue(), $parameters);
-            }
-        }
     }
 }

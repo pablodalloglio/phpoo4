@@ -17,12 +17,6 @@ class CheckButton extends Field implements FormElementInterface
         $this->tag->value = $this->value;   // value
         $this->tag->type = 'checkbox';      // tipo do input
         
-        // compare current value with indexValue
-        if ($this->indexValue == $this->value)
-        {
-            $this->tag-> checked= '1';
-        }
-        
         // se o campo não é editável
         if (!parent::getEditable())
         {

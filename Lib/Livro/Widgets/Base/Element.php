@@ -7,7 +7,7 @@ namespace Livro\Widgets\Base;
  */
 class Element
 {
-    protected $name;          // nome da TAG
+    protected $tagname;       // nome da TAG
     protected $properties;    // propriedades da TAG
     protected $children;
     
@@ -18,7 +18,7 @@ class Element
     public function __construct($name)
     {
         // define o nome do elemento
-        $this->name = $name;
+        $this->tagname = $name;
     }
     
     /**
@@ -57,7 +57,7 @@ class Element
     private function open()
     {
         // exibe a tag de abertura
-        echo "<{$this->name}";
+        echo "<{$this->tagname}";
         if ($this->properties)
         {
             // percorre as propriedades
@@ -119,6 +119,6 @@ class Element
      */
     private function close()
     {
-        echo "</{$this->name}>\n";
+        echo "</{$this->tagname}>\n";
     }
 }
