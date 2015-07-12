@@ -4,7 +4,7 @@ namespace Livro\Widgets\Form;
 use Livro\Widgets\Base\Element;
 
 /**
- * Representa uma combo boxe
+ * Representa uma combo box
  * @author Pablo Dall'Oglio
  */
 class Combo extends Field implements FormElementInterface

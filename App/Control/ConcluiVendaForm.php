@@ -14,7 +14,6 @@ use Livro\Database\Transaction;
 use Livro\Database\Repository;
 use Livro\Database\Criteria;
 use Livro\Session\Session;
-use Livro\Validation\RequiredValidator;
 
 use Livro\Widgets\Wrapper\FormWrapper;
 use Livro\Widgets\Container\Panel;
@@ -50,7 +49,6 @@ class ConcluiVendaForm extends Page
         $parcelas->addItems(array(1=>'Uma', 2=>'Duas', 3=>'Três'));
         $parcelas->setValue(1);
 
-        $cliente->addValidation('Cliente', new RequiredValidator);
         // define alguns atributos para os campos do formulário
         $desconto->onBlur = "$('[name=valor_final]').val( Number($('[name=valor_venda]').val()) + Number($('[name=acrescimos]').val()) - Number($('[name=desconto]').val()) );";
         $acrescimos->onBlur = $desconto->onBlur;
@@ -107,7 +105,6 @@ class ConcluiVendaForm extends Page
             // inicia transação com o banco 'livro'
             Transaction::open('livro');
             
-            $this->form->validate();
             $dados = $this->form->getData();
             
             $cliente = new Pessoa($dados->id_cliente);

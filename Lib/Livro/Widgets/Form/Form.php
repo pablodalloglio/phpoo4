@@ -3,10 +3,8 @@ namespace Livro\Widgets\Form;
 
 use Livro\Widgets\Base\Element;
 use Livro\Widgets\Container\Table;
-use Livro\Validation\FieldValidator;
 use Livro\Control\ActionInterface;
 use Livro\Widgets\Container\HBox;
-use Livro\Validation\RequiredValidator;
 
 /**
  * Representa um formulário
@@ -62,7 +60,6 @@ class Form extends Element
         // add the field to the container
         $row = $this->table->addRow();
         $row->{'class'} = 'form-title';
-        $this->table->{'width'} = '100%';
         $cell = $row->addCell( $title );
         $cell->{'colspan'} = 2;
     }
@@ -72,9 +69,8 @@ class Form extends Element
      * @param $label     Field Label
      * @param $object    Field Object
      * @param $size      Field Size
-     * @param $validator Field Validator
      */
-    public function addField($label, FormElementInterface $object, $size = 200, FieldValidator $validator = NULL)
+    public function addField($label, FormElementInterface $object, $size = 200)
     {
         $object->setSize($size, $size);
         $this->fields[$object->getName()] = $object;
@@ -83,15 +79,8 @@ class Form extends Element
         // adiciona linha
         $row = $this->table->addRow();
         
-        if ($validator instanceof RequiredValidator)
-        {
-            $label_field = new Label($label . ' (*)');
-            $label_field->style = 'color:#FF0000';
-        }
-        else
-        {
-            $label_field = new Label($label);
-        }
+        $label_field = new Label($label);
+        
         if ($object instanceof Hidden)
         {
             $row->addCell( '' );
@@ -101,11 +90,6 @@ class Form extends Element
             $row->addCell( $label_field );
         }
         $row->addCell( $object );
-        
-        if ($validator)
-        {
-            $object->addValidation($label, $validator);
-        }
         
         return $row;
     }
@@ -179,7 +163,7 @@ class Form extends Element
     /**
      * Retorna os dados do formulário em forma de objeto
      */
-    public function getData($class = 'StdClass')
+    public function getData($class = 'stdClass')
     {
         $object = new $class;
         
@@ -197,17 +181,5 @@ class Form extends Element
             $object->$key = $content['tmp_name'];
         }
         return $object;
-    }
-    
-    /**
-     * Valida o formulário
-     */
-    public function validate()
-    {
-        $this->setData($this->getData());
-        foreach ($this->fields as $fieldObject)
-        {
-            $fieldObject->validate();
-        }
     }
 }

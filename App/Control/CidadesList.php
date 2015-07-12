@@ -16,7 +16,6 @@ use Livro\Widgets\Dialog\Question;
 use Livro\Database\Transaction;
 use Livro\Database\Repository;
 use Livro\Database\Criteria;
-use Livro\Validation\RequiredValidator;
 
 use Livro\Traits\DeleteTrait;
 use Livro\Traits\ReloadTrait;
@@ -75,7 +74,7 @@ class CidadesList extends Page
         $estado->addItems($items);
         
         $this->form->addField('Código', $codigo, 40);
-        $this->form->addField('Descrição', $descricao, 300, new RequiredValidator);
+        $this->form->addField('Descrição', $descricao, 300);
         $this->form->addField('Estado', $estado, 300);
         
         $this->form->addAction('Salvar', new Action(array($this, 'onSave')));

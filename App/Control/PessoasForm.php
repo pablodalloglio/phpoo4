@@ -12,7 +12,6 @@ use Livro\Widgets\Form\Button;
 use Livro\Database\Transaction;
 use Livro\Database\Repository;
 use Livro\Database\Criteria;
-use Livro\Validation\RequiredValidator;
 
 /**
  * Formulário de pessoas
@@ -60,7 +59,7 @@ class PessoasForm extends Page
         Transaction::close();
         
         $this->form->addField('Código', $codigo, 40);
-        $this->form->addField('Nome', $nome, 300, new RequiredValidator);
+        $this->form->addField('Nome', $nome, 300);
         $this->form->addField('Endereço', $endereco, 300);
         $this->form->addField('Bairro', $bairro, 200);
         $this->form->addField('Telefone', $telefone, 200);

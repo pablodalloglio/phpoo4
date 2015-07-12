@@ -4,6 +4,7 @@ namespace Livro\Traits;
 use Livro\Database\Transaction;
 use Livro\Widgets\Dialog\Message;
 use Livro\Widgets\Dialog\Question;
+use Exception;
 
 trait SaveTrait
 {
@@ -14,8 +15,6 @@ trait SaveTrait
     {
         try
         {
-            $this->form->validate();
-            
             Transaction::open( $this->connection );
             
             $class = $this->activeRecord;

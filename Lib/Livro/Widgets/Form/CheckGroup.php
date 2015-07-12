@@ -1,14 +1,13 @@
 <?php
 namespace Livro\Widgets\Form;
 
-use Livro\Control\Action;
 use Livro\Widgets\Base\Element;
 
 /**
  * Representa um grupo de CheckButtons
  * @author Pablo Dall'Oglio
  */
-class CheckGroup extends Field
+class CheckGroup extends Field implements FormElementInterface
 {
     private $layout = 'vertical';
     private $items;

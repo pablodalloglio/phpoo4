@@ -13,7 +13,6 @@ use Livro\Database\Transaction;
 use Livro\Database\Repository;
 use Livro\Database\Criteria;
 use Livro\Database\Filter;
-use Livro\Validation\RequiredValidator;
 
 use Livro\Widgets\Wrapper\FormWrapper;
 use Livro\Widgets\Container\Panel;
