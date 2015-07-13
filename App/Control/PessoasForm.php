@@ -2,16 +2,13 @@
 use Livro\Control\Page;
 use Livro\Control\Action;
 use Livro\Widgets\Form\Form;
-use Livro\Widgets\Container\Table;
 use Livro\Widgets\Dialog\Message;
 use Livro\Widgets\Form\Label;
 use Livro\Widgets\Form\Entry;
 use Livro\Widgets\Form\Combo;
 use Livro\Widgets\Form\CheckGroup;
-use Livro\Widgets\Form\Button;
 use Livro\Database\Transaction;
 use Livro\Database\Repository;
-use Livro\Database\Criteria;
 
 /**
  * Formulário de pessoas
