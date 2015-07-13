@@ -6,7 +6,6 @@ use Livro\Widgets\Form\Entry;
 use Livro\Widgets\Form\Combo;
 use Livro\Widgets\Form\Label;
 use Livro\Widgets\Form\Button;
-use Livro\Widgets\Container\Table;
 use Livro\Widgets\Container\VBox;
 use Livro\Widgets\Datagrid\Datagrid;
 use Livro\Widgets\Datagrid\DatagridColumn;
@@ -15,7 +14,6 @@ use Livro\Widgets\Dialog\Message;
 use Livro\Widgets\Dialog\Question;
 use Livro\Database\Transaction;
 use Livro\Database\Repository;
-use Livro\Database\Criteria;
 
 use Livro\Traits\DeleteTrait;
 use Livro\Traits\ReloadTrait;
