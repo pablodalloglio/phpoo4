@@ -43,7 +43,7 @@ class CheckGroup extends Field implements FormElementInterface
                 $button->setValue($index);
                 
                 // verifica se deve ser marcado
-                if (@in_array($index, $this->value))
+                if (in_array($index, (array) $this->value))
                 {
                     $button->setProperty('checked', '1');
                 }
