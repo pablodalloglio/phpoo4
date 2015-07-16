@@ -16,14 +16,6 @@ class Datagrid extends Table
     private $rowcount;
     
     /**
-     * Instancia uma nova Datagrid
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-    
-    /**
      * Adiciona uma coluna à datagrid
      * @param $object = objeto do tipo DatagridColumn
      */
@@ -82,7 +74,7 @@ class Datagrid extends Table
             }
         }
         
-        // adiciona as células para os dados
+        // adiciona as células para os títulos das colunas
         if ($this->columns)
         {
             // percorre as colunas da listagem
@@ -117,7 +109,7 @@ class Datagrid extends Table
      */
     public function addItem($object)
     {
-        // adiciona uma linha na DataGrid
+        // adiciona uma linha na Datagrid
         $row = parent::addRow();
         
         // verifica se a listagem possui ações
@@ -160,7 +152,7 @@ class Datagrid extends Table
         
         if ($this->columns)
         {
-            // percorre as colunas da DataGrid
+            // percorre as colunas da Datagrid
             foreach ($this->columns as $column)
             {
                 // obtém as propriedades da coluna
