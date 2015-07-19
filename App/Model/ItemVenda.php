@@ -21,7 +21,7 @@ class ItemVenda extends Record
     /**
      * Retorna a descrição do produto
      */
-    function get_descricao()
+    public function get_descricao()
     {
         return $this->get_produto()->descricao;
     }

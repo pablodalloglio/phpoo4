@@ -30,7 +30,7 @@ class Venda extends Record
     /**
      * retorna o objeto cliente vinculado à venda
      */
-    function get_cliente()
+    public function get_cliente()
     {
         if (empty($this->cliente))
         {
