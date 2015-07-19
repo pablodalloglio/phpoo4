@@ -2,7 +2,6 @@
 namespace Livro\Widgets\Wrapper;
 
 use Livro\Widgets\Form\Form;
-use Livro\Widgets\Form\Button;
 use Livro\Widgets\Base\Element;
 
 /**
