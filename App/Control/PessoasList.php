@@ -88,7 +88,7 @@ class PessoasList extends Page
     /**
      * Carrega a Datagrid com os objetos do banco de dados
      */
-    function onReload()
+    public function onReload()
     {
         Transaction::open('livro'); // inicia transação com o BD
         $repository = new Repository('Pessoa');
@@ -127,7 +127,7 @@ class PessoasList extends Page
     /**
      * Pergunta sobre a exclusão de registro
      */
-    function onDelete($param)
+    public function onDelete($param)
     {
         $key = $param['key']; // obtém o parâmetro $key
         $action1 = new Action(array($this, 'Delete'));
@@ -139,7 +139,7 @@ class PessoasList extends Page
     /**
      * Exclui um registro
      */
-    function Delete($param)
+    public function Delete($param)
     {
         try
         {
@@ -160,7 +160,7 @@ class PessoasList extends Page
     /**
      * Exibe a página
      */
-    function show()
+    public function show()
     {
          // se a listagem ainda não foi carregada
          if (!$this->loaded)

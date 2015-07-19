@@ -137,7 +137,7 @@ class FabricantesList extends Page
     /**
      * Carrega registro para edição
      */
-    function onEdit($param)
+    public function onEdit($param)
     {
         if (isset($param['key']))
         {
@@ -153,7 +153,7 @@ class FabricantesList extends Page
     /**
      * Exibe a página
      */
-    function show()
+    public function show()
     {
          // se a listagem ainda não foi carregada
          if (!$this->loaded)

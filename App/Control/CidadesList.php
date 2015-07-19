@@ -145,7 +145,7 @@ class CidadesList extends Page
     /**
      * Carrega registro para edição
      */
-    function onEdit($param)
+    public function onEdit($param)
     {
         if (isset($param['key']))
         {
@@ -161,7 +161,7 @@ class CidadesList extends Page
     /**
      * exibe a página
      */
-    function show()
+    public function show()
     {
          // se a listagem ainda não foi carregada
          if (!$this->loaded)

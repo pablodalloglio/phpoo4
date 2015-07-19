@@ -51,7 +51,7 @@ class VendasReport extends Page
     /**
      * Gera o relatório, baseado nos parâmetros do formulário
      */
-    function onGera()
+    public function onGera()
     {
         require_once 'Lib/Twig/Autoloader.php';
         Twig_Autoloader::register();
