@@ -131,7 +131,7 @@ class ProdutosList extends Page
     /**
      * Exibe a página
      */
-    function show()
+    public function show()
     {
          // se a listagem ainda não foi carregada
          if (!$this->loaded)

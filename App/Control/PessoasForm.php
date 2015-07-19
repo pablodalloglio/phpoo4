@@ -20,7 +20,7 @@ class PessoasForm extends Page
     /**
      * Construtor da página
      */
-    function __construct()
+    public function __construct()
     {
         parent::__construct();
         // instancia um formulário
@@ -34,7 +34,7 @@ class PessoasForm extends Page
         $telefone  = new Entry('telefone');
         $email     = new Entry('email');
         $cidade    = new Combo('id_cidade');
-        $grupo     = new CheckGroup('grupos');
+        $grupo     = new CheckGroup('ids_grupos');
         
         // carrega as cidades do banco de dados
         Transaction::open('livro');
@@ -79,7 +79,7 @@ class PessoasForm extends Page
     /**
      * Carrega registro para edição
      */
-    function onEdit($param)
+    public function onEdit($param)
     {
         try
         {
@@ -88,7 +88,7 @@ class PessoasForm extends Page
                 $key = $param['key']; // obtém a chave
                 Transaction::open('livro'); // inicia transação com o BD
                 $pessoa = new Pessoa($key); // instancia o Active Record
-                $pessoa->grupos = explode(',', $pessoa->grupos);
+                $pessoa->ids_grupos = $pessoa->getIdsGrupos();
                 $this->form->setData($pessoa); // lança os dados da cidade no formulário
                 Transaction::close(); // finaliza a transação
             }
@@ -105,7 +105,7 @@ class PessoasForm extends Page
     /**
      * Salva os dados do formulário
      */
-    function onSave()
+    public function onSave()
     {
         try
         {
@@ -114,12 +114,17 @@ class PessoasForm extends Page
 
             $dados = $this->form->getData();
             $this->form->setData($dados);
-            $dados->grupos = implode(',', $dados->grupos);
-            
             $pessoa = new Pessoa; // instancia objeto
             $pessoa->fromArray( (array) $dados); // carrega os dados
             $pessoa->store(); // armazena o objeto no banco de dados
             
+            $pessoa->delGrupos();
+            if ($dados->ids_grupos) {
+                foreach ($dados->ids_grupos as $id_grupo)
+                {
+                    $pessoa->addGrupo( new Grupo($id_grupo) );
+                }
+            }
             
             Transaction::close(); // finaliza a transação
             new Message('info', 'Dados armazenados com sucesso');

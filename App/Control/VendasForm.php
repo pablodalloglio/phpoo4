@@ -97,7 +97,7 @@ class VendasForm extends Page
     /**
      * Adiciona item
      */
-    function onAdiciona()
+    public function onAdiciona()
     {
         try {
             // obtém os dados do formulário
@@ -121,7 +121,7 @@ class VendasForm extends Page
     /**
      * Exclui item
      */
-    function onDelete($param)
+    public function onDelete($param)
     {
         // lê variável $list da seção
         $list = Session::getValue('list');
@@ -139,7 +139,7 @@ class VendasForm extends Page
     /**
      * Carrega datagrid com objetos
      */
-    function onReload()
+    public function onReload()
     {
         // obtém a variável de seção $list
         $list = Session::getValue('list');
@@ -165,7 +165,7 @@ class VendasForm extends Page
     /**
      * Formata valor monetário
      */
-    function formata_money($valor)
+    public function formata_money($valor)
     {
         return number_format($valor, 2, ',', '.');
     }
@@ -173,7 +173,7 @@ class VendasForm extends Page
     /**
      * Exibe a página
      */
-    function show()
+    public function show()
     {
         if (!$this->loaded)
         {

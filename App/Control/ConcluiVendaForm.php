@@ -28,7 +28,7 @@ class ConcluiVendaForm extends Page
     /**
      * método construtor
      */
-    function __construct()
+    public function __construct()
     {
         parent::__construct();
         
@@ -74,7 +74,7 @@ class ConcluiVendaForm extends Page
     /**
      * Carrega formulário de conclusão
      */
-    function onLoad($param)
+    public function onLoad($param)
     {
         $total = 0;
         $itens = Session::getValue('list');
@@ -98,7 +98,7 @@ class ConcluiVendaForm extends Page
     /**
      * Grava venda
      */
-    function onGravaVenda()
+    public function onGravaVenda()
     {
         try 
         {
