@@ -37,6 +37,6 @@ if ($_GET)
         }
     }
 }
-$content = str_replace('{content}', $content, $template);
-$content = str_replace('{class}',   $class, $content);
-echo $content;
+$output = str_replace('{content}', $content, $template);
+$output = str_replace('{class}',   $class, $output);
+echo $output;
