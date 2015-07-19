@@ -25,4 +25,12 @@ class DatagridWrapper
     {
         return call_user_func_array(array($this->decorated, $method),$parameters);
     }
+    
+    /**
+     * Redireciona alterações em atributos
+     */
+    public function __set($attribute, $value)
+    {
+        $this->decorated->$attribute = $value;
+    }
 }
