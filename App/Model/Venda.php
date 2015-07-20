@@ -11,14 +11,6 @@ class Venda extends Record
     private $cliente;
     
     /**
-     * Adiciona um item (produto) à venda
-     */
-    public function addItem(ItemVenda $item)
-    {
-        $this->itens[] = $item;
-    }
-    
-    /**
      * Atribui o cliente
      */
     public function set_cliente(Pessoa $c)
@@ -39,6 +31,14 @@ class Venda extends Record
         
         // Retorna o objeto instanciado
         return $this->cliente;
+    }
+    
+    /**
+     * Adiciona um item (produto) à venda
+     */
+    public function addItem(ItemVenda $item)
+    {
+        $this->itens[] = $item;
     }
     
     /**
