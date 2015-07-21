@@ -36,9 +36,15 @@ class Venda extends Record
     /**
      * Adiciona um item (produto) à venda
      */
-    public function addItem(ItemVenda $item)
-    {
+    public function addItem(Produto $p, $quantidade)
+    {    
+        $item = new ItemVenda;
+        $item->produto    = $p;
+        $item->preco      = $p->preco_venda;
+        $item->quantidade = $quantidade;
+        
         $this->itens[] = $item;
+        $this->valor_venda += ($item->preco * $quantidade);
     }
     
     /**

@@ -130,7 +130,7 @@ class ConcluiVendaForm extends Page
                 foreach ($itens as $item)
                 {
                     // adiciona o item na venda
-                    $venda->addItem($item);
+                    $venda->addItem(new Produto($item->id_produto), $item->quantidade);
                 }
             }
             
