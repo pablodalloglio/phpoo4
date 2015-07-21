@@ -101,13 +101,20 @@ class VendasForm extends Page
     {
         try {
             // obtém os dados do formulário
-            $item = $this->form->getData('ItemVenda');
+            $item = $this->form->getData();
+            
             Transaction::open('livro');
-            $item->preco = $item->get_produto()->preco_venda;
+            $produto = Produto::find($item->id_produto);
+            if ($produto)
+            {
+                $item->descricao = $produto->descricao;
+                $item->preco     = $produto->preco_venda;
+                
+                $list = Session::getValue('list'); // lê variável $list da seção
+                $list[$item->id_produto] = $item;  // acrescenta produto na variável $list
+                Session::setValue('list', $list);  // grava variável $list de volta à seção
+            }
             Transaction::close('livro');
-            $list = Session::getValue('list'); // lê variável $list da seção
-            $list[$item->id_produto]= $item;   // acrescenta produto na variável $list
-            Session::setValue('list', $list);  // grava variável $list de volta à seção
         }
         catch (Exception $e)
         {
