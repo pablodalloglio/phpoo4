@@ -10,16 +10,9 @@ class ModelTest2 extends Page
             Transaction::open('livro');
             
             $p1 = Pessoa::find(1);
-            $grupos = $p1->getGrupos();
-            
-            if ($grupos) {
-                foreach ($grupos as $grupo) {
-                    print $grupo->id . ' - ';
-                    print $grupo->nome . '<br>';
-                }
-            }
-            echo '<hr>';
-            $p1->addGrupo( new Grupo(2) );
+            $p1->delGrupos();
+            $p1->addGrupo( new Grupo(1) );
+            $p1->addGrupo( new Grupo(3) );
             
             $grupos = $p1->getGrupos();
             

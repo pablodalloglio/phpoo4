@@ -17,20 +17,8 @@ class ModelTest3 extends Page
             $venda->acrescimos  = 0;
             $venda->obs         = 'obs';
     
-            $item1 = new ItemVenda;
-            $item1->produto    = new Produto(3);
-            $item1->preco      = $item1->produto->preco_venda;
-            $item1->quantidade = 2;
-            $venda->valor_venda += ($item1->preco * $item1->quantidade);
-            
-            $item2 = new ItemVenda;
-            $item2->produto    = new Produto(4);
-            $item2->preco      = $item2->produto->preco_venda;
-            $item2->quantidade = 1;
-            $venda->valor_venda += ($item2->preco * $item2->quantidade);
-            
-            $venda->addItem($item1);
-            $venda->addItem($item2);
+            $venda->addItem(new Produto(3), 2);
+            $venda->addItem(new Produto(4), 1);
             
             $venda->valor_final = $venda->valor_venda + $venda->acrescimos - $venda->desconto;
             
