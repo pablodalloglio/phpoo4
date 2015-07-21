@@ -84,7 +84,7 @@ class CidadesList extends Page
         // instancia as colunas da DataGrid
         $codigo   = new DataGridColumn('id',     'Código', 'right', 50);
         $nome     = new DataGridColumn('nome',   'Nome',   'left', 150);
-        $estado   = new DataGridColumn('estado', 'Estado', 'left', 150);
+        $estado   = new DataGridColumn('nome_estado', 'Estado', 'left', 150);
 
         // adiciona as colunas à DataGrid
         $this->datagrid->addColumn($codigo);
