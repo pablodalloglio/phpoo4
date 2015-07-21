@@ -80,6 +80,14 @@ class Pessoa extends Record
     }
     
     /**
+     * Retorna as contas em aberto
+     */
+    public function getContasEmAberto()
+    {
+        return Conta::getByPessoa($this->id);
+    }
+    
+    /**
      * Retorna o total em débitos
      */
     public function totalDebitos()

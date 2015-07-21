@@ -7,6 +7,15 @@ class ItemVenda extends Record
     private $produto;
     
     /**
+     * Atribui o objeto produto
+     */
+    public function set_produto(Produto $p)
+    {
+        $this->produto = $p;
+        $this->id_produto = $p->id;
+    }
+    
+    /**
      * Retorna o objeto produto
      */
     public function get_produto()
@@ -15,7 +24,6 @@ class ItemVenda extends Record
             $this->produto = new Produto($this->id_produto);
         }
         return $this->produto;
-        
     }
     
     /**

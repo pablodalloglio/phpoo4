@@ -7,6 +7,11 @@ class Cidade extends Record
 	
 	public function get_estado()
 	{
+	    return new Estado($this->id_estado);
+	}
+	
+	public function get_nome_estado()
+	{
 	    return (new Estado($this->id_estado))->nome;
 	}
 }
