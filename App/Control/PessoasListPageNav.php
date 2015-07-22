@@ -14,6 +14,8 @@ use Livro\Widgets\Datagrid\DatagridAction;
 use Livro\Widgets\Datagrid\PageNavigation;
 use Livro\Widgets\Dialog\Message;
 use Livro\Widgets\Dialog\Question;
+use Livro\Widgets\Wrapper\FormWrapper;
+use Livro\Widgets\Wrapper\DatagridWrapper;
 use Livro\Database\Transaction;
 use Livro\Database\Repository;
 use Livro\Database\Criteria;
@@ -35,7 +37,7 @@ class PessoasListPageNav extends Page
     {
         parent::__construct();
         // instancia um formulário
-        $this->form = new Form('form_busca_pessoas');
+        $this->form = new FormWrapper(new Form('form_busca_pessoas'));
 
         // cria os campos do formulário
         $nome = new Entry('nome');
@@ -44,37 +46,37 @@ class PessoasListPageNav extends Page
         $this->form->addAction('Buscar', new Action(array($this, 'onReload')));
         $this->form->addAction('Novo', new Action(array(new PessoasForm, 'onEdit')));
         
-        // instancia objeto DataGrid
-        $this->datagrid = new DataGrid;
+        // instancia objeto Datagrid
+        $this->datagrid = new DatagridWrapper(new Datagrid);
 
-        // instancia as colunas da DataGrid
-        $codigo   = new DataGridColumn('id',         'Código', 'right', 50);
-        $nome     = new DataGridColumn('nome',       'Nome',    'left', 200);
-        $endereco = new DataGridColumn('endereco',   'Endereco','left', 200);
-        $cidade   = new DataGridColumn('nome_cidade','Cidade', 'left', 140);
+        // instancia as colunas da Datagrid
+        $codigo   = new DatagridColumn('id',         'Código', 'right', 50);
+        $nome     = new DatagridColumn('nome',       'Nome',    'left', 200);
+        $endereco = new DatagridColumn('endereco',   'Endereco','left', 200);
+        $cidade   = new DatagridColumn('nome_cidade','Cidade', 'left', 140);
 
-        // adiciona as colunas à DataGrid
+        // adiciona as colunas à Datagrid
         $this->datagrid->addColumn($codigo);
         $this->datagrid->addColumn($nome);
         $this->datagrid->addColumn($endereco);
         $this->datagrid->addColumn($cidade);
 
-        // instancia duas ações da DataGrid
-        $action1 = new DataGridAction(array(new PessoasForm, 'onEdit'));
+        // instancia duas ações da Datagrid
+        $action1 = new DatagridAction(array(new PessoasForm, 'onEdit'));
         $action1->setLabel('Editar');
         $action1->setImage('ico_edit.png');
         $action1->setField('id');
         
-        $action2 = new DataGridAction(array($this, 'onDelete'));
+        $action2 = new DatagridAction(array($this, 'onDelete'));
         $action2->setLabel('Deletar');
         $action2->setImage('ico_delete.png');
         $action2->setField('id');
 
-        // adiciona as ações à DataGrid
+        // adiciona as ações à Datagrid
         $this->datagrid->addAction($action1);
         $this->datagrid->addAction($action2);
 
-        // cria o modelo da DataGrid, montando sua estrutura
+        // cria o modelo da Datagrid, montando sua estrutura
         $this->datagrid->createModel();
 
         $this->pagenav = new PageNavigation;
@@ -124,7 +126,7 @@ class PessoasListPageNav extends Page
         {
             foreach ($pessoas as $pessoa)
             {
-                // adiciona o objeto na DataGrid
+                // adiciona o objeto na Datagrid
                 $this->datagrid->addItem($pessoa);
             }
         }
