@@ -13,9 +13,9 @@ trait DeleteTrait
      */
     function onDelete($param)
     {
-        $key = $param['key']; // obtém o parâmetro $key
+        $id = $param['id']; // obtém o parâmetro $id
         $action1 = new Action(array($this, 'Delete'));
-        $action1->setParameter('key', $key);
+        $action1->setParameter('id', $id);
         
         new Question('Deseja realmente excluir o registro?', $action1);
     }
@@ -27,12 +27,12 @@ trait DeleteTrait
     {
         try
         {
-            $key = $param['key']; // obtém a chave
+            $id = $param['id']; // obtém a chave
             Transaction::open( $this->connection ); // inicia transação com o BD
             
             $class = $this->activeRecord;
             
-            $object = new $class($key); // instancia objeto
+            $object = $class::find($id); // instancia objeto
             $object->delete(); // deleta objeto do banco de dados
             Transaction::close(); // finaliza a transação
             $this->onReload(); // recarrega a datagrid
