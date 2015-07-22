@@ -4,9 +4,7 @@ namespace Livro\Traits;
 use Livro\Database\Transaction;
 use Livro\Database\Repository;
 use Livro\Database\Criteria;
-use Livro\Database\Filter;
 use Livro\Widgets\Dialog\Message;
-use Livro\Widgets\Dialog\Question;
 
 trait ReloadTrait
 {
@@ -17,10 +15,8 @@ trait ReloadTrait
     {
         try
         {
-            $class = $this->activeRecord;
-            $repository = new Repository( $class );
-            
             Transaction::open( $this->connection );
+            $repository = new Repository( $this->activeRecord );
             // cria um critério de seleção de dados
             $criteria = new Criteria;
             $criteria->setProperty('order', 'id');
