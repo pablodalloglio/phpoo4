@@ -3,16 +3,14 @@ use Livro\Control\Page;
 use Livro\Control\Action;
 use Livro\Widgets\Form\Form;
 use Livro\Widgets\Form\Entry;
-use Livro\Widgets\Form\Combo;
-use Livro\Widgets\Form\Label;
-use Livro\Widgets\Form\Button;
-use Livro\Widgets\Container\Table;
 use Livro\Widgets\Container\VBox;
 use Livro\Widgets\Datagrid\Datagrid;
 use Livro\Widgets\Datagrid\DatagridColumn;
 use Livro\Widgets\Datagrid\DatagridAction;
 use Livro\Widgets\Dialog\Message;
 use Livro\Widgets\Dialog\Question;
+use Livro\Widgets\Wrapper\FormWrapper;
+use Livro\Widgets\Wrapper\DatagridWrapper;
 use Livro\Database\Transaction;
 use Livro\Database\Repository;
 use Livro\Database\Criteria;
@@ -33,47 +31,44 @@ class PessoasList extends Page
     public function __construct()
     {
         parent::__construct();
-        // instancia um formulário
-        $this->form = new Form('form_busca_pessoas');
-
-        // cria os campos do formulário
+        // instancia um formulário de buscas
+        $this->form = new FormWrapper(new Form('form_busca_pessoas'));
         $nome = new Entry('nome');
-        
         $this->form->addField('Nome', $nome, 300);
         $this->form->addAction('Buscar', new Action(array($this, 'onReload')));
         $this->form->addAction('Novo', new Action(array(new PessoasForm, 'onEdit')));
         
-        // instancia objeto DataGrid
-        $this->datagrid = new DataGrid;
+        // instancia objeto Datagrid
+        $this->datagrid = new DatagridWrapper(new Datagrid);
 
-        // instancia as colunas da DataGrid
-        $codigo   = new DataGridColumn('id',         'Código', 'right', 50);
-        $nome     = new DataGridColumn('nome',       'Nome',    'left', 200);
-        $endereco = new DataGridColumn('endereco',   'Endereco','left', 200);
-        $cidade   = new DataGridColumn('nome_cidade','Cidade', 'left', 140);
+        // instancia as colunas da Datagrid
+        $codigo   = new DatagridColumn('id',         'Código', 'right', 50);
+        $nome     = new DatagridColumn('nome',       'Nome',    'left', 200);
+        $endereco = new DatagridColumn('endereco',   'Endereco','left', 200);
+        $cidade   = new DatagridColumn('nome_cidade','Cidade', 'left', 140);
 
-        // adiciona as colunas à DataGrid
+        // adiciona as colunas à Datagrid
         $this->datagrid->addColumn($codigo);
         $this->datagrid->addColumn($nome);
         $this->datagrid->addColumn($endereco);
         $this->datagrid->addColumn($cidade);
 
-        // instancia duas ações da DataGrid
-        $action1 = new DataGridAction(array(new PessoasForm, 'onEdit'));
+        // instancia duas ações da Datagrid
+        $action1 = new DatagridAction(array(new PessoasForm, 'onEdit'));
         $action1->setLabel('Editar');
         $action1->setImage('ico_edit.png');
         $action1->setField('id');
         
-        $action2 = new DataGridAction(array($this, 'onDelete'));
+        $action2 = new DatagridAction(array($this, 'onDelete'));
         $action2->setLabel('Deletar');
         $action2->setImage('ico_delete.png');
         $action2->setField('id');
 
-        // adiciona as ações à DataGrid
+        // adiciona as ações à Datagrid
         $this->datagrid->addAction($action1);
         $this->datagrid->addAction($action2);
 
-        // cria o modelo da DataGrid, montando sua estrutura
+        // cria o modelo da Datagrid, montando sua estrutura
         $this->datagrid->createModel();
 
         // monta a página através de uma caixa
@@ -114,7 +109,7 @@ class PessoasList extends Page
         {
             foreach ($pessoas as $pessoa)
             {
-                // adiciona o objeto na DataGrid
+                // adiciona o objeto na Datagrid
                 $this->datagrid->addItem($pessoa);
             }
         }
@@ -129,9 +124,9 @@ class PessoasList extends Page
      */
     public function onDelete($param)
     {
-        $key = $param['key']; // obtém o parâmetro $key
+        $id = $param['id']; // obtém o parâmetro $id
         $action1 = new Action(array($this, 'Delete'));
-        $action1->setParameter('key', $key);
+        $action1->setParameter('id', $id);
         
         new Question('Deseja realmente excluir o registro?', $action1);
     }
@@ -143,10 +138,10 @@ class PessoasList extends Page
     {
         try
         {
-            $key = $param['key']; // obtém a chave
+            $id = $param['id']; // obtém a chave
             Transaction::open('livro'); // inicia transação com o banco 'livro'
-            $cidade = new Pessoa($key); // instancia objeto Cidade
-            $cidade->delete(); // deleta objeto do banco de dados
+            $pessoa = Pessoa::find($id);
+            $pessoa->delete(); // deleta objeto do banco de dados
             Transaction::close(); // finaliza a transação
             $this->onReload(); // recarrega a datagrid
             new Message('info', "Registro excluído com sucesso");
