@@ -61,40 +61,40 @@ class ProdutosList extends Page
         $this->form->addAction('Buscar', new Action(array($this, 'onReload')));
         $this->form->addAction('Cadastrar', new Action(array(new ProdutosForm, 'onEdit')));
         
-        // instancia objeto DataGrid
-        $this->datagrid = new DatagridWrapper(new DataGrid);
+        // instancia objeto Datagrid
+        $this->datagrid = new DatagridWrapper(new Datagrid);
         
-        // instancia as colunas da DataGrid
-        $codigo   = new DataGridColumn('id',             'Código',    'right',  50);
-        $descricao= new DataGridColumn('descricao',      'Descrição', 'left',   270);
-        $fabrica  = new DataGridColumn('nome_fabricante','Fabricante','left',   80);
-        $estoque  = new DataGridColumn('estoque',        'Estoq.',    'right',  40);
-        $preco    = new DataGridColumn('preco_venda',    'Venda',     'right',  40);
+        // instancia as colunas da Datagrid
+        $codigo   = new DatagridColumn('id',             'Código',    'right',  50);
+        $descricao= new DatagridColumn('descricao',      'Descrição', 'left',   270);
+        $fabrica  = new DatagridColumn('nome_fabricante','Fabricante','left',   80);
+        $estoque  = new DatagridColumn('estoque',        'Estoq.',    'right',  40);
+        $preco    = new DatagridColumn('preco_venda',    'Venda',     'right',  40);
         
-        // adiciona as colunas à DataGrid
+        // adiciona as colunas à Datagrid
         $this->datagrid->addColumn($codigo);
         $this->datagrid->addColumn($descricao);
         $this->datagrid->addColumn($fabrica);
         $this->datagrid->addColumn($estoque);
         $this->datagrid->addColumn($preco);
         
-        // instancia duas ações da DataGrid
+        // instancia duas ações da Datagrid
         $obj = new ProdutosForm;
-        $action1 = new DataGridAction(array($obj, 'onEdit'));
+        $action1 = new DatagridAction(array($obj, 'onEdit'));
         $action1->setLabel('Editar');
         $action1->setImage('ico_edit.png');
         $action1->setField('id');
         
-        $action2 = new DataGridAction(array($this, 'onDelete'));
+        $action2 = new DatagridAction(array($this, 'onDelete'));
         $action2->setLabel('Deletar');
         $action2->setImage('ico_delete.png');
         $action2->setField('id');
         
-        // adiciona as ações à DataGrid
+        // adiciona as ações à Datagrid
         $this->datagrid->addAction($action1);
         $this->datagrid->addAction($action2);
         
-        // cria o modelo da DataGrid, montando sua estrutura
+        // cria o modelo da Datagrid, montando sua estrutura
         $this->datagrid->createModel();
         
         $panel = new Panel('Produtos');
