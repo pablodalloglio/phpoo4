@@ -37,8 +37,8 @@ class ProdutosForm extends Page
     {
         parent::__construct();
 
-        $this->activeRecord = 'Produto';
         $this->connection = 'livro';
+        $this->activeRecord = 'Produto';
         
         // instancia um formulário
         $this->form = new FormWrapper(new Form('form_produtos'));
@@ -90,6 +90,7 @@ class ProdutosForm extends Page
         $this->form->addField('Unidade',   $unidade, 300);
         $this->form->addAction('Salvar', new Action(array($this, 'onSave')));
         
+        // cria um painél para conter o formulário
         $panel = new Panel('Produtos');
         $panel->add($this->form);
         
