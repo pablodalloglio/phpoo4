@@ -49,7 +49,7 @@ class ConcluiVendaForm extends Page
         $parcelas->addItems(array(1=>'Uma', 2=>'Duas', 3=>'Três'));
         $parcelas->setValue(1);
 
-        // define alguns atributos para os campos do formulário
+        // define uma ação de cálculo Javascript
         $desconto->onBlur = "$('[name=valor_final]').val( Number($('[name=valor_venda]').val()) + Number($('[name=acrescimos]').val()) - Number($('[name=desconto]').val()) );";
         $acrescimos->onBlur = $desconto->onBlur;
         
@@ -80,13 +80,11 @@ class ConcluiVendaForm extends Page
         $itens = Session::getValue('list');
         if ($itens)
         {
-            Transaction::open('livro');
             // percorre os itens
             foreach ($itens as $item)
             {
                 $total += $item->preco * $item->quantidade;
             }
-            Transaction::close();
         }
         
         $data = new StdClass;
@@ -107,7 +105,10 @@ class ConcluiVendaForm extends Page
             
             $dados = $this->form->getData();
             
-            $cliente = new Pessoa($dados->id_cliente);
+            $cliente = Pessoa::find($dados->id_cliente);
+            if (!$cliente) {
+                throw new Exception('Cliente não encontrado');
+            }
             if ($cliente->totalDebitos() > 0)
             {
                 throw new Exception('Débitos impedem esta operação');
