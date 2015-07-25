@@ -49,34 +49,34 @@ class VendasForm extends Page
         $this->form->addAction('Adicionar', new Action(array($this, 'onAdiciona')));
         $this->form->addAction('Terminar', new Action(array(new ConcluiVendaForm, 'onLoad')));
         
-        // instancia objeto DataGrid
-        $this->datagrid = new DatagridWrapper(new DataGrid);
+        // instancia objeto Datagrid
+        $this->datagrid = new DatagridWrapper(new Datagrid);
 
-        // instancia as colunas da DataGrid
-        $codigo    = new DataGridColumn('id_produto', 'Código', 'right', 50);
-        $descricao = new DataGridColumn('descricao',   'Descrição','left', 200);
-        $quantidade= new DataGridColumn('quantidade',  'Qtde',      'right', 40);
-        $preco     = new DataGridColumn('preco',       'Preço',    'right', 70);
+        // instancia as colunas da Datagrid
+        $codigo    = new DatagridColumn('id_produto', 'Código', 'right', 50);
+        $descricao = new DatagridColumn('descricao',   'Descrição','left', 200);
+        $quantidade= new DatagridColumn('quantidade',  'Qtde',      'right', 40);
+        $preco     = new DatagridColumn('preco',       'Preço',    'right', 70);
 
         // define um transformador para a coluna preço
         $preco->setTransformer(array($this, 'formata_money'));
 
-        // adiciona as colunas à DataGrid
+        // adiciona as colunas à Datagrid
         $this->datagrid->addColumn($codigo);
         $this->datagrid->addColumn($descricao);
         $this->datagrid->addColumn($quantidade);
         $this->datagrid->addColumn($preco);
 
         // cria uma ação para a datagrid
-        $action = new DataGridAction(array($this, 'onDelete'));
+        $action = new DatagridAction(array($this, 'onDelete'));
         $action->setLabel('Deletar');
         $action->setImage('ico_delete.png');
         $action->setField('id_produto');
 
-        // adiciona a ação à DataGrid
+        // adiciona a ação à Datagrid
         $this->datagrid->addAction($action);
 
-        // cria o modelo da DataGrid, montando sua estrutura
+        // cria o modelo da Datagrid, montando sua estrutura
         $this->datagrid->createModel();
         
         $panel1 = new Panel('Vendas');
@@ -133,8 +133,8 @@ class VendasForm extends Page
         // lê variável $list da seção
         $list = Session::getValue('list');
 
-        // exclui a posição que armazena o produto de código $key
-        unset($list[$param['key']]);
+        // exclui a posição que armazena o produto de código
+        unset($list[$param['id_produto']]);
 
         // grava variável $list de volta à seção
         Session::setValue('list', $list);
@@ -155,16 +155,11 @@ class VendasForm extends Page
         $this->datagrid->clear();
         if ($list)
         {
-            // inicia transação com o BD
-            Transaction::open('livro');
-            
             foreach ($list as $item)
             {
                 // adiciona cada objeto $item na datagrid
                 $this->datagrid->addItem($item);
             }
-            // fecha transação
-            Transaction::close();
         }
         $this->loaded = true;
     }

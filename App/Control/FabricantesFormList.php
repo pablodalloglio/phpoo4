@@ -25,11 +25,11 @@ use Livro\Widgets\Wrapper\FormWrapper;
 use Livro\Widgets\Container\Panel;
 
 /*
- * classe FabricantesList
+ * classe FabricantesFormList
  * Cadastro de Fabricantes
  * Contém o formuláro e a listagem
  */
-class FabricantesList extends Page
+class FabricantesFormList extends Page
 {
     private $form;      // formulário de cadastro
     private $datagrid;  // listagem
@@ -143,7 +143,7 @@ class FabricantesList extends Page
         {
             $key = $param['key']; // obtém a chave
             Transaction::open('livro'); // inicia transação com o BD
-            $fabricante = new Fabricante($key); // instancia o Active Record
+            $fabricante = Fabricante::find($key); // instancia o Active Record
             $this->form->setData($fabricante); // lança os dados no formulário
             Transaction::close(); // finaliza a transação
             $this->onReload();
