@@ -18,6 +18,7 @@ use Livro\Database\Repository;
 use Livro\Traits\DeleteTrait;
 use Livro\Traits\ReloadTrait;
 use Livro\Traits\SaveTrait;
+use Livro\Traits\EditTrait;
 
 use Livro\Widgets\Wrapper\DatagridWrapper;
 use Livro\Widgets\Wrapper\FormWrapper;
@@ -26,12 +27,13 @@ use Livro\Widgets\Container\Panel;
 /**
  * Cadastro de cidades
  */
-class CidadesList extends Page
+class CidadesFormList extends Page
 {
     private $form;
     private $datagrid;
     private $loaded;
 
+    use EditTrait;
     use DeleteTrait;
     use ReloadTrait {
         onReload as onReloadTrait;
@@ -40,6 +42,8 @@ class CidadesList extends Page
         onSave as onSaveTrait;
     }
     
+    
+    
     /**
      * Construtor da página
      */
@@ -47,8 +51,8 @@ class CidadesList extends Page
     {
         parent::__construct();
 
-        $this->activeRecord = 'Cidade';
         $this->connection   = 'livro';
+        $this->activeRecord = 'Cidade';
         
         // instancia um formulário
         $this->form = new FormWrapper(new Form('form_cidades'));
@@ -79,30 +83,30 @@ class CidadesList extends Page
         $this->form->addAction('Limpar', new Action(array($this, 'onEdit')));
         
         // instancia a Datagrid
-        $this->datagrid = new DatagridWrapper(new DataGrid);
+        $this->datagrid = new DatagridWrapper(new Datagrid);
 
-        // instancia as colunas da DataGrid
-        $codigo   = new DataGridColumn('id',     'Código', 'right', 50);
-        $nome     = new DataGridColumn('nome',   'Nome',   'left', 150);
-        $estado   = new DataGridColumn('nome_estado', 'Estado', 'left', 150);
+        // instancia as colunas da Datagrid
+        $codigo   = new DatagridColumn('id',     'Código', 'right', 50);
+        $nome     = new DatagridColumn('nome',   'Nome',   'left', 150);
+        $estado   = new DatagridColumn('nome_estado', 'Estado', 'left', 150);
 
-        // adiciona as colunas à DataGrid
+        // adiciona as colunas à Datagrid
         $this->datagrid->addColumn($codigo);
         $this->datagrid->addColumn($nome);
         $this->datagrid->addColumn($estado);
 
-        // instancia duas ações da DataGrid
-        $action1 = new DataGridAction(array($this, 'onEdit'));
+        // instancia duas ações da Datagrid
+        $action1 = new DatagridAction(array($this, 'onEdit'));
         $action1->setLabel('Editar');
         $action1->setImage('ico_edit.png');
         $action1->setField('id');
         
-        $action2 = new DataGridAction(array($this, 'onDelete'));
+        $action2 = new DatagridAction(array($this, 'onDelete'));
         $action2->setLabel('Deletar');
         $action2->setImage('ico_delete.png');
         $action2->setField('id');
 
-        // adiciona as ações à DataGrid
+        // adiciona as ações à Datagrid
         $this->datagrid->addAction($action1);
         $this->datagrid->addAction($action2);
 
@@ -140,22 +144,6 @@ class CidadesList extends Page
     {
         $this->onReloadTrait();   
         $this->loaded = true;
-    }
-    
-    /**
-     * Carrega registro para edição
-     */
-    public function onEdit($param)
-    {
-        if (isset($param['key']))
-        {
-            $key = $param['key']; // obtém a chave
-            Transaction::open('livro'); // inicia transação com o BD
-            $cidade = new Cidade($key); // instancia o Active Record
-            $this->form->setData($cidade); // lança os dados da cidade no formulário
-            Transaction::close(); // finaliza a transação
-            $this->onReload();
-        }
     }
 
     /**
