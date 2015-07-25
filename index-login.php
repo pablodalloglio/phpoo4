@@ -48,7 +48,6 @@ if (class_exists($class))
         $content = $e->getMessage() . '<br>' .$e->getTraceAsString();
     }
 }
-
-$content = str_replace('{content}', $content, $template);
-$content = str_replace('{class}',   $class, $content);
-echo $content;
+$output = str_replace('{content}', $content, $template);
+$output = str_replace('{class}',   $class, $output);
+echo $output;
