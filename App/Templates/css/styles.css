@@ -41,6 +41,9 @@ footer {
 
 code {
     background-color: white;
+    font-family: Monospace;
+    line-height: normal;
+    font-size: 12pt;
 }
 
 .field
