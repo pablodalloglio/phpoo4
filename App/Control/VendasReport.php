@@ -114,7 +114,7 @@ class VendasReport extends Page
                         foreach ($itens as $item)
                         {
                             $item_array = $item->toArray();
-                            $item_array['descricao'] = $item->descricao;
+                            $item_array['descricao'] = $item->produto->descricao;
                             $venda_array['itens'][] = $item_array;
                         }
                     }
