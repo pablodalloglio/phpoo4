@@ -135,10 +135,11 @@ class Datagrid extends Table
                 if ($image)
                 {
                     // adiciona a imagem ao link
-                    $img = new Element('img');
-                    $img->src   = "App/Images/$image";
-                    $img->title = $label;
-                    $link->add($img);
+                    $i = new Element('i');
+                    $i->class = $image;
+                    $i->title = $label;
+                    $i->add('');
+                    $link->add($i);
                 }
                 else
                 {
@@ -146,7 +147,8 @@ class Datagrid extends Table
                     $link->add($label);
                 }
                 // adiciona a célula à linha
-                $row->addCell($link);
+                $td = $row->addCell($link);
+                $td->align = 'center';
             }
         }
         

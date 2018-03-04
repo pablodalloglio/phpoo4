@@ -70,7 +70,7 @@ class VendasForm extends Page
         // cria uma ação para a datagrid
         $action = new DatagridAction(array($this, 'onDelete'));
         $action->setLabel('Deletar');
-        $action->setImage('ico_delete.png');
+        $action->setImage('fa fa-trash fa-lg red');
         $action->setField('id_produto');
 
         // adiciona a ação à Datagrid

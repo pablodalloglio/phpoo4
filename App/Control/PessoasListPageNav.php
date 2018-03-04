@@ -64,12 +64,12 @@ class PessoasListPageNav extends Page
         // instancia duas ações da Datagrid
         $action1 = new DatagridAction(array(new PessoasForm, 'onEdit'));
         $action1->setLabel('Editar');
-        $action1->setImage('ico_edit.png');
+        $action1->setImage('fa fa-edit fa-lg blue');
         $action1->setField('id');
         
         $action2 = new DatagridAction(array($this, 'onDelete'));
         $action2->setLabel('Deletar');
-        $action2->setImage('ico_delete.png');
+        $action2->setImage('fa fa-trash fa-lg red');
         $action2->setField('id');
 
         // adiciona as ações à Datagrid
