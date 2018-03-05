@@ -151,11 +151,11 @@ class FabricantesFormList extends Page
      */
     public function show()
     {
-         // se a listagem ainda não foi carregada
-         if (!$this->loaded)
-         {
-	        $this->onReload();
-         }
-         parent::show();
+        // se a listagem ainda não foi carregada
+        if (!$this->loaded)
+        {
+	          $this->onReload();
+        }
+        parent::show();
     }
 }
