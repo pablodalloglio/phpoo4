@@ -5,7 +5,6 @@ use Livro\Widgets\Form\Form;
 use Livro\Widgets\Container\VBox;
 use Livro\Widgets\Datagrid\Datagrid;
 use Livro\Widgets\Datagrid\DatagridColumn;
-use Livro\Widgets\Datagrid\DatagridAction;
 use Livro\Widgets\Form\Entry;
 use Livro\Database\Transaction;
 use Livro\Session\Session;
@@ -63,17 +62,7 @@ class VendasForm extends Page
         $this->datagrid->addColumn($quantidade);
         $this->datagrid->addColumn($preco);
 
-        // cria uma ação para a datagrid
-        $action = new DatagridAction(array($this, 'onDelete'));
-        $action->setLabel('Deletar');
-        $action->setImage('fa fa-trash fa-lg red');
-        $action->setField('id_produto');
-
-        // adiciona a ação à Datagrid
-        $this->datagrid->addAction($action);
-
-        // cria o modelo da Datagrid, montando sua estrutura
-        $this->datagrid->createModel();
+        $this->datagrid->addAction( 'Excluir',  new Action([$this, 'onDelete']), 'id_produto', 'fa fa-trash fa-lg red');
         
         $panel1 = new Panel('Vendas');
         $panel1->add($this->form);

@@ -1447,3 +1447,9 @@ div.alert.question > a
 {
     margin-top: -6px;
 }
+
+ul.pagination
+{
+    display:table;
+    margin:auto;
+}

@@ -6,7 +6,6 @@ use Livro\Widgets\Form\Entry;
 use Livro\Widgets\Container\VBox;
 use Livro\Widgets\Datagrid\Datagrid;
 use Livro\Widgets\Datagrid\DatagridColumn;
-use Livro\Widgets\Datagrid\DatagridAction;
 use Livro\Database\Transaction;
 use Livro\Database\Filter;
 
@@ -72,24 +71,8 @@ class ProdutosList extends Page
         $this->datagrid->addColumn($estoque);
         $this->datagrid->addColumn($preco);
         
-        // instancia duas ações da Datagrid
-        $obj = new ProdutosForm;
-        $action1 = new DatagridAction(array($obj, 'onEdit'));
-        $action1->setLabel('Editar');
-        $action1->setImage('fa fa-edit fa-lg blue');
-        $action1->setField('id');
-        
-        $action2 = new DatagridAction(array($this, 'onDelete'));
-        $action2->setLabel('Deletar');
-        $action2->setImage('fa fa-trash fa-lg red');
-        $action2->setField('id');
-        
-        // adiciona as ações à Datagrid
-        $this->datagrid->addAction($action1);
-        $this->datagrid->addAction($action2);
-        
-        // cria o modelo da Datagrid, montando sua estrutura
-        $this->datagrid->createModel();
+        $this->datagrid->addAction( 'Editar',  new Action([new ProdutosForm, 'onEdit']), 'id', 'fa fa-edit fa-lg blue');
+        $this->datagrid->addAction( 'Excluir', new Action([$this, 'onDelete']),          'id', 'fa fa-trash fa-lg red');
         
         $panel = new Panel('Produtos');
         $panel->add($this->form);

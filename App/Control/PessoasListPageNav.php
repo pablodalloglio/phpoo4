@@ -4,13 +4,10 @@ use Livro\Control\Action;
 use Livro\Widgets\Form\Form;
 use Livro\Widgets\Form\Entry;
 use Livro\Widgets\Form\Combo;
-use Livro\Widgets\Form\Label;
-use Livro\Widgets\Form\Button;
-use Livro\Widgets\Container\Table;
+use Livro\Widgets\Container\Panel;
 use Livro\Widgets\Container\VBox;
 use Livro\Widgets\Datagrid\Datagrid;
 use Livro\Widgets\Datagrid\DatagridColumn;
-use Livro\Widgets\Datagrid\DatagridAction;
 use Livro\Widgets\Datagrid\PageNavigation;
 use Livro\Widgets\Dialog\Message;
 use Livro\Widgets\Dialog\Question;
@@ -61,33 +58,24 @@ class PessoasListPageNav extends Page
         $this->datagrid->addColumn($endereco);
         $this->datagrid->addColumn($cidade);
 
-        // instancia duas ações da Datagrid
-        $action1 = new DatagridAction(array(new PessoasForm, 'onEdit'));
-        $action1->setLabel('Editar');
-        $action1->setImage('fa fa-edit fa-lg blue');
-        $action1->setField('id');
-        
-        $action2 = new DatagridAction(array($this, 'onDelete'));
-        $action2->setLabel('Deletar');
-        $action2->setImage('fa fa-trash fa-lg red');
-        $action2->setField('id');
-
-        // adiciona as ações à Datagrid
-        $this->datagrid->addAction($action1);
-        $this->datagrid->addAction($action2);
-
-        // cria o modelo da Datagrid, montando sua estrutura
-        $this->datagrid->createModel();
+        $this->datagrid->addAction( 'Editar',  new Action([new PessoasForm, 'onEdit']), 'id', 'fa fa-edit fa-lg blue');
+        $this->datagrid->addAction( 'Excluir', new Action([$this, 'onDelete']),          'id', 'fa fa-trash fa-lg red');
 
         $this->pagenav = new PageNavigation;
         $this->pagenav->setAction( new Action(array($this, 'onReload')));
         
+        $panel = new Panel('Pessoas');
+        $panel->add($this->form);
+        
+        $panel2 = new Panel();
+        $panel2->add($this->datagrid);
+        $panel2->add($this->pagenav);
+        
         // monta a página através de uma caixa
         $box = new VBox;
         $box->style = 'display:block';
-        $box->add($this->form);
-        $box->add($this->datagrid);
-        $box->add($this->pagenav);
+        $box->add($panel);
+        $box->add($panel2);
         
         parent::add($box);
     }

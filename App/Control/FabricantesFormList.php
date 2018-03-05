@@ -6,7 +6,6 @@ use Livro\Widgets\Form\Entry;
 use Livro\Widgets\Container\VBox;
 use Livro\Widgets\Datagrid\Datagrid;
 use Livro\Widgets\Datagrid\DatagridColumn;
-use Livro\Widgets\Datagrid\DatagridAction;
 
 use Livro\Database\Transaction;
 
@@ -79,23 +78,8 @@ class FabricantesFormList extends Page
         $this->datagrid->addColumn($nome);
         $this->datagrid->addColumn($site);
         
-        // instancia duas ações da DataGrid
-        $action1 = new DataGridAction(array($this, 'onEdit'));
-        $action1->setLabel('Editar');
-        $action1->setImage('fa fa-edit fa-lg blue');
-        $action1->setField('id');
-        
-        $action2 = new DataGridAction(array($this, 'onDelete'));
-        $action2->setLabel('Deletar');
-        $action2->setImage('fa fa-trash fa-lg red');
-        $action2->setField('id');
-        
-        // adiciona as ações à DataGrid
-        $this->datagrid->addAction($action1);
-        $this->datagrid->addAction($action2);
-        
-        // cria o modelo da DataGrid, montando sua estrutura
-        $this->datagrid->createModel();
+        $this->datagrid->addAction( 'Editar',  new Action([$this, 'onEdit']),   'id', 'fa fa-edit fa-lg blue');
+        $this->datagrid->addAction( 'Excluir', new Action([$this, 'onDelete']), 'id', 'fa fa-trash fa-lg red');
         
         $panel = new Panel('Fabricantes');
         $panel->add($this->form);
