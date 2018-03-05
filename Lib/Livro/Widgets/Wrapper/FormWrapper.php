@@ -2,6 +2,7 @@
 namespace Livro\Widgets\Wrapper;
 
 use Livro\Widgets\Form\Form;
+use Livro\Widgets\Form\Button;
 use Livro\Widgets\Base\Element;
 
 /**
@@ -65,11 +66,15 @@ class FormWrapper
         $col->class = 'col-sm-offset-2 col-sm-10"';
         
         $i = 0;
-        foreach ($this->decorated->getActions() as $action)
+        foreach ($this->decorated->getActions() as $label => $action)
         {
-            $col->add($action);
-            $class = ($i==0) ? 'btn-success' : 'btn-default';
-            $action->class = 'btn '.$class;
+            $name   = strtolower(str_replace(' ', '_', $label));
+            $button = new Button($name);
+            $button->setFormName($this->decorated->getName());
+            $button->setAction($action, $label);
+            
+            $col->add($button);
+            $button->class = 'btn ' . ( ($i==0) ? 'btn-success' : 'btn-default');
             $i ++;
         }
         
