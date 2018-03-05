@@ -82,9 +82,9 @@ class CidadesFormList extends Page
         $this->datagrid = new DatagridWrapper(new Datagrid);
 
         // instancia as colunas da Datagrid
-        $codigo   = new DatagridColumn('id',     'Código', 'right', '10%');
+        $codigo   = new DatagridColumn('id',     'Código', 'center', '10%');
         $nome     = new DatagridColumn('nome',   'Nome',   'left', '50%');
-        $estado   = new DatagridColumn('nome_estado', 'Estado', 'left', '30%');
+        $estado   = new DatagridColumn('nome_estado', 'Estado', 'left', '40%');
 
         // adiciona as colunas à Datagrid
         $this->datagrid->addColumn($codigo);

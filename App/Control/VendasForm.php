@@ -49,7 +49,7 @@ class VendasForm extends Page
         $this->datagrid = new DatagridWrapper(new Datagrid);
 
         // instancia as colunas da Datagrid
-        $codigo    = new DatagridColumn('id_produto', 'Código', 'right', '20%');
+        $codigo    = new DatagridColumn('id_produto', 'Código', 'center', '20%');
         $descricao = new DatagridColumn('descricao',   'Descrição','left', '40%');
         $quantidade= new DatagridColumn('quantidade',  'Qtde',      'right', '20%');
         $preco     = new DatagridColumn('preco',       'Preço',    'right', '20%');
