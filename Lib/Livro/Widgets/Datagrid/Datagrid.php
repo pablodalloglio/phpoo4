@@ -90,7 +90,7 @@ class Datagrid extends Table
                 $celula->add($label);
                 // adiciona a célula com a coluna
                 $row->add($celula);
-                $celula->align = $align;
+                $celula->style = "text-align:$align";
                 $celula->width = $width;
                 
                 // verifica se a coluna tem uma ação

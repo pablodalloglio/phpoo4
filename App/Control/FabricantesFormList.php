@@ -70,7 +70,7 @@ class FabricantesFormList extends Page
         $this->datagrid = new DatagridWrapper(new DataGrid);
         
         // instancia as colunas da DataGrid
-        $codigo   = new DataGridColumn('id',       'Código',  'right',  '10%');
+        $codigo   = new DataGridColumn('id',       'Código',  'center',  '10%');
         $nome     = new DataGridColumn('nome',     'Nome',    'left',  '60%');
         $site     = new DataGridColumn('site',     'Site',    'left',  '30%');
         

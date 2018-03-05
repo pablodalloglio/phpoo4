@@ -59,7 +59,7 @@ class ProdutosList extends Page
         $this->datagrid = new DatagridWrapper(new Datagrid);
         
         // instancia as colunas da Datagrid
-        $codigo   = new DatagridColumn('id',             'Código',    'right',  '10%');
+        $codigo   = new DatagridColumn('id',             'Código',    'center',  '10%');
         $descricao= new DatagridColumn('descricao',      'Descrição', 'left',   '30%');
         $fabrica  = new DatagridColumn('nome_fabricante','Fabricante','left',   '30%');
         $estoque  = new DatagridColumn('estoque',        'Estoq.',    'right',  '15%');

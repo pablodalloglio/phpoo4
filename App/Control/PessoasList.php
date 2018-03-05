@@ -43,7 +43,7 @@ class PessoasList extends Page
         $this->datagrid = new DatagridWrapper(new Datagrid);
 
         // instancia as colunas da Datagrid
-        $codigo   = new DatagridColumn('id',         'Código', 'right', '10%');
+        $codigo   = new DatagridColumn('id',         'Código', 'center', '10%');
         $nome     = new DatagridColumn('nome',       'Nome',    'left', '40%');
         $endereco = new DatagridColumn('endereco',   'Endereco','left', '30%');
         $cidade   = new DatagridColumn('nome_cidade','Cidade', 'left', '20%');
