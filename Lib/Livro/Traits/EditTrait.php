@@ -3,6 +3,7 @@ namespace Livro\Traits;
 
 use Livro\Database\Transaction;
 use Livro\Widgets\Dialog\Message;
+use Exception;
 
 trait EditTrait
 {

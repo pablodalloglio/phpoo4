@@ -6,6 +6,8 @@ use Livro\Database\Transaction;
 use Livro\Widgets\Dialog\Message;
 use Livro\Widgets\Dialog\Question;
 
+use Exception;
+
 trait DeleteTrait
 {
     /**

@@ -6,6 +6,8 @@ use Livro\Database\Repository;
 use Livro\Database\Criteria;
 use Livro\Widgets\Dialog\Message;
 
+use Exception;
+
 trait ReloadTrait
 {
     /**

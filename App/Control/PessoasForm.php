@@ -106,7 +106,7 @@ class PessoasForm extends Page
         catch (Exception $e)
         {
             // exibe a mensagem gerada pela exceção
-            new Message('error', '<b>Erro</b>' . $e->getMessage());
+            new Message('error', '<b>Erro</b> ' . $e->getMessage());
 
             // desfaz todas alterações no banco de dados
             Transaction::rollback();
@@ -125,15 +125,18 @@ class PessoasForm extends Page
                 $id = $param['id']; // obtém a chave
                 Transaction::open('livro'); // inicia transação com o BD
                 $pessoa = Pessoa::find($id);
-                $pessoa->ids_grupos = $pessoa->getIdsGrupos();
-                $this->form->setData($pessoa); // lança os dados da pessoa no formulário
+                if ($pessoa)
+                {
+                    $pessoa->ids_grupos = $pessoa->getIdsGrupos();
+                    $this->form->setData($pessoa); // lança os dados da pessoa no formulário
+                }
                 Transaction::close(); // finaliza a transação
             }
         }
         catch (Exception $e)		    // em caso de exceção
         {
             // exibe a mensagem gerada pela exceção
-            new Message('error', '<b>Erro</b>' . $e->getMessage());
+            new Message('error', '<b>Erro</b> ' . $e->getMessage());
             // desfaz todas alterações no banco de dados
             Transaction::rollback();
         }
