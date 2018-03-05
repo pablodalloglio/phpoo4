@@ -13,7 +13,10 @@ class Produto extends Record
      */
     public function get_nome_fabricante()
     {
-        $this->fabricante = new Fabricante($this->id_fabricante);
+        if (empty($this->fabricante))
+        {
+            $this->fabricante = new Fabricante($this->id_fabricante);
+        }
         return $this->fabricante->nome;
     }
 }

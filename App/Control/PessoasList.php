@@ -6,7 +6,6 @@ use Livro\Widgets\Form\Entry;
 use Livro\Widgets\Container\VBox;
 use Livro\Widgets\Datagrid\Datagrid;
 use Livro\Widgets\Datagrid\DatagridColumn;
-use Livro\Widgets\Datagrid\DatagridAction;
 use Livro\Widgets\Dialog\Message;
 use Livro\Widgets\Dialog\Question;
 use Livro\Widgets\Container\Panel;
@@ -32,8 +31,10 @@ class PessoasList extends Page
     public function __construct()
     {
         parent::__construct();
+        
         // instancia um formulário de buscas
         $this->form = new FormWrapper(new Form('form_busca_pessoas'));
+        
         $nome = new Entry('nome');
         $this->form->addField('Nome', $nome, '100%');
         $this->form->addAction('Buscar', new Action(array($this, 'onReload')));
@@ -54,23 +55,8 @@ class PessoasList extends Page
         $this->datagrid->addColumn($endereco);
         $this->datagrid->addColumn($cidade);
 
-        // instancia duas ações da Datagrid
-        $action1 = new DatagridAction(array(new PessoasForm, 'onEdit'));
-        $action1->setLabel('Editar');
-        $action1->setImage('fa fa-edit fa-lg blue');
-        $action1->setField('id');
-        
-        $action2 = new DatagridAction(array($this, 'onDelete'));
-        $action2->setLabel('Deletar');
-        $action2->setImage('fa fa-trash fa-lg red');
-        $action2->setField('id');
-
-        // adiciona as ações à Datagrid
-        $this->datagrid->addAction($action1);
-        $this->datagrid->addAction($action2);
-
-        // cria o modelo da Datagrid, montando sua estrutura
-        $this->datagrid->createModel();
+        $this->datagrid->addAction( 'Editar',  new Action([new PessoasForm, 'onEdit']), 'id', 'fa fa-edit fa-lg blue');
+        $this->datagrid->addAction( 'Excluir',  new Action([$this, 'onDelete']),         'id', 'fa fa-trash fa-lg red');
         
         $panel = new Panel('Pessoas');
         $panel->add($this->form);
