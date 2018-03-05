@@ -1,6 +1,7 @@
 <?php
 namespace Livro\Widgets\Wrapper;
 
+use Livro\Widgets\Container\Panel;
 use Livro\Widgets\Datagrid\Datagrid;
 use Livro\Widgets\Base\Element;
 
@@ -58,8 +59,10 @@ class DatagridWrapper
             $this->createItem($tbody, $item);
         }
         
-        // exibe a tabela
-        $element->show();
+        $panel = new Panel;
+        $panel->type = 'datagrid';
+        $panel->add($element);
+        $panel->show();
     }
     
     /**

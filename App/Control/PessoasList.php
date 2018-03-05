@@ -34,6 +34,7 @@ class PessoasList extends Page
         
         // instancia um formulário de buscas
         $this->form = new FormWrapper(new Form('form_busca_pessoas'));
+        $this->form->setTitle('Pessoas');
         
         $nome = new Entry('nome');
         $this->form->addField('Nome', $nome, '100%');
@@ -58,17 +59,11 @@ class PessoasList extends Page
         $this->datagrid->addAction( 'Editar',  new Action([new PessoasForm, 'onEdit']), 'id', 'fa fa-edit fa-lg blue');
         $this->datagrid->addAction( 'Excluir',  new Action([$this, 'onDelete']),         'id', 'fa fa-trash fa-lg red');
         
-        $panel = new Panel('Pessoas');
-        $panel->add($this->form);
-        
-        $panel2 = new Panel();
-        $panel2->add($this->datagrid);
-        
         // monta a página através de uma caixa
         $box = new VBox;
         $box->style = 'display:block';
-        $box->add($panel);
-        $box->add($panel2);
+        $box->add($this->form);
+        $box->add($this->datagrid);
         
         parent::add($box);
     }

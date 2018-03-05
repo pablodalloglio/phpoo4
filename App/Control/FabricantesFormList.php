@@ -52,6 +52,7 @@ class FabricantesFormList extends Page
         
         // instancia um formulário
         $this->form = new FormWrapper(new Form('form_fabricantes'));
+        $this->form->setTitle('Fabricantes');
         
         // cria os campos do formulário
         $codigo = new Entry('id');
@@ -81,17 +82,11 @@ class FabricantesFormList extends Page
         $this->datagrid->addAction( 'Editar',  new Action([$this, 'onEdit']),   'id', 'fa fa-edit fa-lg blue');
         $this->datagrid->addAction( 'Excluir', new Action([$this, 'onDelete']), 'id', 'fa fa-trash fa-lg red');
         
-        $panel = new Panel('Fabricantes');
-        $panel->add($this->form);
-        
-        $panel2 = new Panel();
-        $panel2->add($this->datagrid);
-        
         // monta a página através de uma caixa
         $box = new VBox;
         $box->style = 'display:block';
-        $box->add($panel);
-        $box->add($panel2);
+        $box->add($this->form);
+        $box->add($this->datagrid);
         
         parent::add($box);
     }

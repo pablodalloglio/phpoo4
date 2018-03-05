@@ -29,6 +29,7 @@ class ConcluiVendaForm extends Page
         new Session;
         
         $this->form = new FormWrapper(new Form('form_conclui_venda'));
+        $this->form->setTitle('Conclui venda');
         
         // cria os campos do formulário
         $cliente      = new Entry('id_cliente');
@@ -58,10 +59,7 @@ class ConcluiVendaForm extends Page
         $this->form->addField('Obs', $obs, '50%');
         $this->form->addAction('Salvar', new Action(array($this, 'onGravaVenda')));
         
-        $panel = new Panel('Conclui venda');
-        $panel->add($this->form);
-        
-        parent::add($panel);
+        parent::add($this->form);
     }
     
     /**

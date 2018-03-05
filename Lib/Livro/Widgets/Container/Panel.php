@@ -10,6 +10,7 @@ use Livro\Widgets\Base\Element;
 class Panel extends Element
 {
     private $body;
+    private $footer;
     
     /**
      * Constrói o painel
@@ -38,6 +39,9 @@ class Panel extends Element
         $this->body->class = 'panel-body';
         parent::add($this->body);
         
+        $this->footer = new Element('div');
+        $this->footer->{'class'} = 'panel-footer';
+        
     }
     
     /**
@@ -46,5 +50,14 @@ class Panel extends Element
     public function add($content)
     {
         $this->body->add($content);
+    }
+    
+    /**
+     * Adiciona rodapé
+     */
+    public function addFooter($footer)
+    {
+        $this->footer->add( $footer );
+        parent::add($this->footer);
     }
 }
