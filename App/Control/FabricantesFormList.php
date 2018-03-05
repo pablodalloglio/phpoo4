@@ -3,18 +3,12 @@ use Livro\Control\Page;
 use Livro\Control\Action;
 use Livro\Widgets\Form\Form;
 use Livro\Widgets\Form\Entry;
-use Livro\Widgets\Form\Label;
-use Livro\Widgets\Form\Button;
-use Livro\Widgets\Container\Table;
 use Livro\Widgets\Container\VBox;
 use Livro\Widgets\Datagrid\Datagrid;
 use Livro\Widgets\Datagrid\DatagridColumn;
 use Livro\Widgets\Datagrid\DatagridAction;
-use Livro\Widgets\Dialog\Message;
-use Livro\Widgets\Dialog\Question;
+
 use Livro\Database\Transaction;
-use Livro\Database\Repository;
-use Livro\Database\Criteria;
 
 use Livro\Traits\DeleteTrait;
 use Livro\Traits\ReloadTrait;
@@ -34,6 +28,8 @@ class FabricantesFormList extends Page
     private $form;      // formulário de cadastro
     private $datagrid;  // listagem
     private $loaded;
+    private $connection;
+    private $activeRecord;
     
     use DeleteTrait;
     use ReloadTrait {
@@ -64,9 +60,9 @@ class FabricantesFormList extends Page
         $site   = new Entry('site');
         $codigo->setEditable(FALSE);
         
-        $this->form->addField('Código', $codigo, 200);
-        $this->form->addField('Nome',   $nome, 300);
-        $this->form->addField('Site',   $site, 300);
+        $this->form->addField('Código', $codigo, '30%');
+        $this->form->addField('Nome',   $nome, '70%');
+        $this->form->addField('Site',   $site, '70%');
         $this->form->addAction('Salvar', new Action(array($this, 'onSave')));
         $this->form->addAction('Limpar', new Action(array($this, 'onEdit')));
         
@@ -74,9 +70,9 @@ class FabricantesFormList extends Page
         $this->datagrid = new DatagridWrapper(new DataGrid);
         
         // instancia as colunas da DataGrid
-        $codigo   = new DataGridColumn('id',       'Código',  'right',  50);
-        $nome     = new DataGridColumn('nome',     'Nome',    'left',  180);
-        $site     = new DataGridColumn('site',     'Site',    'left',  180);
+        $codigo   = new DataGridColumn('id',       'Código',  'right',  '10%');
+        $nome     = new DataGridColumn('nome',     'Nome',    'left',  '60%');
+        $site     = new DataGridColumn('site',     'Site',    'left',  '30%');
         
         // adiciona as colunas à DataGrid
         $this->datagrid->addColumn($codigo);

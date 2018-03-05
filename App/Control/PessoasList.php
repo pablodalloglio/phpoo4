@@ -9,6 +9,7 @@ use Livro\Widgets\Datagrid\DatagridColumn;
 use Livro\Widgets\Datagrid\DatagridAction;
 use Livro\Widgets\Dialog\Message;
 use Livro\Widgets\Dialog\Question;
+use Livro\Widgets\Container\Panel;
 use Livro\Widgets\Wrapper\FormWrapper;
 use Livro\Widgets\Wrapper\DatagridWrapper;
 use Livro\Database\Transaction;
@@ -34,7 +35,7 @@ class PessoasList extends Page
         // instancia um formulário de buscas
         $this->form = new FormWrapper(new Form('form_busca_pessoas'));
         $nome = new Entry('nome');
-        $this->form->addField('Nome', $nome, 300);
+        $this->form->addField('Nome', $nome, '100%');
         $this->form->addAction('Buscar', new Action(array($this, 'onReload')));
         $this->form->addAction('Novo', new Action(array(new PessoasForm, 'onEdit')));
         
@@ -42,10 +43,10 @@ class PessoasList extends Page
         $this->datagrid = new DatagridWrapper(new Datagrid);
 
         // instancia as colunas da Datagrid
-        $codigo   = new DatagridColumn('id',         'Código', 'right', 50);
-        $nome     = new DatagridColumn('nome',       'Nome',    'left', 200);
-        $endereco = new DatagridColumn('endereco',   'Endereco','left', 200);
-        $cidade   = new DatagridColumn('nome_cidade','Cidade', 'left', 140);
+        $codigo   = new DatagridColumn('id',         'Código', 'right', '10%');
+        $nome     = new DatagridColumn('nome',       'Nome',    'left', '40%');
+        $endereco = new DatagridColumn('endereco',   'Endereco','left', '30%');
+        $cidade   = new DatagridColumn('nome_cidade','Cidade', 'left', '20%');
 
         // adiciona as colunas à Datagrid
         $this->datagrid->addColumn($codigo);
@@ -70,12 +71,18 @@ class PessoasList extends Page
 
         // cria o modelo da Datagrid, montando sua estrutura
         $this->datagrid->createModel();
-
+        
+        $panel = new Panel('Pessoas');
+        $panel->add($this->form);
+        
+        $panel2 = new Panel();
+        $panel2->add($this->datagrid);
+        
         // monta a página através de uma caixa
         $box = new VBox;
         $box->style = 'display:block';
-        $box->add($this->form);
-        $box->add($this->datagrid);
+        $box->add($panel);
+        $box->add($panel2);
         
         parent::add($box);
     }

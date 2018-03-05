@@ -3,12 +3,8 @@ use Livro\Control\Page;
 use Livro\Control\Action;
 use Livro\Widgets\Form\Form;
 use Livro\Widgets\Form\Entry;
-use Livro\Widgets\Form\Label;
-use Livro\Widgets\Form\Button;
-use Livro\Widgets\Container\Table;
-use Livro\Widgets\Container\VBox;
+use Livro\Widgets\Form\Date;
 use Livro\Widgets\Dialog\Message;
-use Livro\Widgets\Dialog\Question;
 use Livro\Database\Transaction;
 use Livro\Database\Repository;
 use Livro\Database\Criteria;
@@ -35,11 +31,11 @@ class VendasReport extends Page
         $this->form = new FormWrapper(new Form('form_relat_vendas'));
 
         // cria os campos do formulário
-        $data_ini = new Entry('data_ini');
-        $data_fim = new Entry('data_fim');
+        $data_ini = new Date('data_ini');
+        $data_fim = new Date('data_fim');
         
-        $this->form->addField('Data Inicial', $data_ini, 200);
-        $this->form->addField('Data Final', $data_fim, 200);
+        $this->form->addField('Data Inicial', $data_ini, '50%');
+        $this->form->addField('Data Final', $data_fim, '50%');
         $this->form->addAction('Gerar', new Action(array($this, 'onGera')));
         
         $panel = new Panel('Relatório de vendas');
@@ -65,17 +61,10 @@ class VendasReport extends Page
 
         // joga os dados de volta ao formulário
         $this->form->setData($dados);
-
-        $conv_data_to_us = function($data) {
-            $dia = substr($data,0,2);
-            $mes = substr($data,3,2);
-            $ano = substr($data,6,4);
-            return "{$ano}-{$mes}-{$dia}";
-        };
         
         // lê os campos do formulário, converte para o padrão americano
-        $data_ini = $conv_data_to_us($dados->data_ini);
-        $data_fim = $conv_data_to_us($dados->data_fim);
+        $data_ini = $dados->data_ini;
+        $data_fim = $dados->data_fim;
         
         // vetor de parâmetros para o template
         $replaces = array();
@@ -130,6 +119,15 @@ class VendasReport extends Page
             Transaction::rollback();
         }
         $content = $template->render($replaces);
-        parent::add($content);
+        
+        $title = 'Vendas';
+        $title.= (!empty($dados->data_ini)) ? ' de '  . $dados->data_ini : '';
+        $title.= (!empty($dados->data_fim)) ? ' até ' . $dados->data_fim : '';
+        
+        // cria um painél para conter o formulário
+        $panel = new Panel($title);
+        $panel->add($content);
+        
+        parent::add($panel);
     }
 }

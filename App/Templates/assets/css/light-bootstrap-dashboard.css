@@ -1401,17 +1401,12 @@ input:focus {
 code
 {
     background: white;
+    font-family: Andale mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Lucida Console, Monaco, Consolas, Droid Sans monospace, Monospace;
 }
 
 .panel-heading
 {
     background: white !important;
-}
-
-.panel-body
-{
-    padding-left: 0;
-    padding-right: 0;
 }
 
 .table>thead>tr>th
@@ -1424,11 +1419,6 @@ code
     color: #828282;
 }
 
-.panel[type="sourcecode"] .panel-body
-{
-    padding-left: 10px;
-}
-
 .blue
 {
     color: #478fca;
@@ -1437,4 +1427,13 @@ code
 .red
 {
     color: #dd5a43;
+}
+
+.panel-body
+{
+  overflow-x: auto;
+}
+
+.sidebar ul.nav > li > a > i {
+  font-size:20px;margin-top:-8px
 }

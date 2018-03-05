@@ -2,16 +2,11 @@
 use Livro\Control\Page;
 use Livro\Control\Action;
 use Livro\Widgets\Form\Form;
-use Livro\Widgets\Container\Table;
 use Livro\Widgets\Dialog\Message;
-use Livro\Widgets\Form\Label;
 use Livro\Widgets\Form\Entry;
 use Livro\Widgets\Form\Combo;
-use Livro\Widgets\Form\Button;
 use Livro\Widgets\Form\RadioGroup;
 use Livro\Database\Transaction;
-use Livro\Database\Repository;
-use Livro\Database\Criteria;
 
 use Livro\Widgets\Wrapper\DatagridWrapper;
 use Livro\Widgets\Wrapper\FormWrapper;
@@ -26,6 +21,8 @@ use Livro\Traits\EditTrait;
 class ProdutosForm extends Page
 {
     private $form; // formulário
+    private $connection;
+    private $activeRecord;
     
     use SaveTrait;
     use EditTrait;
@@ -80,14 +77,14 @@ class ProdutosForm extends Page
         // define alguns atributos para os campos do formulário
         $codigo->setEditable(FALSE);
         
-        $this->form->addField('Código',    $codigo, 100);
-        $this->form->addField('Descrição', $descricao, 300);
-        $this->form->addField('Estoque',   $estoque, 300);
-        $this->form->addField('Preço custo',   $preco_custo, 200);
-        $this->form->addField('Preço venda',   $preco_venda, 200);
-        $this->form->addField('Fabricante',   $fabricante, 300);
-        $this->form->addField('Tipo',   $tipo, 300);
-        $this->form->addField('Unidade',   $unidade, 300);
+        $this->form->addField('Código',    $codigo, '30%');
+        $this->form->addField('Descrição', $descricao, '70%');
+        $this->form->addField('Estoque',   $estoque, '70%');
+        $this->form->addField('Preço custo',   $preco_custo, '70%');
+        $this->form->addField('Preço venda',   $preco_venda, '70%');
+        $this->form->addField('Fabricante',   $fabricante, '70%');
+        $this->form->addField('Tipo',   $tipo, '70%');
+        $this->form->addField('Unidade',   $unidade, '70%');
         $this->form->addAction('Salvar', new Action(array($this, 'onSave')));
         
         // cria um painél para conter o formulário

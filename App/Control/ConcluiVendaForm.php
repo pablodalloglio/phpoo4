@@ -2,21 +2,14 @@
 use Livro\Control\Page;
 use Livro\Control\Action;
 use Livro\Widgets\Form\Form;
-use Livro\Widgets\Container\Table;
-use Livro\Widgets\Container\VBox;
 use Livro\Widgets\Dialog\Message;
-use Livro\Widgets\Form\Label;
 use Livro\Widgets\Form\Entry;
 use Livro\Widgets\Form\Combo;
 use Livro\Widgets\Form\Text;
-use Livro\Widgets\Form\Button;
-use Livro\Database\Transaction;
-use Livro\Database\Repository;
-use Livro\Database\Criteria;
-use Livro\Session\Session;
-
 use Livro\Widgets\Wrapper\FormWrapper;
 use Livro\Widgets\Container\Panel;
+use Livro\Database\Transaction;
+use Livro\Session\Session;
 
 /**
  * Formulário de conclusão de venda
@@ -56,13 +49,13 @@ class ConcluiVendaForm extends Page
         $valor_venda->setEditable(FALSE);
         $valor_final->setEditable(FALSE);
         
-        $this->form->addField('Cliente', $cliente,   200);
-        $this->form->addField('Valor', $valor_venda, 200);
-        $this->form->addField('Desconto', $desconto, 200);
-        $this->form->addField('Acréscimos', $acrescimos, 200);
-        $this->form->addField('Final', $valor_final, 200);
-        $this->form->addField('Parcelas', $parcelas, 200);
-        $this->form->addField('Obs', $obs, 200);
+        $this->form->addField('Cliente', $cliente,   '50%');
+        $this->form->addField('Valor', $valor_venda, '50%');
+        $this->form->addField('Desconto', $desconto, '50%');
+        $this->form->addField('Acréscimos', $acrescimos, '50%');
+        $this->form->addField('Final', $valor_final, '50%');
+        $this->form->addField('Parcelas', $parcelas, '50%');
+        $this->form->addField('Obs', $obs, '50%');
         $this->form->addAction('Salvar', new Action(array($this, 'onGravaVenda')));
         
         $panel = new Panel('Conclui venda');

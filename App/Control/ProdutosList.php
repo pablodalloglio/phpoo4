@@ -3,18 +3,11 @@ use Livro\Control\Page;
 use Livro\Control\Action;
 use Livro\Widgets\Form\Form;
 use Livro\Widgets\Form\Entry;
-use Livro\Widgets\Form\Label;
-use Livro\Widgets\Form\Button;
-use Livro\Widgets\Container\Table;
 use Livro\Widgets\Container\VBox;
 use Livro\Widgets\Datagrid\Datagrid;
 use Livro\Widgets\Datagrid\DatagridColumn;
 use Livro\Widgets\Datagrid\DatagridAction;
-use Livro\Widgets\Dialog\Message;
-use Livro\Widgets\Dialog\Question;
 use Livro\Database\Transaction;
-use Livro\Database\Repository;
-use Livro\Database\Criteria;
 use Livro\Database\Filter;
 
 use Livro\Traits\DeleteTrait;
@@ -32,6 +25,7 @@ class ProdutosList extends Page
     private $form;
     private $datagrid;
     private $loaded;
+    private $connection;
     private $activeRecord;
     private $filter;
     
@@ -57,7 +51,7 @@ class ProdutosList extends Page
         // cria os campos do formulário
         $descricao = new Entry('descricao');
         
-        $this->form->addField('Descrição',   $descricao, 300);
+        $this->form->addField('Descrição',   $descricao, '100%');
         $this->form->addAction('Buscar', new Action(array($this, 'onReload')));
         $this->form->addAction('Cadastrar', new Action(array(new ProdutosForm, 'onEdit')));
         
@@ -65,11 +59,11 @@ class ProdutosList extends Page
         $this->datagrid = new DatagridWrapper(new Datagrid);
         
         // instancia as colunas da Datagrid
-        $codigo   = new DatagridColumn('id',             'Código',    'right',  50);
-        $descricao= new DatagridColumn('descricao',      'Descrição', 'left',   270);
-        $fabrica  = new DatagridColumn('nome_fabricante','Fabricante','left',   80);
-        $estoque  = new DatagridColumn('estoque',        'Estoq.',    'right',  40);
-        $preco    = new DatagridColumn('preco_venda',    'Venda',     'right',  40);
+        $codigo   = new DatagridColumn('id',             'Código',    'right',  '10%');
+        $descricao= new DatagridColumn('descricao',      'Descrição', 'left',   '30%');
+        $fabrica  = new DatagridColumn('nome_fabricante','Fabricante','left',   '30%');
+        $estoque  = new DatagridColumn('estoque',        'Estoq.',    'right',  '15%');
+        $preco    = new DatagridColumn('preco_venda',    'Venda',     'right',  '15%');
         
         // adiciona as colunas à Datagrid
         $this->datagrid->addColumn($codigo);
