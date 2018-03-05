@@ -400,7 +400,6 @@ input:focus {
 
 .alert {
     border: 0;
-    border-radius: 0;
     color: #FFFFFF;
     padding: 10px 15px;
     font-size: 14px;
@@ -472,7 +471,7 @@ input:focus {
 }
 
 .alert-info {
-    background-color: #63d8f1;
+    background-color: #6eb1bf;
 }
 
 .alert-success {
@@ -480,7 +479,7 @@ input:focus {
 }
 
 .alert-warning {
-    background-color: #ffbc67;
+    background-color: #ff8f00;
 }
 
 .alert-danger {
@@ -1436,4 +1435,15 @@ code
 
 .sidebar ul.nav > li > a > i {
   font-size:20px;margin-top:-8px
+}
+
+div.alert.question
+{
+    min-height: 52px;
+    padding: 16px;
+}
+
+div.alert.question > a
+{
+    margin-top: -6px;
 }
