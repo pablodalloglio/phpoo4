@@ -25,7 +25,6 @@ abstract class Field implements FormElementInterface
         // define algumas características iniciais
         self::setEditable(true);
         self::setName($name);
-        self::setSize(200);
         
         // cria uma tag HTML do tipo <input>
         $this->tag = new Element('input');
