@@ -6,12 +6,8 @@ use Livro\Widgets\Container\VBox;
 use Livro\Widgets\Datagrid\Datagrid;
 use Livro\Widgets\Datagrid\DatagridColumn;
 use Livro\Widgets\Datagrid\DatagridAction;
-use Livro\Widgets\Form\Label;
 use Livro\Widgets\Form\Entry;
-use Livro\Widgets\Form\Button;
 use Livro\Database\Transaction;
-use Livro\Database\Repository;
-use Livro\Database\Criteria;
 use Livro\Session\Session;
 
 use Livro\Widgets\Wrapper\DatagridWrapper;
@@ -44,8 +40,8 @@ class VendasForm extends Page
         $codigo      = new Entry('id_produto');
         $quantidade  = new Entry('quantidade');
         
-        $this->form->addField('Código', $codigo, 100);
-        $this->form->addField('Quantidade', $quantidade, 200);
+        $this->form->addField('Código', $codigo, '50%');
+        $this->form->addField('Quantidade', $quantidade, '50%');
         $this->form->addAction('Adicionar', new Action(array($this, 'onAdiciona')));
         $this->form->addAction('Terminar', new Action(array(new ConcluiVendaForm, 'onLoad')));
         
@@ -53,10 +49,10 @@ class VendasForm extends Page
         $this->datagrid = new DatagridWrapper(new Datagrid);
 
         // instancia as colunas da Datagrid
-        $codigo    = new DatagridColumn('id_produto', 'Código', 'right', 50);
-        $descricao = new DatagridColumn('descricao',   'Descrição','left', 200);
-        $quantidade= new DatagridColumn('quantidade',  'Qtde',      'right', 40);
-        $preco     = new DatagridColumn('preco',       'Preço',    'right', 70);
+        $codigo    = new DatagridColumn('id_produto', 'Código', 'right', '20%');
+        $descricao = new DatagridColumn('descricao',   'Descrição','left', '40%');
+        $quantidade= new DatagridColumn('quantidade',  'Qtde',      'right', '20%');
+        $preco     = new DatagridColumn('preco',       'Preço',    'right', '20%');
 
         // define um transformador para a coluna preço
         $preco->setTransformer(array($this, 'formata_money'));

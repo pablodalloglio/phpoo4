@@ -41,7 +41,7 @@ class Combo extends Field implements FormElementInterface
     {
         // atribui as propriedades da TAG
         $this->tag->name = $this->name;      // nome da TAG
-        $this->tag->style = "width:{$this->size}px"; // tamanho em pixels
+        $this->tag->style = "width:{$this->size}"; // tamanho em pixels
         
         // cria uma TAG <option> com um valor padrão
         $option = new Element('option');

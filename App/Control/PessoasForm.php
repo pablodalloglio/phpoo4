@@ -7,6 +7,7 @@ use Livro\Widgets\Form\Entry;
 use Livro\Widgets\Form\Combo;
 use Livro\Widgets\Form\CheckGroup;
 use Livro\Database\Transaction;
+use Livro\Widgets\Container\Panel;
 use Livro\Widgets\Wrapper\FormWrapper;
 
 /**
@@ -53,25 +54,26 @@ class PessoasForm extends Page
         $grupo->addItems($items);
         Transaction::close();
         
-        $this->form->addField('Código', $codigo, 40);
-        $this->form->addField('Nome', $nome, 300);
-        $this->form->addField('Endereço', $endereco, 300);
-        $this->form->addField('Bairro', $bairro, 200);
-        $this->form->addField('Telefone', $telefone, 200);
-        $this->form->addField('Email', $email, 200);
-        $this->form->addField('Cidade', $cidade, 200);
-        $this->form->addField('Grupo', $grupo, 200);
+        $this->form->addField('Código', $codigo, '30%');
+        $this->form->addField('Nome', $nome, '70%');
+        $this->form->addField('Endereço', $endereco, '70%');
+        $this->form->addField('Bairro', $bairro, '70%');
+        $this->form->addField('Telefone', $telefone, '70%');
+        $this->form->addField('Email', $email, '70%');
+        $this->form->addField('Cidade', $cidade, '70%');
+        $this->form->addField('Grupo', $grupo, '70%');
         
         // define alguns atributos para os campos do formulário
         $codigo->setEditable(FALSE);
-        $codigo->setSize(100);
-        $nome->setSize(300);
-        $endereco->setSize(300);
         
         $this->form->addAction('Salvar', new Action(array($this, 'onSave')));
         
+        // cria um painél para conter o formulário
+        $panel = new Panel('Pessoa');
+        $panel->add($this->form);
+        
         // adiciona o formulário na página
-        parent::add($this->form);
+        parent::add($panel);
     }
 
     /**

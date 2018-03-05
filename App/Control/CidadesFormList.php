@@ -4,16 +4,12 @@ use Livro\Control\Action;
 use Livro\Widgets\Form\Form;
 use Livro\Widgets\Form\Entry;
 use Livro\Widgets\Form\Combo;
-use Livro\Widgets\Form\Label;
-use Livro\Widgets\Form\Button;
 use Livro\Widgets\Container\VBox;
 use Livro\Widgets\Datagrid\Datagrid;
 use Livro\Widgets\Datagrid\DatagridColumn;
 use Livro\Widgets\Datagrid\DatagridAction;
-use Livro\Widgets\Dialog\Message;
-use Livro\Widgets\Dialog\Question;
+
 use Livro\Database\Transaction;
-use Livro\Database\Repository;
 
 use Livro\Traits\DeleteTrait;
 use Livro\Traits\ReloadTrait;
@@ -32,7 +28,9 @@ class CidadesFormList extends Page
     private $form;
     private $datagrid;
     private $loaded;
-
+    private $connection;
+    private $activeRecord;
+    
     use EditTrait;
     use DeleteTrait;
     use ReloadTrait {
@@ -75,9 +73,9 @@ class CidadesFormList extends Page
         
         $estado->addItems($items);
         
-        $this->form->addField('Código', $codigo, 40);
-        $this->form->addField('Descrição', $descricao, 300);
-        $this->form->addField('Estado', $estado, 300);
+        $this->form->addField('Código', $codigo, '30%');
+        $this->form->addField('Descrição', $descricao, '70%');
+        $this->form->addField('Estado', $estado, '70%');
         
         $this->form->addAction('Salvar', new Action(array($this, 'onSave')));
         $this->form->addAction('Limpar', new Action(array($this, 'onEdit')));
@@ -86,9 +84,9 @@ class CidadesFormList extends Page
         $this->datagrid = new DatagridWrapper(new Datagrid);
 
         // instancia as colunas da Datagrid
-        $codigo   = new DatagridColumn('id',     'Código', 'right', 50);
-        $nome     = new DatagridColumn('nome',   'Nome',   'left', 150);
-        $estado   = new DatagridColumn('nome_estado', 'Estado', 'left', 150);
+        $codigo   = new DatagridColumn('id',     'Código', 'right', '10%');
+        $nome     = new DatagridColumn('nome',   'Nome',   'left', '50%');
+        $estado   = new DatagridColumn('nome_estado', 'Estado', 'left', '30%');
 
         // adiciona as colunas à Datagrid
         $this->datagrid->addColumn($codigo);
