@@ -54,6 +54,7 @@ final class Connection
                 break;
             case 'sqlite':
                 $conn = new PDO("sqlite:{$name}");
+                $conn->query('PRAGMA foreign_keys = ON');
                 break;
             case 'ibase':
                 $conn = new PDO("firebird:dbname={$name}", $user, $pass);
@@ -62,7 +63,7 @@ final class Connection
                 $conn = new PDO("oci:dbname={$name}", $user, $pass);
                 break;
             case 'mssql':
-                $conn = new PDO("mssql:host={$host},1433;dbname={$name}", $user, $pass);
+                $conn = new PDO("dblib:host={$host}:{$port};dbname={$name}", $user, $pass);
                 break;
         }
         // define para que o PDO lance exceções na ocorrência de erros
