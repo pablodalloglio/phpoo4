@@ -39,6 +39,7 @@ class ProdutosForm extends Page
         
         // instancia um formulário
         $this->form = new FormWrapper(new Form('form_produtos'));
+        $this->form->setTitle('Produto');
         
         // cria os campos do formulário
         $codigo      = new Entry('id');
@@ -87,11 +88,7 @@ class ProdutosForm extends Page
         $this->form->addField('Unidade',   $unidade, '70%');
         $this->form->addAction('Salvar', new Action(array($this, 'onSave')));
         
-        // cria um painél para conter o formulário
-        $panel = new Panel('Produtos');
-        $panel->add($this->form);
-        
         // adiciona o formulário na página
-        parent::add($panel);
+        parent::add($this->form);
     }
 }

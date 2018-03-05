@@ -35,7 +35,8 @@ class PessoasListPageNav extends Page
         parent::__construct();
         // instancia um formulário
         $this->form = new FormWrapper(new Form('form_busca_pessoas'));
-
+        $this->form->setTitle('Pessoas');
+        
         // cria os campos do formulário
         $nome = new Entry('nome');
         
@@ -64,18 +65,12 @@ class PessoasListPageNav extends Page
         $this->pagenav = new PageNavigation;
         $this->pagenav->setAction( new Action(array($this, 'onReload')));
         
-        $panel = new Panel('Pessoas');
-        $panel->add($this->form);
-        
-        $panel2 = new Panel();
-        $panel2->add($this->datagrid);
-        $panel2->add($this->pagenav);
-        
         // monta a página através de uma caixa
         $box = new VBox;
         $box->style = 'display:block';
-        $box->add($panel);
-        $box->add($panel2);
+        $box->add($this->form);
+        $box->add($this->datagrid);
+        $box->add($this->pagenav);
         
         parent::add($box);
     }

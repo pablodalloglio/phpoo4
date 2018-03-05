@@ -25,6 +25,7 @@ class PessoasForm extends Page
         parent::__construct();
         // instancia um formulário
         $this->form = new FormWrapper(new Form('form_pessoas'));
+        $this->form->setTitle('Pessoa');
         
         // cria os campos do formulário
         $codigo    = new Entry('id');
@@ -68,12 +69,8 @@ class PessoasForm extends Page
         
         $this->form->addAction('Salvar', new Action(array($this, 'onSave')));
         
-        // cria um painél para conter o formulário
-        $panel = new Panel('Pessoa');
-        $panel->add($this->form);
-        
         // adiciona o formulário na página
-        parent::add($panel);
+        parent::add($this->form);
     }
 
     /**

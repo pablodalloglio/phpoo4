@@ -3,6 +3,7 @@ namespace Livro\Widgets\Form;
 
 use Livro\Control\Action;
 use Livro\Control\ActionInterface;
+use Livro\Widgets\Base\Element;
 
 /**
  * Representa um botão

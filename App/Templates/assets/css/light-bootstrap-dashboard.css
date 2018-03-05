@@ -1453,3 +1453,14 @@ ul.pagination
     display:table;
     margin:auto;
 }
+
+.panel-footer
+{
+    background: #fbfbfb;
+}
+
+.panel[type="datagrid"] .panel-body
+{
+  padding-left: 0;
+  padding-right: 0;
+}

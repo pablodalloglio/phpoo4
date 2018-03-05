@@ -34,7 +34,8 @@ class VendasForm extends Page
 
         // instancia um formulário
         $this->form = new FormWrapper(new Form('form_vendas'));
-
+        $this->form->setTitle('Venda');
+        
         // cria os campos do formulário
         $codigo      = new Entry('id_produto');
         $quantidade  = new Entry('quantidade');
@@ -64,17 +65,11 @@ class VendasForm extends Page
 
         $this->datagrid->addAction( 'Excluir',  new Action([$this, 'onDelete']), 'id_produto', 'fa fa-trash fa-lg red');
         
-        $panel1 = new Panel('Vendas');
-        $panel1->add($this->form);
-        
-        $panel2 = new Panel();
-        $panel2->add($this->datagrid);
-        
         // monta a página através de uma caixa
         $box = new VBox;
         $box->style = 'display:block';
-        $box->add($panel1);
-        $box->add($panel2);
+        $box->add($this->form);
+        $box->add($this->datagrid);
         
         parent::add($box);
     }

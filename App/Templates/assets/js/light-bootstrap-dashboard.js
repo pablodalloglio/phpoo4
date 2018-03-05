@@ -37,8 +37,6 @@ $(document).ready(function(){
 
     // Fixes sub-nav not working as expected on IOS
     $('body').on('touchstart.dropdown', '.dropdown-menu', function (e) { e.stopPropagation(); });
-    
-    $('.panel-body').find('table.table-striped').parent().css('padding-left', 0).css('padding-right', 0);
 });
 
 $(document).on('click', '.navbar-toggle', function(){

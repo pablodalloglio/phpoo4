@@ -29,7 +29,8 @@ class ContasReport extends Page
 
         // instancia um formulário
         $this->form = new FormWrapper(new Form('form_relat_contas'));
-
+        $this->form->setTitle('Relatório de contas');
+        
         // cria os campos do formulário
         $data_ini = new Date('data_ini');
         $data_fim = new Date('data_fim');
@@ -38,10 +39,7 @@ class ContasReport extends Page
         $this->form->addField('Vencimento Final', $data_fim, '50%');
         $this->form->addAction('Gerar', new Action(array($this, 'onGera')));
         
-        $panel = new Panel('Relatório de contas');
-        $panel->add($this->form);
-        
-        parent::add($panel);
+        parent::add($this->form);
     }
 
     /**
