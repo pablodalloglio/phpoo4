@@ -24,7 +24,7 @@ class DatagridWrapper
      */
     public function __call($method, $parameters)
     {
-        return call_user_func_array(array($this->decorated, $method),$parameters);
+        return call_user_func_array(array($this->decorated, $method), $parameters);
     }
     
     /**
@@ -43,21 +43,22 @@ class DatagridWrapper
         $element = new Element('table');
         $element->class = 'table table-striped table-hover';
         
+        // cria o header
         $thead = new Element('thead');
         $element->add($thead);
-        
         $this->createHeaders($thead);
         
+        // cria o body
         $tbody = new Element('tbody');
         $element->add($tbody);
         
         $items = $this->decorated->getItems();
-        
         foreach ($items as $item)
         {
             $this->createItem($tbody, $item);
         }
         
+        // exibe a tabela
         $element->show();
     }
     
@@ -91,17 +92,16 @@ class DatagridWrapper
             foreach ($columns as $column)
             {
                 // obtém as propriedades da coluna
-                $name = $column->getName();
+                $name  = $column->getName();
                 $label = $column->getLabel();
                 $align = $column->getAlign();
                 $width = $column->getWidth();
                 
                 $celula = new Element('th');
                 $celula->add($label);
-                // adiciona a célula com a coluna
-                $row->add($celula);
                 $celula->style = "text-align:$align";
                 $celula->width = $width;
+                $row->add($celula);
                 
                 // verifica se a coluna tem uma ação
                 if ($column->getAction())
