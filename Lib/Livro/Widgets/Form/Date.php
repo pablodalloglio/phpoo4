@@ -1,6 +1,8 @@
 <?php
 namespace Livro\Widgets\Form;
 
+use Livro\Widgets\Base\Element;
+
 /**
  * classe Date
  * classe para construção de caixas de texto
@@ -13,17 +15,28 @@ class Date extends Entry implements FormElementInterface
      */
     public function show()
     {
-        $this->tag->name = $this->name;     // nome da TAG
-        $this->tag->value = $this->value;   // valor da TAG
-        $this->tag->type = 'date';          // tipo de input
-        $this->tag->style = "width:{$this->size}"; // tamanho em pixels
+        $tag = new Element('input');
+        $tag->class = 'field';		  // classe CSS
+        $tag->name = $this->name;     // nome da TAG
+        $tag->value = $this->value;   // valor da TAG
+        $tag->type = 'date';          // tipo de input
+        $tag->style = "width:{$this->size}"; // tamanho em pixels
         
         // se o campo não é editável
         if (!parent::getEditable())
         {
-            $this->tag->readonly = "1";
+            $tag->readonly = "1";
         }
+        
+        if ($this->properties)
+        {
+            foreach ($this->properties as $property => $value)
+            {
+                $tag->$property = $value;
+            }
+        }
+        
         // exibe a tag
-        $this->tag->show();
+        $tag->show();
     }
 }

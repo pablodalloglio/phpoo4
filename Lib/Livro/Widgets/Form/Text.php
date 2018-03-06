@@ -1,5 +1,6 @@
 <?php
 namespace Livro\Widgets\Form;
+
 use Livro\Widgets\Base\Element;
 
 /**
@@ -9,24 +10,7 @@ use Livro\Widgets\Base\Element;
 class Text extends Field implements FormElementInterface
 {
     private $width;
-    private $height;
-    
-    /**
-     * Instancia um novo objeto
-     * @param $name = nome do campo
-     */
-    public function __construct($name)
-    {
-        // executa o método construtor da classe-pai.
-        parent::__construct($name);
-        
-        // cria uma tag HTML do tipo <textarea >
-        $this->tag = new Element('textarea');
-        $this->tag->class = 'field';        // classe CSS
-        
-        // define a altura padrão da caixa de texto
-        $this->height= 100;
-    }
+    private $height = 100;
     
     /**
      * Define o tamanho de um campo de texto
@@ -35,7 +19,8 @@ class Text extends Field implements FormElementInterface
      */
     public function setSize($width, $height = NULL)
     {
-        $this->size    = $width;
+        $this->size = $width;
+        
         if (isset($height))
         {
             $this->height = $height;
@@ -47,20 +32,30 @@ class Text extends Field implements FormElementInterface
      */
     public function show()
     {
-        $this->tag->name = $this->name; // nome da TAG
-        $this->tag->style = "width:{$this->size};height:{$this->height}"; // tamanho em pixels
+        $tag = new Element('textarea');
+        $tag->class = 'field';		  // classe CSS
+        $tag->name = $this->name; // nome da TAG
+        $tag->style = "width:{$this->size};height:{$this->height}"; // tamanho em pixels
         
         // se o campo não é editável
         if (!parent::getEditable())
         {
             // desabilita a TAG input
-            $this->tag->readonly = "1";
+            $tag->readonly = "1";
         }
         
         // adiciona conteúdo ao textarea
-        $this->tag->add(htmlspecialchars($this->value));
+        $tag->add(htmlspecialchars($this->value));
+        
+        if ($this->properties)
+        {
+            foreach ($this->properties as $property => $value)
+            {
+                $tag->$property = $value;
+            }
+        }
         
         // exibe a tag
-        $this->tag->show();
+        $tag->show();
     }
 }
