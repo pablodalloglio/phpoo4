@@ -10,20 +10,7 @@ use Livro\Widgets\Base\Element;
 class Combo extends Field implements FormElementInterface
 {
     private $items; // array contendo os itens da combo
-    
-    /**
-     * Instancia a combo box
-     * @param $name = nome do campo
-     */
-    public function __construct($name)
-    {
-        // executa o método construtor da classe-pai.
-        parent::__construct($name);
-        
-        // cria uma tag HTML do tipo <select>
-        $this->tag = new Element('select');
-        $this->tag->class = 'combo';       // classe CSS
-    }
+    protected $properties;
     
     /**
      * Adiciona items à combo box
@@ -39,9 +26,10 @@ class Combo extends Field implements FormElementInterface
      */
     public function show()
     {
-        // atribui as propriedades da TAG
-        $this->tag->name = $this->name;      // nome da TAG
-        $this->tag->style = "width:{$this->size}"; // tamanho em pixels
+        $tag = new Element('select');
+        $tag->class = 'combo';
+        $tag->name = $this->name;
+        $tag->style = "width:{$this->size}"; // tamanho em pixels
         
         // cria uma TAG <option> com um valor padrão
         $option = new Element('option');
@@ -49,7 +37,7 @@ class Combo extends Field implements FormElementInterface
         $option->value = '0';    // valor da TAG
         
         // adiciona a opção à combo
-        $this->tag->add($option);
+        $tag->add($option);
         if ($this->items)
         {
             // percorre os itens adicionados
@@ -67,7 +55,7 @@ class Combo extends Field implements FormElementInterface
                     $option->selected = 1;
                 }
                 // adiciona a opção à combo
-                $this->tag->add($option);
+                $tag->add($option);
             }
         }
         
@@ -75,10 +63,18 @@ class Combo extends Field implements FormElementInterface
         if (!parent::getEditable())
         {
             // desabilita a TAG input
-            $this->tag->readonly = "1";
+            $tag->readonly = "1";
+        }
+        
+        if ($this->properties)
+        {
+            foreach ($this->properties as $property => $value)
+            {
+                $tag->$property = $value;
+            }
         }
         
         // exibe a combo
-        $this->tag->show();
+        $tag->show();
     }
 }

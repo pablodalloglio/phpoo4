@@ -1,6 +1,8 @@
 <?php
 namespace Livro\Widgets\Form;
 
+use Livro\Widgets\Base\Element;
+
 /**
  * Representa um componente de upload de arquivo
  * @author Pablo Dall'Oglio
@@ -13,17 +15,29 @@ class File extends Field implements FormElementInterface
     public function show()
     {
         // atribui as propriedades da TAG
-        $this->tag->name = $this->name;    // nome da TAG
-        $this->tag->value = $this->value;  // valor da TAG
-        $this->tag->type = 'file';         // tipo de input
+        $tag = new Element('input');
+        $tag->class = 'field';		  
+        $tag->name = $this->name;    // nome da TAG
+        $tag->value = $this->value;  // valor da TAG
+        $tag->type = 'file';         // tipo de input
+        $tag->style = "width:{$this->size}"; // tamanho em pixels
         
         // se o campo não é editável
         if (!parent::getEditable())
         {
             // desabilita a TAG input
-            $this->tag->readonly = "1";
+            $tag->readonly = "1";
         }
+        
+        if ($this->properties)
+        {
+            foreach ($this->properties as $property => $value)
+            {
+                $tag->$property = $value;
+            }
+        }
+        
         // exibe a tag
-        $this->tag->show();
+        $tag->show();
     }
 }

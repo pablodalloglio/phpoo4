@@ -1,6 +1,8 @@
 <?php
 namespace Livro\Widgets\Form;
 
+use Livro\Widgets\Base\Element;
+
 /**
  * Representa botões de verificação
  * @author Pablo Dall'Oglio
@@ -13,17 +15,28 @@ class CheckButton extends Field implements FormElementInterface
     public function show()
     {
         // atribui as propriedades da TAG
-        $this->tag->name = $this->name;     // nome da TAG
-        $this->tag->value = $this->value;   // value
-        $this->tag->type = 'checkbox';      // tipo do input
+        $tag = new Element('input');
+        $tag->class = 'field';		  // classe CSS
+        $tag->name = $this->name;     // nome da TAG
+        $tag->value = $this->value;   // value
+        $tag->type = 'checkbox';      // tipo do input
         
         // se o campo não é editável
         if (!parent::getEditable())
         {
             // desabilita a TAG input
-            $this->tag->readonly = "1";
+            $tag->readonly = "1";
         }
+        
+        if ($this->properties)
+        {
+            foreach ($this->properties as $property => $value)
+            {
+                $tag->$property = $value;
+            }
+        }
+        
         // exibe a tag
-        $this->tag->show();
+        $tag->show();
     }
 }

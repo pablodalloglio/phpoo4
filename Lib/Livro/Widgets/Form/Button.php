@@ -41,15 +41,26 @@ class Button extends Field implements FormElementInterface
     public function show()
     {
         $url = $this->action->serialize();
+        
         // define as propriedades do botão
-        $this->tag->name    = $this->name;    // nome da TAG
-        $this->tag->type    = 'button';       // tipo de input
-        $this->tag->value   = $this->label;   // rótulo do botão
+        $tag = new Element('button');
+        $tag->name    = $this->name;    // nome da TAG
+        $tag->type    = 'button';       // tipo de input
+        $tag->add($this->label);
         
         // define a ação do botão
-        $this->tag->onclick =	"document.{$this->formName}.action='{$url}'; ".
+        $tag->onclick =	"document.{$this->formName}.action='{$url}'; ".
                                 "document.{$this->formName}.submit()";
+                                
+        if ($this->properties)
+        {
+            foreach ($this->properties as $property => $value)
+            {
+                $tag->$property = $value;
+            }
+        }
+        
         // exibe o botão
-        $this->tag->show();
+        $tag->show();
     }
 }
