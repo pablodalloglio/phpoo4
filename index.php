@@ -14,6 +14,10 @@ $al->addDirectory('App/Control');
 $al->addDirectory('App/Model');
 $al->register();
 
+// Vendor
+$loader = require 'vendor/autoload.php';
+$loader->register();
+
 $template = file_get_contents('App/Templates/template.html');
 $content = '';
 $class   = 'Home';
