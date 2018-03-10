@@ -1,16 +1,7 @@
 <?php
 use Livro\Control\Page;
-use Livro\Control\Action;
-use Livro\Widgets\Form\Form;
-use Livro\Widgets\Form\Entry;
-use Livro\Widgets\Form\Date;
 use Livro\Widgets\Dialog\Message;
 use Livro\Database\Transaction;
-use Livro\Database\Repository;
-use Livro\Database\Criteria;
-use Livro\Database\Filter;
-
-use Livro\Widgets\Wrapper\FormWrapper;
 use Livro\Widgets\Container\Panel;
 
 /**
