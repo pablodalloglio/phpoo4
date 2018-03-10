@@ -7,7 +7,7 @@ use Livro\Widgets\Container\Panel;
 /**
  * Relatório de vendas
  */
-class ProdutosReport extends Page
+class PessoasReport extends Page
 {
     /**
      * método construtor
@@ -18,37 +18,18 @@ class ProdutosReport extends Page
         
         require_once 'Lib/Twig/Autoloader.php';
         Twig_Autoloader::register();
-        
         $loader = new Twig_Loader_Filesystem('App/Resources');
         $twig = new Twig_Environment($loader);
-        $template = $twig->loadTemplate('produtos_report.html');
+        $template = $twig->loadTemplate('pessoas_report.html');
         
         // vetor de parâmetros para o template
         $replaces = array();
-        
-        // gerador Barcode em HTML
-        $generator = new Picqer\Barcode\BarcodeGeneratorHTML();
-        
-        // gerador QRCode em SVG
-        $renderer = new \BaconQrCode\Renderer\Image\Svg();
-        $renderer->setHeight(256);
-        $renderer->setWidth(256);
-        $renderer->setMargin(0);
-        $writer = new \BaconQrCode\Writer($renderer);
         
         try
         {
             // inicia transação com o banco 'livro'
             Transaction::open('livro');
-            
-            $produtos = Produto::all();
-            foreach ($produtos as $produto)
-            {
-                $produto->barcode = $generator->getBarcode($produto->id, $generator::TYPE_CODE_128, 5, 100);
-                $produto->qrcode  = $writer->writeString($produto->id . ' ' . $produto->descricao);
-            }
-            $replaces['produtos'] = $produtos;
-            
+            $replaces['pessoas'] = ViewSaldoPessoa::all();
             Transaction::close(); // finaliza a transação
         }
         catch (Exception $e)
@@ -60,8 +41,9 @@ class ProdutosReport extends Page
         $content = $template->render($replaces);
         
         // cria um painél para conter o formulário
-        $panel = new Panel('Produtos');
+        $panel = new Panel('Pessoas');
         $panel->add($content);
+        
         parent::add($panel);
     }
 }
