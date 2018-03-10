@@ -1,0 +1,24 @@
+<table class="table table-bordered" width="100%">
+  <tr bgcolor="#7A9BCB" style="color:white">
+      <td colspan="5"><b>Produtos</b></td>
+  </tr>
+  
+  {% for produto in produtos %}
+  <tr>
+      <td align="center" style="vertical-align:middle">
+        <span style="font-size:17pt">
+          {{produto.id}} <br>
+          {{produto.descricao}} <br>
+          {{produto.estoque}} unidades <br>
+          R$ {{produto.preco_venda}}
+        </span>
+      </td>
+      <td align="center" style="vertical-align:middle">
+        {{produto.barcode | raw}}
+      </td>
+      <td align="center" style="vertical-align:middle">
+        {{produto.qrcode | raw}}
+      </td>
+  </tr>
+  {% endfor %}
+</table>
