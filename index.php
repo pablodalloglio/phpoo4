@@ -40,6 +40,10 @@ if ($_GET)
             $content = $e->getMessage() . '<br>' .$e->getTraceAsString();
         }
     }
+    else
+    {
+        $content = "Class <b>{$class}</b> not found"; 
+    }
 }
 $output = str_replace('{content}', $content, $template);
 $output = str_replace('{class}',   $class, $output);
