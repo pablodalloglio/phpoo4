@@ -13,6 +13,9 @@ use Livro\Database\Filter;
 use Livro\Widgets\Wrapper\FormWrapper;
 use Livro\Widgets\Container\Panel;
 
+use Dompdf\Dompdf;
+use Dompdf\Options;
+
 /**
  * Relatório de contas
  */
@@ -38,6 +41,7 @@ class ContasReport extends Page
         $this->form->addField('Vencimento Inicial', $data_ini, '50%');
         $this->form->addField('Vencimento Final', $data_fim, '50%');
         $this->form->addAction('Gerar', new Action(array($this, 'onGera')));
+        $this->form->addAction('PDF', new Action(array($this, 'onGeraPDF')));
         
         parent::add($this->form);
     }
@@ -117,5 +121,37 @@ class ContasReport extends Page
         $panel->add($content);
         
         parent::add($panel);
+        
+        return $content;
+    }
+    
+    /**
+     * Gera o relatório em PDF, baseado nos parâmetros do formulário
+     */
+    public function onGeraPDF($param)
+    {
+        // gera o relatório em HTML primeiro
+        $html = $this->onGera($param);
+        
+        $options = new Options();
+        $options->set('dpi', '128');
+
+        // DomPDF converte o HTML para PDF
+        $dompdf = new Dompdf($options);
+        $dompdf->loadHtml($html);
+        $dompdf->setPaper('A4', 'portrait');
+        $dompdf->render();
+        
+        // Escreve o arquivo e abre em tela
+        $filename = 'tmp/contas.pdf';
+        if (is_writable('tmp'))
+        {
+            file_put_contents($filename, $dompdf->output());
+            echo "<script>window.open('{$filename}');</script>";
+        }
+        else
+        {
+            new Message('error', 'Permissão negada em: ' . $filename);
+        }
     }
 }

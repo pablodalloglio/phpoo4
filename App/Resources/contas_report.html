@@ -1,4 +1,4 @@
-<table class="table table-bordered" border="0">
+<table class="table table-bordered" width="100%" style="border-collapse:collapse;border:1px solid #ddd">
     <tr bgcolor="#C0C3E8">
         <td>Emissão</td>
         <td>Vencimento</td>
@@ -13,7 +13,7 @@
             <td align="center">{{conta.dt_vencimento|date("d/m/Y")}}</td>
             <td>{{conta.nome_cliente}}</td>
             <td align="right">{{conta.valor|number_format(2, ',', '.')}}</td>
-            <td align="center" style="color:{{conta.paga == 'S' ? 'green' : 'red'}}">
+            <td align="center" style="color:{{conta.paga == 'S' ? 'green' : 'red'}};">
                 <b> {{conta.paga == 'S' ? 'Sim' : 'Não'}} </b>
             </td>
         </tr>
