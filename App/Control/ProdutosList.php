@@ -7,7 +7,6 @@ use Livro\Widgets\Container\VBox;
 use Livro\Widgets\Datagrid\Datagrid;
 use Livro\Widgets\Datagrid\DatagridColumn;
 use Livro\Database\Transaction;
-use Livro\Database\Filter;
 
 use Livro\Traits\DeleteTrait;
 use Livro\Traits\ReloadTrait;
@@ -26,7 +25,7 @@ class ProdutosList extends Page
     private $loaded;
     private $connection;
     private $activeRecord;
-    private $filter;
+    private $filters;
     
     use DeleteTrait;
     use ReloadTrait {
@@ -93,7 +92,7 @@ class ProdutosList extends Page
         if ($dados->descricao)
         {
             // filtra pela descrição do produto
-            $this->filter = new Filter('descricao', 'like', "%{$dados->descricao}%");
+            $this->filters[] = ['descricao', 'like', "%{$dados->descricao}%", 'and'];
         }
         
         $this->onReloadTrait();   

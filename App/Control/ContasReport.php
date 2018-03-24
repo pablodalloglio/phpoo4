@@ -8,7 +8,6 @@ use Livro\Widgets\Dialog\Message;
 use Livro\Database\Transaction;
 use Livro\Database\Repository;
 use Livro\Database\Criteria;
-use Livro\Database\Filter;
 
 use Livro\Widgets\Wrapper\FormWrapper;
 use Livro\Widgets\Container\Panel;
@@ -86,9 +85,9 @@ class ContasReport extends Page
             $criterio->setProperty('order', 'dt_vencimento');
             
             if ($dados->data_ini)
-                $criterio->add(new Filter('dt_vencimento', '>=', $data_ini));
+                $criterio->add('dt_vencimento', '>=', $data_ini);
             if ($dados->data_fim)
-                $criterio->add(new Filter('dt_vencimento', '<=', $data_fim));
+                $criterio->add('dt_vencimento', '<=', $data_fim);
             
             // lê todas contas que satisfazem ao critério
             $contas = $repositorio->load($criterio);
