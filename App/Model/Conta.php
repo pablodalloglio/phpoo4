@@ -2,7 +2,6 @@
 use Livro\Database\Record;
 use Livro\Database\Criteria;
 use Livro\Database\Repository;
-use Livro\Database\Filter;
 
 class Conta extends Record
 {
@@ -23,8 +22,8 @@ class Conta extends Record
 	public static function getByPessoa($id_pessoa)
 	{
 	    $criteria = new Criteria;
-	    $criteria->add(new Filter('paga', '<>', 'S'));
-	    $criteria->add(new Filter('id_cliente', '=', $id_pessoa));
+	    $criteria->add('paga', '<>', 'S');
+	    $criteria->add('id_cliente', '=', $id_pessoa);
 	    
 	    $repo = new Repository('Conta');
 	    return $repo->load($criteria);
