@@ -3,7 +3,6 @@ use Livro\Database\Transaction;
 use Livro\Database\Record;
 use Livro\Database\Repository;
 use Livro\Database\Criteria;
-use Livro\Database\Filter;
 
 class Venda extends Record
 {
@@ -73,7 +72,7 @@ class Venda extends Record
         $repositorio = new Repository('ItemVenda');
         // define o critério
         $criterio = new Criteria;
-        $criterio->add(new Filter('id_venda', '=', $this->id));
+        $criterio->add('id_venda', '=', $this->id);
         // carrega a coleção
         $this->itens = $repositorio->load($criterio);
         // retorna os itens
