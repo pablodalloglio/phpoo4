@@ -8,7 +8,6 @@ use Livro\Widgets\Dialog\Message;
 use Livro\Database\Transaction;
 use Livro\Database\Repository;
 use Livro\Database\Criteria;
-use Livro\Database\Filter;
 
 use Livro\Widgets\Wrapper\FormWrapper;
 use Livro\Widgets\Container\Panel;
@@ -82,9 +81,9 @@ class VendasReport extends Page
             $criterio->setProperty('order', 'data_venda');
             
             if ($dados->data_ini)
-                $criterio->add(new Filter('data_venda', '>=', $data_ini));
+                $criterio->add('data_venda', '>=', $data_ini);
             if ($dados->data_fim)
-                $criterio->add(new Filter('data_venda', '<=', $data_fim));
+                $criterio->add('data_venda', '<=', $data_fim);
             
             // lê todas vendas que satisfazem ao critério
             $vendas = $repositorio->load($criterio);

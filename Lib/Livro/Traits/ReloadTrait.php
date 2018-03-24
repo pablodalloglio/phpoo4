@@ -23,9 +23,12 @@ trait ReloadTrait
             $criteria = new Criteria;
             $criteria->setProperty('order', 'id');
             
-            if (isset($this->filter))
+            if (isset($this->filters))
             {
-                $criteria->add($this->filter);
+                foreach ($this->filters as $filter)
+                {
+                    $criteria->add($filter[0], $filter[1], $filter[2], $filter[3]);
+                }
             }
             
             // carreta os objetos que satisfazem o critério

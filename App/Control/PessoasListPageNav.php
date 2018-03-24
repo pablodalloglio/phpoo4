@@ -16,7 +16,6 @@ use Livro\Widgets\Wrapper\DatagridWrapper;
 use Livro\Database\Transaction;
 use Livro\Database\Repository;
 use Livro\Database\Criteria;
-use Livro\Database\Filter;
 
 /**
  * Listagem de Pessoas
@@ -93,7 +92,7 @@ class PessoasListPageNav extends Page
         if ($dados->nome)
         {
             // filtra pelo nome do pessoa
-            $criteria->add(new Filter('nome', 'like', "%{$dados->nome}%"));
+            $criteria->add('nome', 'like', "%{$dados->nome}%");
         }
 
         // carrega os produtos que satisfazem o critério
