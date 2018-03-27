@@ -95,7 +95,6 @@ class DatagridWrapper
             foreach ($columns as $column)
             {
                 // obtém as propriedades da coluna
-                $name  = $column->getName();
                 $label = $column->getLabel();
                 $align = $column->getAlign();
                 $width = $column->getWidth();
