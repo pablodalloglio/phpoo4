@@ -23,6 +23,18 @@ class Datagrid
     }
     
     /**
+     * Adiciona uma ação à datagrid
+     * @param $label  = rótulo
+     * @param $action = ação
+     * @param $field  = campo
+     * @param $image  = imagem
+     */
+    public function addAction($label, ActionInterface $action, $field, $image = null)
+    {
+        $this->actions[] = ['label' => $label, 'action'=> $action, 'field' => $field, 'image' => $image];
+    }
+    
+    /**
      * Adiciona um objeto na grid
      * @param $object = Objeto que contém os dados
      */
@@ -39,18 +51,6 @@ class Datagrid
                 $object->$name;
             }
         }
-    }
-    
-    /**
-     * Adiciona uma ação à datagrid
-     * @param $label  = rótulo
-     * @param $action = ação
-     * @param $field  = campo
-     * @param $image  = imagem
-     */
-    public function addAction($label, ActionInterface $action, $field, $image)
-    {
-        $this->actions[] = ['label' => $label, 'action'=> $action, 'field' => $field, 'image' => $image];
     }
     
     /**
