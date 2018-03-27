@@ -25,6 +25,7 @@ class LoginForm extends Page
 
         // instancia um formulário
         $this->form = new FormWrapper(new Form('form_login'));
+        $this->form->setTitle('Login');
         
         $login      = new Entry('login');
         $password   = new Password('password');
@@ -36,11 +37,8 @@ class LoginForm extends Page
         $this->form->addField('Senha',    $password, 200);
         $this->form->addAction('Login', new Action(array($this, 'onLogin')));
         
-        $panel = new Panel('Login');
-        $panel->add($this->form);
-        
         // adiciona o formulário na página
-        parent::add($panel);
+        parent::add($this->form);
     }
     
     /**
