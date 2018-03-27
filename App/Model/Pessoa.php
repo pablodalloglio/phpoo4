@@ -2,7 +2,6 @@
 use Livro\Database\Record;
 use Livro\Database\Criteria;
 use Livro\Database\Repository;
-use Livro\Database\Filter;
 
 class Pessoa extends Record
 {
@@ -38,7 +37,7 @@ class Pessoa extends Record
     public function delGrupos()
     {
 	    $criteria = new Criteria;
-	    $criteria->add(new Filter('id_pessoa', '=', $this->id));
+	    $criteria->add('id_pessoa', '=', $this->id);
 	    
 	    $repo = new Repository('PessoaGrupo');
 	    return $repo->delete($criteria);
@@ -51,7 +50,7 @@ class Pessoa extends Record
     {
         $grupos = array();
 	    $criteria = new Criteria;
-	    $criteria->add(new Filter('id_pessoa', '=', $this->id));
+	    $criteria->add('id_pessoa', '=', $this->id);
 	    
 	    $repo = new Repository('PessoaGrupo');
 	    $vinculos = $repo->load($criteria);
