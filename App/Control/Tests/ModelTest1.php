@@ -18,7 +18,9 @@ class ModelTest1 extends Page
             $p1 = Pessoa::find(12);
             
             print($p1->nome) . '<br>';
-            print($p1->nome_cidade);
+            print($p1->nome_cidade) . '<br>';
+            print($p1->cidade->nome) . '<br>';
+            print($p1->cidade->estado->nome) . '<br>';
             
             Transaction::close();
         }
