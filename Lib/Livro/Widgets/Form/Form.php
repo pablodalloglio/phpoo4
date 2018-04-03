@@ -10,6 +10,7 @@ use Livro\Control\ActionInterface;
 class Form
 {
     protected $title;
+    protected $name;
     protected $fields;
     protected $actions;
     

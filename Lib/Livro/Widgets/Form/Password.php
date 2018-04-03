@@ -9,6 +9,8 @@ use Livro\Widgets\Base\Element;
  */
 class Password extends Field implements FormElementInterface
 {
+    protected $properties;
+    
     /**
      * Exibe o widget na tela
      */

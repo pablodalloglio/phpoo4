@@ -27,7 +27,7 @@ trait EditTrait
         }
         catch (Exception $e)
         {
-            new Message('error', '<b>Erro</b>' . $e->getMessage());
+            new Message('error', $e->getMessage());
             Transaction::rollback();
         }
     }

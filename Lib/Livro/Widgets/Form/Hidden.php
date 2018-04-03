@@ -9,6 +9,8 @@ use Livro\Widgets\Base\Element;
  */
 class Hidden extends Field implements FormElementInterface
 {
+    protected $properties;
+    
     /**
      * Exibe o widget na tela
      */

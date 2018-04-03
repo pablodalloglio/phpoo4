@@ -13,7 +13,6 @@ abstract class Field implements FormElementInterface
     protected $size;
     protected $value;
     protected $editable;
-    protected $tag;
     protected $formLabel;
     protected $properties;
     
@@ -128,7 +127,6 @@ abstract class Field implements FormElementInterface
      */
     public function setProperty($name, $value)
     {
-        // define uma propriedade de $this->tag
         $this->properties[$name] = $value;
     }
     

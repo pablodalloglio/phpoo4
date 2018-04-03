@@ -103,7 +103,7 @@ class PessoasForm extends Page
         catch (Exception $e)
         {
             // exibe a mensagem gerada pela exceção
-            new Message('error', '<b>Erro</b> ' . $e->getMessage());
+            new Message('error', $e->getMessage());
 
             // desfaz todas alterações no banco de dados
             Transaction::rollback();
@@ -133,7 +133,7 @@ class PessoasForm extends Page
         catch (Exception $e)		    // em caso de exceção
         {
             // exibe a mensagem gerada pela exceção
-            new Message('error', '<b>Erro</b> ' . $e->getMessage());
+            new Message('error', $e->getMessage());
             // desfaz todas alterações no banco de dados
             Transaction::rollback();
         }
