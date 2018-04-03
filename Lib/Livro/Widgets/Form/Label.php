@@ -9,6 +9,8 @@ use Livro\Widgets\Base\Element;
  */
 class Label extends Field implements FormElementInterface
 {
+    private $tag;
+    
     /**
      * Construtor
      * @param $value text label
