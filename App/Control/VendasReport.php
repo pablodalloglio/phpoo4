@@ -46,9 +46,6 @@ class VendasReport extends Page
      */
     public function onGera()
     {
-        require_once 'Lib/Twig/Autoloader.php';
-        Twig_Autoloader::register();
-        
         $loader = new Twig_Loader_Filesystem('App/Resources');
         $twig = new Twig_Environment($loader);
         $template = $twig->loadTemplate('vendas_report.html');
