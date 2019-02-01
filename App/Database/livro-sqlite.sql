@@ -168,6 +168,7 @@ CREATE TABLE pessoa (
     email text,
     id_cidade integer references cidade(id)
 );
+
 CREATE TABLE venda (
     id integer PRIMARY KEY NOT NULL,
     id_cliente integer references pessoa(id),
@@ -178,13 +179,13 @@ CREATE TABLE venda (
     valor_final float,
     obs text
 );
+
 CREATE TABLE item_venda (
     id integer PRIMARY KEY NOT NULL,
     id_produto integer references produto(id),
     id_venda integer references venda(id),
     quantidade float
 , preco float);
-
 
 CREATE TABLE conta (
     id integer PRIMARY KEY NOT NULL,
@@ -195,53 +196,108 @@ CREATE TABLE conta (
     paga char(1)
 );
 
-INSERT INTO pessoa VALUES(1,'Amadeu Weirich','Rua do Amadeu Weirich','Centro','(88) 1234-5678','naoenvie@email.com',18);
-INSERT INTO pessoa VALUES(2,'Andrigo Dametto','Rua do Andrigo Dametto','Centro','(88) 1234-5678','naoenvie@email.com',3);
-INSERT INTO pessoa VALUES(3,'Enio Silveira','Rua do Enio Silveira','Centro','(88) 1234-5678','naoenvie@email.com',19);
-INSERT INTO pessoa VALUES(4,'Ari Stopassola Junior','Rua do Ari Stopassola Junior','Centro','(88) 1234-5678','naoenvie@email.com',23);
-INSERT INTO pessoa VALUES(5,'Bruno Pitteli Gonçalves','Rua do Bruno Pitteli Gonçalves','Centro','(88) 1234-5678','naoenvie@email.com',26);
-INSERT INTO pessoa VALUES(6,'Carlos Eduardo Ranzi','Rua do Carlos Eduardo Ranzi','Centro','(88) 1234-5678','naoenvie@email.com',10);
-INSERT INTO pessoa VALUES(7,'Cesar Brod','Rua do Cesar Brod','Centro','(88) 1234-5678','naoenvie@email.com',4);
-INSERT INTO pessoa VALUES(8,'Edson Funke','Rua do Edson Funke','Centro','(88) 1234-5678','naoenvie@email.com',8);
-INSERT INTO pessoa VALUES(9,'Fabio Elias Locatelli','Rua do Fabio Elias Locatelli','Centro','(88) 1234-5678','naoenvie@email.com',25);
-INSERT INTO pessoa VALUES(10,'Fabrício Pretto','Rua do Fabrício Pretto','Centro','(88) 1234-5678','naoenvie@email.com',12);
-INSERT INTO pessoa VALUES(11,'Felipe Cortez','Rua do Felipe Cortez','Centro','(88) 1234-5678','naoenvie@email.com',1);
-INSERT INTO pessoa VALUES(12,'João Pablo Silva','Rua do João Pablo Silva','Centro','(88) 1234-5678','naoenvie@email.com',20);
-INSERT INTO pessoa VALUES(13,'Cândido Fonseca da Silva','Rua do Cândido Fonseca da Silva','Centro','(88) 1234-5678','naoenvie@email.com',21);
-INSERT INTO pessoa VALUES(14,'Mouriac Diemer','Rua do Mouriac Diemer','Centro','(88) 1234-5678','naoenvie@email.com',9);
-INSERT INTO pessoa VALUES(15,'Leonardo Lemes','Rua do Leonardo Lemes','Centro','(88) 1234-5678','naoenvie@email.com',22);
-INSERT INTO pessoa VALUES(16,'Luciano Greiner Dos Santos','Rua do Luciano Greiner Dos Santos','Centro','(88) 1234-5678','naoenvie@email.com',23);
-INSERT INTO pessoa VALUES(17,'Matheus Agnes Dias','Rua do Matheus Agnes Dias','Centro','(88) 1234-5678','naoenvie@email.com',6);
-INSERT INTO pessoa VALUES(18,'Mauricio de Castro','Rua do Mauricio de Castro','Centro','(88) 1234-5678','naoenvie@email.com',21);
-INSERT INTO pessoa VALUES(19,'Nataniel Rabaioli','Rua do Nataniel Rabaioli','Centro','(88) 1234-5678','naoenvie@email.com',22);
-INSERT INTO pessoa VALUES(20,'Paulo Roberto Mallmann','Rua do Paulo Roberto Mallmann','Centro','(88) 1234-5678','naoenvie@email.com',20);
-INSERT INTO pessoa VALUES(21,'Rubens Prates','Rua do Rubens Prates','Centro','(88) 1234-5678','naoenvie@email.com',27);
-INSERT INTO pessoa VALUES(22,'Rubens Queiroz de Almeida','Rua do Rubens Queiroz de Almeida','Centro','(88) 1234-5678','naoenvie@email.com',2);
-INSERT INTO pessoa VALUES(23,'Sergio Crespo Pinto','Rua do Sergio Crespo Pinto','Centro','(88) 1234-5678','naoenvie@email.com',9);
-INSERT INTO pessoa VALUES(24,'Silvio Cesar Cazella','Rua do Silvio Cesar Cazella','Centro','(88) 1234-5678','naoenvie@email.com',18);
-INSERT INTO pessoa VALUES(25,'William Prigol Lopes','Rua do William Prigol Lopes','Centro','(88) 1234-5678','naoenvie@email.com',18);
+INSERT INTO pessoa VALUES(1,'Penelope Terry','Penelope Terry Street, 1','Centro','(88) 1234-5678','naoenvie@email.com',18);
+INSERT INTO pessoa VALUES(2,'James White','James White Street, 2','Centro','(88) 1234-5678','naoenvie@email.com',3);
+INSERT INTO pessoa VALUES(3,'Anne Walsh','Anne Walsh Street, 3','Centro','(88) 1234-5678','naoenvie@email.com',19);
+INSERT INTO pessoa VALUES(4,'Oliver Dowd','Oliver Dowd Street, 4','Centro','(88) 1234-5678','naoenvie@email.com',23);
+INSERT INTO pessoa VALUES(5,'Lily Sutherland','Lily Sutherland Street, 5','Centro','(88) 1234-5678','naoenvie@email.com',26);
+INSERT INTO pessoa VALUES(6,'Lily Oliver','Lily Oliver Street, 6','Centro','(88) 1234-5678','naoenvie@email.com',10);
+INSERT INTO pessoa VALUES(7,'Amelia Thomson','Amelia Thomson Street, 7','Centro','(88) 1234-5678','naoenvie@email.com',4);
+INSERT INTO pessoa VALUES(8,'Lily Pullman','Lily Pullman Street, 8','Centro','(88) 1234-5678','naoenvie@email.com',8);
+INSERT INTO pessoa VALUES(9,'Justin Edmunds','Justin Edmunds Street, 9','Centro','(88) 1234-5678','naoenvie@email.com',25);
+INSERT INTO pessoa VALUES(10,'Julia Turner','Julia Turner Street, 10','Centro','(88) 1234-5678','naoenvie@email.com',12);
+INSERT INTO pessoa VALUES(11,'Julia White','Julia White Street, 11','Centro','(88) 1234-5678','naoenvie@email.com',1);
+INSERT INTO pessoa VALUES(12,'Isaac Morrison','Isaac Morrison Street, 12','Centro','(88) 1234-5678','naoenvie@email.com',20);
+INSERT INTO pessoa VALUES(13,'Frank Wallace','Frank Wallace Street, 13','Centro','(88) 1234-5678','naoenvie@email.com',21);
+INSERT INTO pessoa VALUES(14,'Phil Ogden','Phil Ogden Street, 14','Centro','(88) 1234-5678','naoenvie@email.com',9);
+INSERT INTO pessoa VALUES(15,'Gordon Murray','Gordon Murray Street, 15','Centro','(88) 1234-5678','naoenvie@email.com',22);
+INSERT INTO pessoa VALUES(16,'Caroline Churchill','Caroline Churchill Street, 16','Centro','(88) 1234-5678','naoenvie@email.com',23);
+INSERT INTO pessoa VALUES(17,'Sally Glover','Sally Glover Street, 17','Centro','(88) 1234-5678','naoenvie@email.com',6);
+INSERT INTO pessoa VALUES(18,'Christopher Brown','Christopher Brown Street, 18','Centro','(88) 1234-5678','naoenvie@email.com',21);
+INSERT INTO pessoa VALUES(19,'Owen Stewart','Owen Stewart Street, 19','Centro','(88) 1234-5678','naoenvie@email.com',22);
+INSERT INTO pessoa VALUES(20,'Robert Peters','Robert Peters Street, 20','Centro','(88) 1234-5678','naoenvie@email.com',20);
+INSERT INTO pessoa VALUES(21,'Nicola Ellison','Nicola Ellison Street, 21','Centro','(88) 1234-5678','naoenvie@email.com',27);
+INSERT INTO pessoa VALUES(22,'Virginia Hill','Virginia Hill Street, 22','Centro','(88) 1234-5678','naoenvie@email.com',2);
+INSERT INTO pessoa VALUES(23,'Edward Sutherland','Edward Sutherland Street, 23','Centro','(88) 1234-5678','naoenvie@email.com',9);
+INSERT INTO pessoa VALUES(24,'Gordon Terry','Gordon Terry Street, 24','Centro','(88) 1234-5678','naoenvie@email.com',18);
+INSERT INTO pessoa VALUES(25,'Michael Clark','Michael Clark Street, 25','Centro','(88) 1234-5678','naoenvie@email.com',18);
 
 CREATE TABLE pessoa_grupo (
     id integer PRIMARY KEY NOT NULL,
     id_pessoa integer references pessoa(id),
     id_grupo integer references grupo(id)
 );
-INSERT INTO pessoa_grupo VALUES(13,1,1);
-INSERT INTO pessoa_grupo VALUES(14,1,3);
+
 INSERT INTO pessoa_grupo VALUES(15,2,3);
 INSERT INTO pessoa_grupo VALUES(16,2,4);
 INSERT INTO pessoa_grupo VALUES(17,3,2);
 INSERT INTO pessoa_grupo VALUES(18,3,4);
+INSERT INTO pessoa_grupo VALUES(19,1,1);
+INSERT INTO pessoa_grupo VALUES(20,1,3);
 
-INSERT INTO conta VALUES(1,1,'2015-04-18','2015-04-20',195.0,'N');
-INSERT INTO conta VALUES(2,1,'2015-04-18','2015-05-20',195.0,'N');
-INSERT INTO conta VALUES(3,2,'2015-04-18','2015-04-20',132.5,'S');
-INSERT INTO conta VALUES(4,2,'2015-04-18','2015-05-20',132.5,'N');
-INSERT INTO venda VALUES(1,1,'2015-04-18',400.0,50.0,40.0,390.0,'teste');
-INSERT INTO venda VALUES(2,2,'2015-04-18',265.0,NULL,NULL,265.0,'teste2');
+INSERT INTO conta VALUES(1,1,'2018-03-10','2018-03-12',360.0,'N');
+INSERT INTO conta VALUES(2,2,'2018-03-10','2018-03-12',324.0,'N');
+INSERT INTO conta VALUES(3,3,'2018-03-10','2018-03-12',315.0,'N');
+INSERT INTO conta VALUES(4,4,'2018-03-10','2018-03-12',360.0,'N');
+INSERT INTO conta VALUES(5,5,'2018-03-10','2018-03-12',810.0,'N');
+INSERT INTO conta VALUES(6,6,'2018-03-10','2018-03-12',630.0,'N');
+INSERT INTO conta VALUES(7,7,'2018-03-10','2018-03-12',720.0,'N');
+INSERT INTO conta VALUES(8,8,'2018-03-10','2018-03-12',540.0,'N');
+INSERT INTO conta VALUES(9,9,'2018-03-10','2018-03-12',1260.0,'N');
+INSERT INTO conta VALUES(10,10,'2018-03-10','2018-03-12',720.0,'N');
+INSERT INTO conta VALUES(11,11,'2018-03-10','2018-03-12',1080.0,'N');
+INSERT INTO conta VALUES(12,12,'2018-03-10','2018-03-12',1100.0,'N');
 
-INSERT INTO item_venda VALUES(1,1,1,1.0,40.0);
-INSERT INTO item_venda VALUES(2,2,1,2.0,180.0);
-INSERT INTO item_venda VALUES(3,3,2,3.0,35.0);
-INSERT INTO item_venda VALUES(4,4,2,4.0,40.0);
-commit;
+INSERT INTO venda VALUES(1,1,'2018-01-10',800.0,40.0,NULL,360.0,NULL);
+INSERT INTO venda VALUES(2,2,'2018-02-10',720.0,36.0,NULL,324.0,NULL);
+INSERT INTO venda VALUES(3,3,'2018-03-10',700.0,35.0,NULL,315.0,NULL);
+INSERT INTO venda VALUES(4,4,'2018-04-10',800.0,40.0,NULL,360.0,NULL);
+INSERT INTO venda VALUES(5,5,'2018-05-10',1800.0,90.0,NULL,810.0,NULL);
+INSERT INTO venda VALUES(6,6,'2018-06-10',1400.0,70.0,NULL,630.0,NULL);
+INSERT INTO venda VALUES(7,7,'2018-07-10',1600.0,80.0,NULL,720.0,NULL);
+INSERT INTO venda VALUES(8,8,'2018-08-10',1200.0,60.0,NULL,540.0,NULL);
+INSERT INTO venda VALUES(9,9,'2018-09-10',2800.0,140.0,NULL,1260.0,NULL);
+INSERT INTO venda VALUES(10,10,'2018-10-10',1600.0,80.0,NULL,720.0,NULL);
+INSERT INTO venda VALUES(11,11,'2018-11-10',2400.0,120.0,NULL,1080.0,NULL);
+INSERT INTO venda VALUES(12,12,'2018-12-10',2400.0,100.0,NULL,1100.0,NULL);
+
+INSERT INTO item_venda VALUES(1,1,1,10.0,40.0);
+INSERT INTO item_venda VALUES(2,2,2,2.0,180.0);
+INSERT INTO item_venda VALUES(3,3,3,10.0,35.0);
+INSERT INTO item_venda VALUES(4,4,4,10.0,40.0);
+INSERT INTO item_venda VALUES(5,5,5,1.0,900.0);
+INSERT INTO item_venda VALUES(6,6,6,1.0,700.0);
+INSERT INTO item_venda VALUES(7,7,7,10.0,80.0);
+INSERT INTO item_venda VALUES(8,8,8,2.0,300.0);
+INSERT INTO item_venda VALUES(9,9,9,1.0,1400.0);
+INSERT INTO item_venda VALUES(10,10,10,5.0,160.0);
+INSERT INTO item_venda VALUES(11,11,11,4.0,300.0);
+INSERT INTO item_venda VALUES(12,12,12,12.0,100.0);
+
+
+
+
+CREATE TABLE funcionario ( id integer PRIMARY KEY NOT NULL,
+                           nome TEXT,
+                           endereco TEXT,
+                           email TEXT,
+                           departamento INTEGER,
+                           idiomas TEXT,
+                           contratacao INTEGER );
+
+
+
+
+CREATE VIEW view_saldo_pessoa as
+    SELECT 
+        id,
+        nome,
+        endereco,
+        bairro,
+        telefone,
+        email,
+        (select sum(valor) from conta where id_cliente=pessoa.id) as total,
+        (select sum(valor) from conta where id_cliente=pessoa.id and paga='N') as aberto
+    FROM pessoa
+    ORDER by 8 desc;
+COMMIT;
