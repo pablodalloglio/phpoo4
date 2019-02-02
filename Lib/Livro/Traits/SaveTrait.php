@@ -23,6 +23,9 @@ trait SaveTrait
             $object->fromArray( (array) $dados); // carrega os dados
             $object->store(); // armazena o objeto
             
+            $dados->id = $object->id;
+            $this->form->setData($dados);
+            
             Transaction::close(); // finaliza a transação
             new Message('info', 'Dados armazenados com sucesso');
             
