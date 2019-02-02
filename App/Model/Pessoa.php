@@ -90,6 +90,16 @@ class Pessoa extends Record
 	    return $grupos_ids;
     }
     
+    public function delete($id = null)
+    {
+        $criteria = new Criteria;
+        $criteria->add('id_pessoa', '=', $this->id);
+        $repo = new Repository('PessoaGrupo');
+        $repo->delete($criteria);
+        
+        parent::delete();
+    }
+    
     /**
      * Retorna as contas em aberto
      */
