@@ -387,7 +387,7 @@ input:focus {
 }
 
 .main-panel > .footer {
-    border-top: 1px solid #e7e7e7;
+    border-top: 1px solid #828282;
 }
 
 .main-panel .navbar {
@@ -804,8 +804,14 @@ input:focus {
 }
 
 .footer {
-    background-color: #FFFFFF;
+    background-color: #ababab;
     line-height: 20px;
+}
+
+footer.footer a
+{
+    color: white;
+    font-weight: bold;
 }
 
 .footer nav > ul {
