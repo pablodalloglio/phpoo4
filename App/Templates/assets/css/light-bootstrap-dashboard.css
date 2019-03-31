@@ -231,6 +231,7 @@ input:focus {
     opacity: .86;
     border-radius: 4px;
     display: block;
+    font-weight: 600;
 }
 
 .sidebar .nav li.active > a {
@@ -285,7 +286,7 @@ input:focus {
 }
 
 .sidebar:before {
-    opacity: .33;
+    opacity: .7;
     background: #000000;
 }
 
@@ -303,7 +304,7 @@ input:focus {
 }
 
 .sidebar[data-image]:after, .sidebar.has-image:after {
-    opacity: .77;
+    opacity: .5;
 }
 
 .sidebar[data-color="blue"]:after {
@@ -382,6 +383,7 @@ input:focus {
 .main-panel > .content {
     padding: 30px 15px;
     min-height: calc(100% - 123px);
+    background: #e0e0e0;
 }
 
 .main-panel > .footer {
@@ -1456,11 +1458,17 @@ ul.pagination
 
 .panel-footer
 {
-    background: #fbfbfb;
+    background: white;
 }
 
 .panel[type="datagrid"] .panel-body
 {
   padding-left: 0;
   padding-right: 0;
+}
+
+#source-panel .panel-body, #source-panel .panel-body code
+{
+    background-color: #262722;
+    font-weight: bold;
 }
