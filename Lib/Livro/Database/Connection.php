@@ -26,6 +26,10 @@ final class Connection
             // lê o INI e retorna um array
             $db = parse_ini_file("App/Config/{$name}.ini");
         }
+        else if (file_exists("App/Config/{$name}.php"))
+        {
+            $db = require "App/Config/{$name}.php";
+        }
         else
         {
             // se não existir, lança um erro
