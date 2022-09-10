@@ -31,7 +31,10 @@ class Datagrid
      */
     public function addAction($label, ActionInterface $action, $field, $image = null)
     {
-        $this->actions[] = ['label' => $label, 'action'=> $action, 'field' => $field, 'image' => $image];
+        $this->actions[] = [ 'label'  => $label,
+                             'action' => $action,
+                             'field'  => $field,
+                             'image'  => $image ];
     }
     
     /**

@@ -1,7 +1,7 @@
 <?php
 namespace Livro\Widgets\Datagrid;
 
-use Livro\Control\Action;
+use Livro\Control\ActionInterface;
 
 /**
  * Representa uma coluna de uma datagrid
@@ -68,7 +68,7 @@ class DatagridColumn
      * Define uma ação a ser executada quando o usuário sclicar sobre o título da coluna
      * @param $action = objeto TAction contendo a ação
      */
-    public function setAction(Action $action)
+    public function setAction(ActionInterface $action)
     {
         $this->action = $action;
     }
@@ -89,7 +89,7 @@ class DatagridColumn
      * Define uma função (callback) a ser aplicada sobre a coluna
      * @param $callback = função do PHP ou do usuário
      */
-    public function setTransformer($callback)
+    public function setTransformer(Callable $callback)
     {
         $this->transformer = $callback;
     }

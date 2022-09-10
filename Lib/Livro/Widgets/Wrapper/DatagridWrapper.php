@@ -25,7 +25,7 @@ class DatagridWrapper
      */
     public function __call($method, $parameters)
     {
-        return call_user_func_array(array($this->decorated, $method), $parameters);
+        return call_user_func_array([$this->decorated, $method], $parameters);
     }
     
     /**

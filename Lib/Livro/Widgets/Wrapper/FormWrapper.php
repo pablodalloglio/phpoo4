@@ -26,7 +26,7 @@ class FormWrapper
      */
     public function __call($method, $parameters)
     {
-        return call_user_func_array(array($this->decorated, $method),$parameters);
+        return call_user_func_array( [$this->decorated, $method], $parameters );
     }
     
     /**
@@ -35,11 +35,11 @@ class FormWrapper
     public function show()
     {
         $element = new Element('form');
-        $element->class = "form-horizontal";
-        $element->enctype = "multipart/form-data";
-        $element->method  = 'post';    // método de transferência
-        $element->name  = $this->decorated->getName();
-        $element->width = '100%';
+        $element->class   = 'form-horizontal';
+        $element->enctype = 'multipart/form-data';
+        $element->method  = 'post';
+        $element->name    = $this->decorated->getName();
+        $element->width   = '100%';
         
         foreach ($this->decorated->getFields() as $field)
         {
@@ -47,12 +47,12 @@ class FormWrapper
             $group->class = 'form-group';
             
             $label = new Element('label');
-            $label->class= 'col-sm-2 control-label';
-            $label->add($field->getLabel());
+            $label->class = 'col-sm-2 control-label';
+            $label->add( $field->getLabel() );
             
             $col = new Element('div');
             $col->class = 'col-sm-10';
-            $col->add($field);
+            $col->add( $field );
             $field->class = 'form-control';
             
             $group->add($label);
@@ -60,8 +60,7 @@ class FormWrapper
             $element->add($group);
         }
         
-        $group = new Element('div');
-        
+        $footer = new Element('div');
         $i = 0;
         foreach ($this->decorated->getActions() as $label => $action)
         {
@@ -71,13 +70,13 @@ class FormWrapper
             $button->setAction($action, $label);
             $button->class = 'btn ' . ( ($i==0) ? 'btn-success' : 'btn-default');
             
-            $group->add($button);
+            $footer->add($button);
             $i ++;
         }
         
-        $panel = new Panel($this->decorated->getTitle());
-        $panel->add($element);
-        $panel->addFooter($group);
+        $panel = new Panel( $this->decorated->getTitle() );
+        $panel->add( $element );
+        $panel->addFooter( $footer );
         $panel->show();
     }
 }

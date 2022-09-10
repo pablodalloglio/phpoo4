@@ -19,6 +19,7 @@ trait SaveTrait
             $class = $this->activeRecord;
             $dados = $this->form->getData();
             
+            
             $object = new $class; // instancia objeto
             $object->fromArray( (array) $dados); // carrega os dados
             $object->store(); // armazena o objeto
