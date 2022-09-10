@@ -23,8 +23,8 @@ class Page extends Element
     {
         if ($_GET)
         {
-            $class  = isset($_GET['class'])  ? $_GET['class']  : NULL;
-            $method = isset($_GET['method']) ? $_GET['method'] : NULL;
+            $class  = isset($_GET['class'])  ? $_GET['class']  : '';
+            $method = isset($_GET['method']) ? $_GET['method'] : '';
             
             if ($class)
             {
