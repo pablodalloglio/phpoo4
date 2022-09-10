@@ -45,7 +45,7 @@ class Text extends Field implements FormElementInterface
         }
         
         // adiciona conteúdo ao textarea
-        $tag->add(htmlspecialchars($this->value));
+        $tag->add(htmlspecialchars((string) $this->value));
         
         if ($this->properties)
         {
