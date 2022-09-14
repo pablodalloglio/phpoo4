@@ -15,10 +15,9 @@ class VendasMesChart extends Page
     public function __construct()
     {
         parent::__construct();
-        
-        $loader = new Twig_Loader_Filesystem('App/Resources');
-        $twig = new Twig_Environment($loader);
-        $template = $twig->loadTemplate('vendas_mes.html');
+
+        $loader = new \Twig\Loader\FilesystemLoader('App/Resources');
+        $twig = new \Twig\Environment($loader);
         
         try
         {
@@ -39,7 +38,7 @@ class VendasMesChart extends Page
         $replaces['labels'] = json_encode(array_keys($vendas));
         $replaces['data']  = json_encode(array_values($vendas));
         
-        $content = $template->render($replaces);
+        $content = $twig->render('vendas_mes.html', $replaces);
         
         // cria um painél para conter o formulário
         $panel = new Panel('Vendas/mês');

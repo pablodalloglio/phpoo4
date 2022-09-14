@@ -50,9 +50,8 @@ class ContasReport extends Page
      */
     public function onGera()
     {
-        $loader = new Twig_Loader_Filesystem('App/Resources');
-        $twig = new Twig_Environment($loader);
-        $template = $twig->loadTemplate('contas_report.html');
+        $loader = new \Twig\Loader\FilesystemLoader('App/Resources');
+        $twig = new \Twig\Environment($loader);
         
         // obtém os dados do formulário
         $dados = $this->form->getData();
@@ -106,7 +105,7 @@ class ContasReport extends Page
             new Message('error', $e->getMessage());
             Transaction::rollback();
         }
-        $content = $template->render($replaces);
+        $content = $twig->render('contas_report.html', $replaces);
         
         $title = 'Contas';
         $title.= (!empty($dados->data_ini)) ? ' de '  . $dados->data_ini : '';

@@ -1,4 +1,5 @@
-.idea
-.DS_Store
 vendor
 composer.lock
+composer.phar
+.phpunit.result.cache
+.DS_Store

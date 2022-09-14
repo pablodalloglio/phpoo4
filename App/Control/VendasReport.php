@@ -46,10 +46,9 @@ class VendasReport extends Page
      */
     public function onGera()
     {
-        $loader = new Twig_Loader_Filesystem('App/Resources');
-        $twig = new Twig_Environment($loader);
-        $template = $twig->loadTemplate('vendas_report.html');
-        
+        $loader = new \Twig\Loader\FilesystemLoader('App/Resources');
+	$twig = new \Twig\Environment($loader);
+
         // obtém os dados do formulário
         $dados = $this->form->getData();
 
@@ -112,7 +111,7 @@ class VendasReport extends Page
             new Message('error', $e->getMessage());
             Transaction::rollback();
         }
-        $content = $template->render($replaces);
+        $content = $twig->render('vendas_report.html', $replaces);
         
         $title = 'Vendas';
         $title.= (!empty($dados->data_ini)) ? ' de '  . $dados->data_ini : '';

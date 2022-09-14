@@ -15,11 +15,10 @@ class ProdutosReport extends Page
     public function __construct()
     {
         parent::__construct();
-        
-        $loader = new Twig_Loader_Filesystem('App/Resources');
-        $twig = new Twig_Environment($loader);
-        $template = $twig->loadTemplate('produtos_report.html');
-        
+
+        $loader = new \Twig\Loader\FilesystemLoader('App/Resources');
+	$twig = new \Twig\Environment($loader);
+
         // vetor de parâmetros para o template
         $replaces = array();
         
@@ -54,7 +53,7 @@ class ProdutosReport extends Page
             Transaction::rollback();
         }
         
-        $content = $template->render($replaces);
+        $content = $twig->render('produtos_report.html', $replaces);
         
         // cria um painél para conter o formulário
         $panel = new Panel('Produtos');

@@ -11,14 +11,21 @@
     }
   ],
   "autoload": {
-    "psr-0": {
-      "Svg\\": "src/"
+    "psr-4": {
+      "Svg\\": "src/Svg"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Svg\\Tests\\": "tests/Svg"
     }
   },
   "require": {
-    "sabberworm/php-css-parser": "8.1.*"
+    "php": "^7.1 || ^7.2 || ^7.3 || ^7.4 || ^8.0",
+    "ext-mbstring": "*",
+    "sabberworm/php-css-parser": "^8.4"
   },
   "require-dev": {
-    "phpunit/phpunit": "~5.0"
+    "phpunit/phpunit": "^7.5 || ^8.5 || ^9.5"
   }
 }
