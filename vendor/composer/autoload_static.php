@@ -34,6 +34,11 @@ class ComposerStaticInit9e5d04026de08c8acaccb0722f4d6213
         'D' => 
         array (
             'Dompdf\\' => 7,
+            'DASPRiD\\Enum\\' => 13,
+        ),
+        'B' => 
+        array (
+            'BaconQrCode\\' => 12,
         ),
     );
 
@@ -70,15 +75,13 @@ class ComposerStaticInit9e5d04026de08c8acaccb0722f4d6213
         array (
             0 => __DIR__ . '/..' . '/dompdf/dompdf/src',
         ),
-    );
-
-    public static $prefixesPsr0 = array (
-        'B' => 
+        'DASPRiD\\Enum\\' => 
         array (
-            'BaconQrCode' => 
-            array (
-                0 => __DIR__ . '/..' . '/bacon/bacon-qr-code/src',
-            ),
+            0 => __DIR__ . '/..' . '/dasprid/enum/src',
+        ),
+        'BaconQrCode\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/bacon/bacon-qr-code/src',
         ),
     );
 
@@ -97,7 +100,6 @@ class ComposerStaticInit9e5d04026de08c8acaccb0722f4d6213
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInit9e5d04026de08c8acaccb0722f4d6213::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInit9e5d04026de08c8acaccb0722f4d6213::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit9e5d04026de08c8acaccb0722f4d6213::$prefixesPsr0;
             $loader->classMap = ComposerStaticInit9e5d04026de08c8acaccb0722f4d6213::$classMap;
 
         }, null, ClassLoader::class);
