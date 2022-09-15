@@ -17,7 +17,7 @@ class ProdutosReport extends Page
         parent::__construct();
 
         $loader = new \Twig\Loader\FilesystemLoader('App/Resources');
-	$twig = new \Twig\Environment($loader);
+		$twig = new \Twig\Environment($loader);
 
         // vetor de parâmetros para o template
         $replaces = array();
@@ -25,11 +25,11 @@ class ProdutosReport extends Page
         // gerador Barcode em HTML
         $generator = new Picqer\Barcode\BarcodeGeneratorHTML();
         
-        // gerador QRCode em SVG
-        $renderer = new \BaconQrCode\Renderer\Image\Svg();
-        $renderer->setHeight(256);
-        $renderer->setWidth(256);
-        $renderer->setMargin(0);
+		$renderer = new \BaconQrCode\Renderer\ImageRenderer(
+			new \BaconQrCode\Renderer\RendererStyle\RendererStyle(400),
+			new \BaconQrCode\Renderer\Image\SvgImageBackEnd
+		);
+		
         $writer = new \BaconQrCode\Writer($renderer);
         
         try
