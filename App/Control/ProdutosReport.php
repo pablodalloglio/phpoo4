@@ -26,7 +26,7 @@ class ProdutosReport extends Page
         $generator = new Picqer\Barcode\BarcodeGeneratorHTML();
         
 		$renderer = new \BaconQrCode\Renderer\ImageRenderer(
-			new \BaconQrCode\Renderer\RendererStyle\RendererStyle(400),
+			new \BaconQrCode\Renderer\RendererStyle\RendererStyle(300),
 			new \BaconQrCode\Renderer\Image\SvgImageBackEnd
 		);
 		
