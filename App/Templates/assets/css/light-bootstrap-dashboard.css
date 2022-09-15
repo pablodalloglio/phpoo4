@@ -160,6 +160,7 @@ input:focus {
     width: 260px;
     z-index: 4;
     padding-bottom: 100px;
+    background: #343a40;
 }
 
 .sidebar .sidebar-background {
@@ -177,6 +178,7 @@ input:focus {
 .sidebar .logo {
     padding: 10px 15px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    background: #2471be;
 }
 
 .sidebar .logo p {
@@ -305,72 +307,6 @@ input:focus {
 
 .sidebar[data-image]:after, .sidebar.has-image:after {
     opacity: .5;
-}
-
-.sidebar[data-color="blue"]:after {
-    background: #1F77D0;
-    background: -moz-linear-gradient(top, #1F77D0 0%, #533ce1 100%);
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #1F77D0), color-stop(100%, #533ce1));
-    background: -webkit-linear-gradient(top, #1F77D0 0%, #533ce1 100%);
-    background: -o-linear-gradient(top, #1F77D0 0%, #533ce1 100%);
-    background: -ms-linear-gradient(top, #1F77D0 0%, #533ce1 100%);
-    background: linear-gradient(to bottom, #1F77D0 0%, #533ce1 100%);
-    background-size: 150% 150%;
-}
-
-.sidebar[data-color="azure"]:after {
-    background: #1DC7EA;
-    background: -moz-linear-gradient(top, #1DC7EA 0%, #4091ff 100%);
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #1DC7EA), color-stop(100%, #4091ff));
-    background: -webkit-linear-gradient(top, #1DC7EA 0%, #4091ff 100%);
-    background: -o-linear-gradient(top, #1DC7EA 0%, #4091ff 100%);
-    background: -ms-linear-gradient(top, #1DC7EA 0%, #4091ff 100%);
-    background: linear-gradient(to bottom, #1DC7EA 0%, #4091ff 100%);
-    background-size: 150% 150%;
-}
-
-.sidebar[data-color="green"]:after {
-    background: #87CB16;
-    background: -moz-linear-gradient(top, #87CB16 0%, #6dc030 100%);
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #87CB16), color-stop(100%, #6dc030));
-    background: -webkit-linear-gradient(top, #87CB16 0%, #6dc030 100%);
-    background: -o-linear-gradient(top, #87CB16 0%, #6dc030 100%);
-    background: -ms-linear-gradient(top, #87CB16 0%, #6dc030 100%);
-    background: linear-gradient(to bottom, #87CB16 0%, #6dc030 100%);
-    background-size: 150% 150%;
-}
-
-.sidebar[data-color="orange"]:after {
-    background: #FFA534;
-    background: -moz-linear-gradient(top, #FFA534 0%, #ff5221 100%);
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #FFA534), color-stop(100%, #ff5221));
-    background: -webkit-linear-gradient(top, #FFA534 0%, #ff5221 100%);
-    background: -o-linear-gradient(top, #FFA534 0%, #ff5221 100%);
-    background: -ms-linear-gradient(top, #FFA534 0%, #ff5221 100%);
-    background: linear-gradient(to bottom, #FFA534 0%, #ff5221 100%);
-    background-size: 150% 150%;
-}
-
-.sidebar[data-color="red"]:after {
-    background: #FB404B;
-    background: -moz-linear-gradient(top, #FB404B 0%, #bb0502 100%);
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #FB404B), color-stop(100%, #bb0502));
-    background: -webkit-linear-gradient(top, #FB404B 0%, #bb0502 100%);
-    background: -o-linear-gradient(top, #FB404B 0%, #bb0502 100%);
-    background: -ms-linear-gradient(top, #FB404B 0%, #bb0502 100%);
-    background: linear-gradient(to bottom, #FB404B 0%, #bb0502 100%);
-    background-size: 150% 150%;
-}
-
-.sidebar[data-color="purple"]:after {
-    background: #9368E9;
-    background: -moz-linear-gradient(top, #9368E9 0%, #943bea 100%);
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #9368E9), color-stop(100%, #943bea));
-    background: -webkit-linear-gradient(top, #9368E9 0%, #943bea 100%);
-    background: -o-linear-gradient(top, #9368E9 0%, #943bea 100%);
-    background: -ms-linear-gradient(top, #9368E9 0%, #943bea 100%);
-    background: linear-gradient(to bottom, #9368E9 0%, #943bea 100%);
-    background-size: 150% 150%;
 }
 
 .main-panel {
@@ -665,12 +601,16 @@ input:focus {
 }
 
 .navbar-default {
-    background-color: rgba(255, 255, 255, 0.96);
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    background: #62a8ee;
 }
 
 .navbar-default .navbar-nav > li > a:not(.btn) {
-    color: #9A9A9A;
+    color: white;
+}
+
+.navbar-default .navbar-brand {
+    color: white;
 }
 
 .navbar-default .navbar-nav > .active > a,
@@ -680,15 +620,15 @@ input:focus {
 .navbar-default .navbar-nav > li > a:not(.btn):focus {
     background-color: transparent;
     border-radius: 3px;
-    color: #1DC7EA;
+    color: #2571bb;
     opacity: 1;
     filter: alpha(opacity=100);
 }
 
 .navbar-default .navbar-nav > .dropdown > a:hover .caret,
 .navbar-default .navbar-nav > .dropdown > a:focus .caret {
-    border-bottom-color: #1DC7EA;
-    border-top-color: #1DC7EA;
+    border-bottom-color: #2571bb;
+    border-top-color: #2571bb;
 }
 
 .navbar-default .navbar-nav > .open > a,
@@ -1460,6 +1400,11 @@ ul.pagination
 {
     display:table;
     margin:auto;
+}
+
+.panel
+{
+    box-shadow: 0 2px 10px rgb(0 0 0 / 20%);
 }
 
 .panel-footer
