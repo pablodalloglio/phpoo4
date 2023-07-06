@@ -7,6 +7,7 @@ namespace Livro\Database;
  */
 class Criteria
 {
+    private $properties;
     private $filters; // armazena a lista de filtros
     
     /**
